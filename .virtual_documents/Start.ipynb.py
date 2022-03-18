@@ -88,7 +88,7 @@ test_data = sc.transform(test_data)
 train_data.mean(), (train_data.std())**2#check to make sure mean=0, std=1
 
 
-import mymodels #this library can be found at 
+import mymodels #this library can be found at https://github.com/AliAlkadhim/MyMLFramework/blob/main/mymodels.py
 mymodels.CustomDataset.__doc__
 
 
