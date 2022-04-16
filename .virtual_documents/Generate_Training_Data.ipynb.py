@@ -14,7 +14,9 @@ import copy
 import pandas as pd
 
 
-
+from IPython.display import Image, display
+algorithm2 = Image('/home/ali/Downloads/Algorithm2.jpg')
+display(algorithm2)
 
 
 Bprime=1000000
@@ -42,10 +44,11 @@ def generate_training_data(Bprime, D):
     
     T = [[],[]]
     for i in range(Bprime):
-        theta = st.expon.rvs() #sample theta from an exponential distribution
+        theta = st.expon.rvs() #sample theta from an exponential distribution,
         #theta has to be positive because its an input to a poisson. This prior should also be close to the cound D
 
-        N = np.random.poisson(lam=theta) #draw count samples randomly from a poisson distribution
+        N = np.random.poisson(lam=theta)  #this is the F_theta sampler
+        #draw count samples randomly from a poisson distribution
         #this X is really N
         lam_observed = labd_one_param(X=D, theta=theta)#
         lam_i = labd_one_param(X=X, theta=theta)
@@ -86,6 +89,15 @@ def generate_training_data_one_parameter(Bprime, D, save_data=False):
 
 theta, Z = generate_training_data_one_parameter(Bprime=1000000, D=9, save_data=True)
 np.sum(Z)
+
+
+# def plot_coverateg
+training_data_1_param = pd.read_csv('data/Training_data_1_param_1M.csv')
+training_data_1_param.head()
+theta = np.array(training_data_1_param.theta)
+Z = np.array(training_data_1_param.Z)
+plt.hist(theta)
+plt.hist(Z)
 
 
 

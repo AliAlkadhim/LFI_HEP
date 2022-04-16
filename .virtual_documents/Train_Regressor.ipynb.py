@@ -20,6 +20,14 @@ get_ipython().run_line_magic("run", " Generate_Training_Data.ipynb")
 theta, Z
 
 
+training_data_1_param = pd.read_csv('data/Training_data_1_param_1M.csv')
+training_data_1_param.head()
+
+
+theta = np.array(training_data_1_param.theta)
+Z = np.array(training_data_1_param.Z)
+
+
 data, targets = theta, Z
 
 
@@ -66,7 +74,7 @@ class CustomDataset:
     
 train_dataset = CustomDataset(train_data, train_targets)
 test_dataset = CustomDataset(test_data, test_targets)
-train_dataset[0]
+print(train_dataset[0], train_dataset)
 
 
 
@@ -122,6 +130,7 @@ model =  RegressionModel(nfeatures=train_data.shape[1],
 print(model)
 
 
+# get_ipython().run_line_magic("writefile", " training/RegressionEngine.py")
 class RegressionEngine:
     """loss, training and evaluation"""
     def __init__(self, model, optimizer):
@@ -162,7 +171,7 @@ class RegressionEngine:
             outputs = self.model(inputs)
             loss = self.loss_fun(targets, outputs)
             final_loss += loss.item()
-            return outputs
+            return outputs.flatten()
             #return final_loss / len(data_loader)
 
 
@@ -192,7 +201,8 @@ def train(optimizer, engine, early_stopping_iter, epochs):
 
 
 optimizer = torch.optim.Adam(model.parameters())
-train(optimizer, engine =RegressionEngine(model=model, optimizer = optimizer),
+train(optimizer, 
+      engine =RegressionEngine(model=model, optimizer = optimizer),
       early_stopping_iter = 10,
       epochs=22)
 
@@ -231,7 +241,7 @@ def predict():
     LABELS = torch.cat(labels).view(-1).numpy()
     print('outputs of model: ', OUTPUTS)
     print('\nactual labels (targets Z): ', LABELS)
-    return OUTPUTS, LABELS
+    return OUTPUTS.flatten(), LABELS.flatten()
 
 
 OUTPUTS, LABELS = predict()
@@ -247,26 +257,32 @@ plt.legend()
 plt.show()
 
 
-def calc_prob_1(model, X):
+from torch import Tensor
+def calc_phat_from_regressor(model, X):
     X = torch.from_numpy(X).float()
+    
+    X= Tensor(X)
     model.eval()
     P_y_equals_1 = model(X)
     P_y_equals_1 = P_y_equals_1.squeeze()
     return P_y_equals_1.detach().numpy().flatten()#detaches it from the computational history/prevent future computations from being tracked
 
 
-P_Z_equals_1 = calc_prob_1(model, test_data)
+P_Z_equals_1 = calc_phat_from_regressor(model, test_data)
+
+
+P_Z_equals_1.shape
 
 
 plt.hist(P_Z_equals_1, label='$\hat{p}(Z=1|x)$')
 plt.legend(fontsize=14)
 
 
-plt.hist(p[p>0.5], bins=50, color='g',
+plt.hist(P_Z_equals_1[P_Z_equals_1>0.5], bins=50, color='g',
             histtype='stepfilled',
             alpha=0.3,label = '$t = 1$')
 
-plt.hist(p[p<0.5], bins=50, color='r',
+plt.hist(P_Z_equals_1[P_Z_equals_1<0.5], bins=50, color='r',
             histtype='stepfilled',
             alpha=0.3,label = '$t = 0$')
 plt.xlabel('$p(y=1|x)$', fontsize=13)
@@ -275,6 +291,7 @@ plt.legend()
 
 D=9
 def p_calculated(theta):
+    #for the poissons, the calculated p-value is the gamma function
     p_computed = sp.special.gammainc(D, theta)
     p_computed = np.array(p_computed)
     return p_computed
@@ -289,16 +306,12 @@ type(st.expon.rvs(size=4))
 len(test_data), type(test_data)
 
 
-th = st.expon.rvs(size=len(test_data)) 
+theta_for_test = st.expon.rvs(size=len(test_data)) 
 #th = torch.from_numpy(th)
-print(th.shape, type(th))
+print(theta_for_test.shape, type(th))
 
 
-def infer(model, theta):
-    model.eval()
-
-
-p_hat = calc_prob_1(model, th); p_hat.shape
+p_hat = calc_phat_from_regressor(model=model, X=theta); p_hat.shape
 
 
 def compare_p_values(model):
