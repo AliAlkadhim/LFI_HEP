@@ -47,10 +47,10 @@ print(test_targets, test_data)
 print(type(test_data), test_data.shape)
 
 
-sc = StandardScaler()#this is always recommended for logistic regression
-train_data= sc.fit_transform(train_data)
-test_data = sc.transform(test_data)
-train_data.mean(), (train_data.std())**2#check to make sure mean=0, std=1
+# sc = StandardScaler()#this is always recommended for logistic regression
+# train_data= sc.fit_transform(train_data)
+# test_data = sc.transform(test_data)
+# train_data.mean(), (train_data.std())**2#check to make sure mean=0, std=1
 
 
 class CustomDataset:
@@ -265,9 +265,8 @@ for data in test_loader:
 
 
 from torch import Tensor
-D=9
 
-def calc_phat_from_regressor(model, X):
+def calc_phat_from_regressor(model, X, D):
     #calculate phat from regressor - this gives Prob(Z=1|theta)
     #here X will be input as test_data, just a 1-dimensional array of theta values (test_targets is the corresponding Z values fro them)
     X_torch = torch.from_numpy(X).float()
@@ -282,7 +281,7 @@ def calc_phat_from_regressor(model, X):
     #now analytically compute the p-value for each theta to compare with the phat
     theta = X.flatten()
     Z = test_targets.flatten()
-    p_value_computed = []
+    
 #     with torch.no_grad():
 #         for data in test_loader:
 #             data_cp = copy.deepcopy(data)
@@ -297,9 +296,9 @@ def calc_phat_from_regressor(model, X):
 #                 p_value_computed.append(p_value_i)
 
 #             del data_cp
-
+    p_value_computed = []
     for theta_i in theta:
-        p_value_i = sp.special.gammainc(D, theta_i)
+        p_value_i = sp.special.gammainc(D+1, theta_i)
         p_value_computed.append(p_value_i)
 
     p_value_computed=np.array(p_value_computed).flatten()
@@ -323,8 +322,21 @@ p_value_computed=np.array(p_value_computed).flatten()
 p_value_computed.shape
 
 
-phat_pcalculated_df_oneparam = calc_phat_from_regressor(model, test_data)
+phat_pcalculated_df_oneparam = calc_phat_from_regressor(model, test_data, D=9)
 phat_pcalculated_df_oneparam.head()
+
+
+plt.hist(phat_pcalculated_df_oneparam['phat'])
+
+
+fig, ax = plt.subplots(7,3, figsize=(23,30))
+
+for i in range(7):
+    for j in range(3):
+        ax[i,j].hist(calc_phat_from_regressor(model, test_data, D=i+j)['phat'], label=r'$\hat{p}(X;\theta,D=get_ipython().run_line_magic("d", " )$' % (i+j), alpha=0.3)")
+        ax[i,j].hist(calc_phat_from_regressor(model, test_data, D=i+j)['p_calculated'], label=r'calculated $p$-value $(X;\theta,D=get_ipython().run_line_magic("d", " )$' % (i+j), alpha=0.3)")
+        ax[i,j].legend(fontsize=13)
+        
 
 
 test_data.flatten().shape

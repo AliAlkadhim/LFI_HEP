@@ -34,6 +34,7 @@ def L(X, theta):
     return st.poisson.pmf(X, mu=theta)
     
 def labd_one_param(X, theta):
+    """test statistic lambda for one parameter likelihood"""
     num = L(X, theta)
     den = L(X, D)
     return -2 * np.log(num/den)
@@ -44,13 +45,17 @@ def generate_training_data(Bprime, D):
     
     T = [[],[]]
     for i in range(Bprime):
+        #the st.expon.rvs returns just one sample (number) from the exponential distribution, which is what we want
         theta = st.expon.rvs() #sample theta from an exponential distribution,
         #theta has to be positive because its an input to a poisson. This prior should also be close to the cound D
-
+        
+        #Now use the sampler F_theta to generate X (X ~ F_theta)
         N = np.random.poisson(lam=theta)  #this is the F_theta sampler
         #draw count samples randomly from a poisson distribution
         #this X is really N
+        #CALCULATE LAMBDA WITH X FIXED (as D): this is called lambda_obs
         lam_observed = labd_one_param(X=D, theta=theta)#
+        #CALCULATE LAMBDA WITH X BEING SAMPLED
         lam_i = labd_one_param(X=X, theta=theta)
         if lam_i < lam_true:
             Z_i=1
@@ -60,6 +65,9 @@ def generate_training_data(Bprime, D):
         T[1].append(Z_i)
         
         return np.array(T[0]), np.array(T[1])
+
+
+
 
 
 def generate_training_data_one_parameter(Bprime, D, save_data=False):
@@ -72,7 +80,7 @@ def generate_training_data_one_parameter(Bprime, D, save_data=False):
         N = np.random.poisson(lam=theta) #draw count samples randomly from a poisson distribution
         #this X is really N
 
-        if D < N:
+        if D > N:
             Z_i=1
         else:
             Z_i=0
