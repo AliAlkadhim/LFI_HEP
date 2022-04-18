@@ -114,4 +114,30 @@ plt.hist(theta)
 plt.hist(Z)
 
 
+def generate_training_data_one_parameter_D_range(Bprime, D_lower, D_upper, save_data=True):
+    #T=[[theta_i],[Z_i]]
+    for D in range(D_lower, D_upper):
+        T = [[],[]]
+        for i in range(Bprime):
+            theta = st.expon.rvs() #sample theta from an exponential distribution
+            #theta has to be positive because its an input to a poisson. This prior should also be close to the cound D
 
+            N = np.random.poisson(lam=theta) #draw count samples randomly from a poisson distribution
+            #this X is really N
+
+            if D < N:
+                Z_i=1
+            else:
+                Z_i=0
+            T[0].append(theta)
+            T[1].append(Z_i)
+
+        if save_data:
+            Training_data_1_param = {'theta' : T[0], 'Z' : T[1]}
+            Training_data_1_param = pd.DataFrame.from_dict(Training_data_1_param)
+            Training_data_1_param.to_csv('data/Training_data_1_param_100k_D_get_ipython().run_line_magic("d.csv'", " % D)")
+        
+    return np.array(T[0]), np.array(T[1])
+
+
+generate_training_data_one_parameter_D_range(100000, 0, 20, save_data=True)

@@ -16,6 +16,7 @@ import argparse
 
 import Generate_Training_Data as generate
 
+# THIS NOTEBOOK TRAINS A REGRESSOR FOR ONE VALUE OF D
 training_data_1_param = pd.read_csv('data/Training_data_1_param_1M.csv')
 theta = np.array(training_data_1_param.theta)
 Z = np.array(training_data_1_param.Z)
@@ -154,7 +155,7 @@ class RegressionEngine:
 
 def train(optimizer, engine, early_stopping_iter, epochs):
     
-    optimizer = torch.optim.Adam(model.parameters(), lr = 0.001)
+    # optimizer = torch.optim.Adam(model.parameters(), lr = 0.001)
     eng = RegressionEngine(model=model, optimizer = optimizer)
     best_loss = np.inf
     early_stopping_iter = 10
@@ -181,4 +182,4 @@ train(optimizer,
       engine =RegressionEngine(model=model, optimizer = optimizer),
       early_stopping_iter = 10,
       epochs=22)
-      
+print('saved this trained model as mode')
