@@ -137,10 +137,10 @@ def train(optimizer, engine, early_stopping_iter, epochs):
 
 ##############################################################################
 
-D_lower, D_upper = 0, 20
+D_lower, D_upper = 0, 13
 #load training data
 for D in range(D_lower, D_upper):
-    training_data_1_param = pd.read_csv('data/Training_data_1_param_100k_D_%d' % D)
+    training_data_1_param = pd.read_csv('data/Training_data_1_param_100k_D_%d.csv' % D)
     theta = np.array(training_data_1_param.theta)
     Z = np.array(training_data_1_param.Z)
     data, targets = theta, Z
@@ -175,5 +175,6 @@ for D in range(D_lower, D_upper):
       early_stopping_iter = 10,
       epochs=22)
     #save model
-    
-    print('saved this trained model as mode')
+    models_base = 'models/1_param_D_0_20'
+    torch.save(model.state_dict(), models_base + 'model_D_%d.pt' % D)
+    print('saved this trained model as model_D_%d.pt' % D)
