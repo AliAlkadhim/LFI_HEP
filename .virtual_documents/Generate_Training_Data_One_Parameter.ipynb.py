@@ -41,6 +41,7 @@ def labd_one_param(X, theta):
 
 
 #T=[[theta_i],[Z_i]]
+D=1
 def generate_training_data(Bprime, D, save_data=True):
     
     T = [[],[]]
@@ -56,8 +57,8 @@ def generate_training_data(Bprime, D, save_data=True):
         #CALCULATE LAMBDA WITH X FIXED (as D): this is called lambda_obs
         lam_observed = labd_one_param(X=D, theta=theta)#
         #CALCULATE LAMBDA WITH X BEING SAMPLED
-        lam_i = labd_one_param(X=X, theta=theta)
-        if lam_i < lam_true:
+        lam_i = labd_one_param(X=N, theta=theta)
+        if lam_i < lam_observed:
             Z_i=1
         else:
             Z_i=0
@@ -72,7 +73,7 @@ def generate_training_data(Bprime, D, save_data=True):
         return np.array(T[0]), np.array(T[1])
 
 
-theta, Z = generate_training_data_one(Bprime=1000000, D=9, save_data=True)
+theta, Z = generate_training_data(Bprime=1000000, D=1, save_data=True)
 np.sum(Z)
 
 
@@ -83,10 +84,10 @@ def generate_training_data_one_parameter(Bprime, D, save_data=True):
         theta = st.expon.rvs() #sample theta from an exponential distribution
         #theta has to be positive because its an input to a poisson. This prior should also be close to the cound D
 
-        N = np.random.poisson(lam=theta) #draw count samples randomly from a poisson distribution
+        N = st.poisson.rvs(theta) #draw count samples randomly from a poisson distribution
         #this X is really N
 
-        if D < N:
+        if D <= N:
             Z_i=1
         else:
             Z_i=0
@@ -96,12 +97,12 @@ def generate_training_data_one_parameter(Bprime, D, save_data=True):
     if save_data:
         Training_data_1_param = {'theta' : T[0], 'Z' : T[1]}
         Training_data_1_param = pd.DataFrame.from_dict(Training_data_1_param)
-        Training_data_1_param.to_csv('data/Training_data_1_param_1M.csv')
+        Training_data_1_param.to_csv('data/Training_data_1_param_1M_D_eq_1.csv')
         
     return np.array(T[0]), np.array(T[1])
 
 
-theta, Z = generate_training_data_one_parameter(Bprime=1000000, D=9, save_data=True)
+theta, Z = generate_training_data_one_parameter(Bprime=1000000, D=1, save_data=True)
 np.sum(Z)
 
 
@@ -125,7 +126,7 @@ def generate_training_data_one_parameter_D_range(Bprime, D_lower, D_upper, save_
             N = np.random.poisson(lam=theta) #draw count samples randomly from a poisson distribution
             #this X is really N
 
-            if D < N:
+            if D <= N:
                 Z_i=1
             else:
                 Z_i=0

@@ -20,8 +20,31 @@ get_ipython().run_line_magic("run", " Generate_Training_Data.ipynb")
 theta, Z
 
 
-training_data_1_param = pd.read_csv('data/Training_data_1_param_1M.csv')
+# training_data_1_param = pd.read_csv('data/Training_data_1_param_1M.csv')
+# training_data_1_param.head()
+
+
+training_data_1_param = pd.read_csv('data/Training_data_1_param_1M_D_eq_1.csv')
 training_data_1_param.head()
+
+
+theta = np.array(training_data_1_param.theta)
+# plt.plot(theta, np.array(p_value_computed))
+
+
+D=2
+p_value_computed=[]
+for theta_i in theta:
+    p_value_i = sp.special.gammainc(D, theta_i)
+    p_value_computed.append(p_value_i)
+# plt.plot(theta, np.array(p_value_computed))
+# sp.special.gammainc(1, 114)
+# plt.hist(p_value_computed)
+plt.scatter(theta, np.array(p_value_computed))
+
+
+theta=0.2
+np.sum(sp.stats.poisson.pmf(D=i, theta) for i in 
 
 
 theta = np.array(training_data_1_param.theta)
@@ -47,10 +70,10 @@ print(test_targets, test_data)
 print(type(test_data), test_data.shape)
 
 
-# sc = StandardScaler()#this is always recommended for logistic regression
-# train_data= sc.fit_transform(train_data)
-# test_data = sc.transform(test_data)
-# train_data.mean(), (train_data.std())**2#check to make sure mean=0, std=1
+sc = StandardScaler()#this is always recommended for logistic regression
+train_data= sc.fit_transform(train_data)
+test_data = sc.transform(test_data)
+train_data.mean(), (train_data.std())**2#check to make sure mean=0, std=1
 
 
 class CustomDataset:
@@ -120,6 +143,11 @@ class RegressionModel(nn.Module):
     
     def forward(self, x):
         return self.model(x)
+
+
+train_data.shape
+X = np.array([0.2,0.4])
+print(X.reshape(-1,1).shape)
 
 
 model =  RegressionModel(nfeatures=train_data.shape[1], 
@@ -210,6 +238,16 @@ train(optimizer,
 from IPython.core.debugger import set_trace
 
 
+with torch.no_grad():
+    X = np.array([0.4]).reshape(-1,1)#this is reshaped because test_data has (something, 1) shape,
+    #whereas X has (something,) shape.
+    X = torch.from_numpy(X).float()
+    print(X.type(), X.shape)
+    model.eval()
+    phat=model(X)
+print(phat)
+
+
 def predict():
     outputs = []
     labels = []
@@ -298,7 +336,7 @@ def calc_phat_from_regressor(model, X, D):
 #             del data_cp
     p_value_computed = []
     for theta_i in theta:
-        p_value_i = sp.special.gammainc(D+1, theta_i)
+        p_value_i = sp.special.gammainc(D, theta_i)
         p_value_computed.append(p_value_i)
 
     p_value_computed=np.array(p_value_computed).flatten()
@@ -313,6 +351,16 @@ def calc_phat_from_regressor(model, X, D):
     # return p_value_computed, phat 
 
 
+#one point test
+with torch.no_grad():
+    X = np.array([0.4]).reshape(-1,1)
+    X = torch.from_numpy(X).float()
+    print(X.type(), X.shape)
+    model.eval()
+    phat=model(X)
+print(phat)
+
+
 p_value_computed=[]
 for theta_i in test_data:
         p_value_i = sp.special.gammainc(D, theta_i)
@@ -324,6 +372,43 @@ p_value_computed.shape
 
 phat_pcalculated_df_oneparam = calc_phat_from_regressor(model, test_data, D=9)
 phat_pcalculated_df_oneparam.head()
+
+
+theta=0.5; D=1
+count=0
+Bprime =10000
+for i in range(Bprime):
+    N = np.random.poisson(theta)
+    if N >=D:
+        count +=1
+count/10000
+
+
+theta_bound = [0.4,0.6]
+Z_l=[]; total=0
+for ind, row in phat_pcalculated_df_oneparam.iterrows():
+    
+    if row['theta'] > 0.49 and row['theta'] < 0.51:
+        Z_l.append(row['Z'])
+        total +=1
+np.sum(Z_l)/total
+
+
+np.sum(Z_l)
+
+
+plt.scatter(theta,Z)
+
+
+Z.shape
+
+
+bins = np.arange(0,14,0.1)
+counts, b = plt.hist(np.array(Z).flatten(), density=True, bins=bins)
+counts
+
+
+plt.scatter(theta, phat.flatten())
 
 
 plt.hist(phat_pcalculated_df_oneparam['phat'])
