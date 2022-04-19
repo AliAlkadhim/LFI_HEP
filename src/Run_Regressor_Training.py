@@ -16,7 +16,7 @@ import argparse
 import utils
 
 
-EPOCHS=10
+EPOCHS=100
 # THIS NOTEBOOK TRAINS A REGRESSOR FOR ONE VALUE OF D
 training_data_1_param = pd.read_csv('data/Uniform_Data_1_param_200k_D_eq_1.csv')
 theta = np.array(training_data_1_param.theta)
@@ -70,7 +70,7 @@ def Run_Regressor_Training(optimizer,
     best_loss = np.inf
     early_stopping_iter = 10
     early_stopping_counter = 0
-    EPOCHS=22
+    EPOCHS=100
     for epoch in range(EPOCHS):
         train_loss = eng.train(train_loader)
         test_loss = eng.train(test_loader)
@@ -79,7 +79,8 @@ def Run_Regressor_Training(optimizer,
         if test_loss < best_loss:
             best_loss = test_loss
             if save_model:
-                torch.save(model.state_dict(), "models/Regressor_D_eq_1_uniform.bin")
+                # torch.save(model.state_dict(), "models/Regressor_D_eq_1_uniform.pth")
+                torch.save(model, "models/Regressor_D_eq_1_uniform.pth")
 
         else:
             early_stopping_counter += 1
@@ -95,7 +96,7 @@ def Run_Regressor_Training(optimizer,
 if __name__ == "__main__":
     Run_Regressor_Training(optimizer=optimizer,
     #engine=eng
-      early_stopping_iter = 5,
+      early_stopping_iter = 15,
       epochs=EPOCHS,
       save_model=True)
     print('saved this trained model as model')
