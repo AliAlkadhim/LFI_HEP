@@ -78,7 +78,8 @@ class RegressionEngine:
     #the loss function returns the loss function. It is a static method so it doesn't need self
     @staticmethod
     def loss_fun(targets, outputs):
-         return nn.MSELoss()(outputs, targets)
+        #  return nn.MSELoss()(outputs, targets)
+        return nn.KLDivLoss()(outputs, targets)
 
 
     def train(self, data_loader):
