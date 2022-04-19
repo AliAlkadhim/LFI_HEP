@@ -14,11 +14,16 @@ import pandas as pd
 import sys
 import argparse
 import utils
+import os
+
+TRAINING_DATA = os.environ.get("TRAINING_DATA")
+RUN_NAME = os.environ.get("RUN_NAME")
 
 
 EPOCHS=100
 # THIS NOTEBOOK TRAINS A REGRESSOR FOR ONE VALUE OF D
-training_data_1_param = pd.read_csv('data/Uniform_Data_1_param_200k_D_eq_1.csv')
+# training_data_1_param = pd.read_csv('data/Data_1_param'+UNIFORM_2M+'D_eq_1.csv')
+training_data_1_param = pd.read_csv('data/'+RUN_NAME+'D_eq_1.csv')
 theta = np.array(training_data_1_param.theta)
 Z = np.array(training_data_1_param.Z)
 

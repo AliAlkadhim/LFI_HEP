@@ -17,6 +17,7 @@ import argparse
 import os
 
 TRAINING_DATA = os.environ.get("TRAINING_DATA")
+RUN_NAME = os.environ.get("RUN_NAME")
 
 parser=argparse.ArgumentParser(description='generate training data')
 parser.add_argument('--p', type=int, help='the number of parameters', required=False)
@@ -81,12 +82,13 @@ def generate_training_data(Bprime, D, save_data=False):
             
         data_1_param = pd.DataFrame.from_dict(data_1_param)
         if save_data:
-            two_thirds = 2*len(data_1_param)//3
-            TRAIN_DATA_1_PARAM = data_1_param.iloc[:two_thirds,]
-            TEST_DATA_1_PARAM = data_1_param.iloc[two_thirds:,]
+            data_1_param.to_csv('data/'+RUN_NAME+'D_eq%d.csv' % D)
+            # two_thirds = 2*len(data_1_param)//3
+            # TRAIN_DATA_1_PARAM = data_1_param.iloc[:two_thirds,]
+            # TEST_DATA_1_PARAM = data_1_param.iloc[two_thirds:,]
 
-            TRAIN_DATA_1_PARAM.to_csv('data/TRAIN_DATA_1_PARAM_D_eq_%d.csv' %D)
-            TEST_DATA_1_PARAM.to_csv('data/TEST_DATA_1_PARAM_D_eq_%d.csv' %D)
+            # TRAIN_DATA_1_PARAM.to_csv('data/TRAIN_DATA_1_PARAM_D_eq_%d.csv' %D)
+            # TEST_DATA_1_PARAM.to_csv('data/TEST_DATA_1_PARAM_D_eq_%d.csv' %D)
 
     
     print(np.array(T[0]), np.array(T[1]))
@@ -94,6 +96,6 @@ def generate_training_data(Bprime, D, save_data=False):
 
 
 if __name__ == '__main__':
-    generate_training_data(Bprime=1000000, D=args.D)
+    generate_training_data(Bprime=10000000, D=args.D)
     #now go to the main directory and do something like python src/Generate_Training_Data_One_param.py --D 1
     print('Data generation is done')

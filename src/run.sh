@@ -1,1 +1,0 @@
-export TRAINING_DATA='data/TRAIN_DATA_1_PARAM_D'

@@ -19,7 +19,7 @@ D = 1 #this does not work for large values of D
 
 
 
-Bprime=200000
+Bprime=2000000
 def generate_training_data_one_parameter(Bprime, D, save_data=True):
     #T=[[theta_i],[Z_i]]
     T = [[],[]]

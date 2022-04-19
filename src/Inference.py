@@ -19,8 +19,8 @@ import utils
 
 D=1
 MODEL_PATH='models/Regressor_D_eq_1_uniform.pth'
-Bdoubleprime = 100 
-theta_vec = np.random.uniform(low=0,high=20, size=100)
+Bdoubleprime = 100 #size of dataset that we want to compare phat with p_calculated with
+theta_vec = np.random.uniform(low=0,high=20, size=Bdoubleprime)
 
 calculated_p_value = [sp.special.gammainc(D, theta) for theta in theta_vec]
 
