@@ -21,7 +21,7 @@ TRAINING_DATA = os.environ.get("TRAINING_DATA")
 RUN_NAME = os.environ.get("RUN_NAME")
 
 
-EPOCHS=100
+EPOCHS=15
 # THIS NOTEBOOK TRAINS A REGRESSOR FOR ONE VALUE OF D
 # training_data_1_param = pd.read_csv('data/Data_1_param'+UNIFORM_2M+'D_eq_1.csv')
 training_data_1_param = pd.read_csv('data/'+RUN_NAME+'D_eq_1.csv')
@@ -81,7 +81,7 @@ def Run_Regressor_Training(optimizer,
     best_loss = np.inf
     early_stopping_iter = 10
     early_stopping_counter = 0
-    EPOCHS=50
+    EPOCHS=15
     for epoch in range(EPOCHS):
         train_loss = eng.train(train_loader)
         test_loss = eng.train(test_loader)

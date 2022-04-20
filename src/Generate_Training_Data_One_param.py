@@ -52,13 +52,15 @@ def generate_training_data(Bprime, D, save_data=True):
     T = [[],[]]
     for i in range(Bprime):
         #the st.expon.rvs returns just one sample (number) from the exponential distribution, which is what we want
-        theta = np.random.uniform(low=0.5, high=5) #sample theta from an exponential distribution,
+        # theta = np.random.uniform(low=0.5, high=10) #sample theta from an exponential distribution,
+        theta = np.random.chisquare(df=1)
         #theta has to be positive because its an input to a poisson. This prior should also be close to the cound D
         
         #Now use the sampler F_theta to generate X (X ~ F_theta)
         N = np.random.poisson(lam=theta)  #this is the F_theta sampler
         
-        if D <= N:
+        # if D <= N:
+        if D >= N:    
             Z_i=1
         else:
             Z_i=0
@@ -96,6 +98,6 @@ def generate_training_data(Bprime, D, save_data=True):
 
 
 if __name__ == '__main__':
-    generate_training_data(Bprime=100000, D=args.D)
+    generate_training_data(Bprime=5000, D=args.D)
     #now go to the main directory and do something like python src/Generate_Training_Data_One_param.py --D 1
     print('Data generation is done')
