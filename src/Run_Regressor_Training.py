@@ -4,6 +4,7 @@ import scipy.stats as st
 import torch
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import MinMaxScaler
 import matplotlib as mp
 import matplotlib.pyplot as plt
 # force inline plots
@@ -34,10 +35,15 @@ train_data, test_data, train_targets, test_targets = train_test_split(data,
                                                                       targets, 
                                                                       stratify=targets)
 #Reshape the targets to have shape (something, 1)
+
 train_targets = train_targets.reshape(-1,1)
 test_targets = test_targets.reshape(-1,1)
 train_data = train_data.reshape(-1,1)
 test_data = test_data.reshape(-1,1)
+
+scaler = MinMaxScaler()
+train_data = scaler.fit_transform(train_data)
+test_data = scaler.transform(test_data)
 
     
 train_dataset = utils.CustomDataset(train_data, train_targets)
@@ -75,7 +81,7 @@ def Run_Regressor_Training(optimizer,
     best_loss = np.inf
     early_stopping_iter = 10
     early_stopping_counter = 0
-    EPOCHS=100
+    EPOCHS=50
     for epoch in range(EPOCHS):
         train_loss = eng.train(train_loader)
         test_loss = eng.train(test_loader)
@@ -94,6 +100,8 @@ def Run_Regressor_Training(optimizer,
             #if we are not improving for 10 iterations then break the loop
             #we could save best model here
             break
+    
+    return best_loss
 
 
 

@@ -47,12 +47,12 @@ def lambd(X, theta):
         return -2 * np.log(num/den)
 
 #T=[[theta_i],[Z_i]]
-def generate_training_data(Bprime, D, save_data=False):
+def generate_training_data(Bprime, D, save_data=True):
     
     T = [[],[]]
     for i in range(Bprime):
         #the st.expon.rvs returns just one sample (number) from the exponential distribution, which is what we want
-        theta = np.random.uniform(low=0, high=20) #sample theta from an exponential distribution,
+        theta = np.random.uniform(low=0.5, high=5) #sample theta from an exponential distribution,
         #theta has to be positive because its an input to a poisson. This prior should also be close to the cound D
         
         #Now use the sampler F_theta to generate X (X ~ F_theta)
@@ -82,7 +82,7 @@ def generate_training_data(Bprime, D, save_data=False):
             
         data_1_param = pd.DataFrame.from_dict(data_1_param)
         if save_data:
-            data_1_param.to_csv('data/'+RUN_NAME+'D_eq%d.csv' % D)
+            data_1_param.to_csv('data/'+RUN_NAME+'D_eq_%d.csv' % D)
             # two_thirds = 2*len(data_1_param)//3
             # TRAIN_DATA_1_PARAM = data_1_param.iloc[:two_thirds,]
             # TEST_DATA_1_PARAM = data_1_param.iloc[two_thirds:,]
@@ -96,6 +96,6 @@ def generate_training_data(Bprime, D, save_data=False):
 
 
 if __name__ == '__main__':
-    generate_training_data(Bprime=10000000, D=args.D)
+    generate_training_data(Bprime=100000, D=args.D)
     #now go to the main directory and do something like python src/Generate_Training_Data_One_param.py --D 1
     print('Data generation is done')

@@ -20,7 +20,7 @@ import utils
 D=1
 MODEL_PATH='models/Regressor_D_eq_1_uniform.pth'
 Bdoubleprime = 100 #size of dataset that we want to compare phat with p_calculated with
-theta_vec = np.random.uniform(low=0,high=20, size=Bdoubleprime)
+theta_vec = np.random.uniform(low=0.5,high=5, size=Bdoubleprime)
 
 calculated_p_value = [sp.special.gammainc(D, theta) for theta in theta_vec]
 
@@ -49,11 +49,12 @@ with torch.no_grad():
 
 phat = phat.numpy().flatten()
 
-
+Dicrepancy_percnt = abs(phat -calculated_p_value )/phat * 100
 inference_df = pd.DataFrame({
     'theta': theta_vec,
     'calulated_p': calculated_p_value,
-    'phat':phat
+    'phat':phat,
+    'Dicrepancy_percnt': Dicrepancy_percnt
     
 })
 

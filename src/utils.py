@@ -11,7 +11,8 @@ plt.style.use('seaborn-deep')
 import torch.nn as nn
 import copy
 import pandas as pd
-
+import optuna
+# import Run_Regressor_Training as TRAIN
 class CustomDataset:
     """This takes the index for the data and target and gives dictionary of tensors of data and targets.
     For example we could do train_dataset = CustomDataset(train_data, train_targets); test_dataset = CustomDataset(test_data, test_targets)
@@ -36,6 +37,7 @@ class CustomDataset:
 class RegressionModel(nn.Module):
     #inherit from the super classdddddddddddd
     def __init__(self, nfeatures, ntargets, nlayers, hidden_size, dropout):
+        #nlayers, hidden_size, dropout are model parameters that could be tuned
         super().__init__()
         layers = []
         for _ in range(nlayers):
@@ -78,8 +80,8 @@ class RegressionEngine:
     #the loss function returns the loss function. It is a static method so it doesn't need self
     @staticmethod
     def loss_fun(targets, outputs):
-        #  return nn.MSELoss()(outputs, targets)
-        return nn.KLDivLoss()(outputs, targets)
+        return nn.MSELoss()(outputs, targets)
+        # return nn.KLDivLoss()(outputs, targets)
 
 
     def train(self, data_loader):
@@ -110,3 +112,25 @@ class RegressionEngine:
             final_loss += loss.item()
             return final_loss/len(data_loader)
             #return final_loss / len(data_loader)
+
+
+#Objective function for tuning with optuna
+# nlayers, hidden_size, dropout
+# def objective(trial):
+#     """#Objective function for tuning with optuna. params is a dictionary of parameters that we want to tune
+#     This dictionary is called everytime a trial is started. The key is the number of the parameter name in you model.
+#     The value name could be different name (but why choose a different name?)
+
+#         """
+#     params = {
+#         "nlayers": trial.suggest_int("nlayers", 1, 10), #number of layers could be between 1 and 7
+#         "hidden_size" : trial.suggest_int("hidden_size", 16, 2048), #number of
+#          "dropout" : trial.suggest_uniform("dropout", 0.1, 0.7),#sample the dropout (which will always be a fraction from a uniform[0.1,0.7]
+#     }
+#     all_losses =[]
+#     for i in range(5):
+#         temp_loss = TRAIN.Run_Regressor_Training(i, params, save_model=False)#we don't want to save the model when it is still being tuned
+#         all_losses.append(temp_loss)
+
+
+#     return 
