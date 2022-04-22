@@ -1,5 +1,3 @@
-# LFI_HEP
-
 # Likelihood-free Inference for Confidence Interval Estimation in Particle Physics
 
 # Current Usage:
