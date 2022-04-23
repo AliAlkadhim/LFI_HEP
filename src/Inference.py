@@ -12,16 +12,25 @@ import torch.nn as nn
 import copy
 import pandas as pd
 import utils
+import os
+
+TRAINING_DATA = os.environ.get("TRAINING_DATA")
+RUN_NAME = os.environ.get("RUN_NAME")
 
 #Here we want to get the coverage probability from each trained regressor
 #coverage probability is just the relative frequency that 
 # theta \in [theta_lower, theta_upper]
 
 D=1
-MODEL_PATH='models/Regressor_D_eq_1_uniform.pth'
+training_data_1_param = pd.read_csv('data/'+RUN_NAME+'D_eq_1.csv')
+#load the trained model
+MODEL_PATH='models/Regressor_'+RUN_NAME+'D_eq_%d.pth' % D
+
+
 Bdoubleprime = 100 #size of dataset that we want to compare phat with p_calculated with
 #theta_vec = np.random.uniform(low=0.5,high=5, size=Bdoubleprime)
 theta_vec = np.linspace(3,5,1200)
+
 # calculated_p_value = [(1-sp.special.gammainc(D+1, theta)) for theta in theta_vec]
 calculated_p_value =[]
 for theta in theta_vec:
@@ -61,5 +70,5 @@ inference_df = pd.DataFrame({
     
 })
 inference_df.to_csv('data/results/inference_df.csv')
-print(inference_df)
+print(inference_df.describe())
 # print(phat.numpy().flatten())

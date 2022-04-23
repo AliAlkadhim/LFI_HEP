@@ -26,6 +26,7 @@ parser.add_argument('--Bprime', type=int, help='sample size')
 
 # parser.add_argument('--Bprime', type=int, help='the value of Bprime, ie the size of the dataset')
 
+# Testing different ideas
 args = parser.parse_args()
 
 number_of_params = args.p

@@ -22,11 +22,12 @@ RUN_NAME = os.environ.get("RUN_NAME")
 parser=argparse.ArgumentParser(description='generate training data')
 parser.add_argument('--p', type=int, help='the number of parameters', required=False)
 parser.add_argument('--D', type=int, help='the value of D')
-# parser.add_argument('--Bprime', type=int, help='the value of Bprime, ie the size of the dataset')
+parser.add_argument('--Bprime', type=int, help='the value of Bprime, ie the size of the dataset')
 
 args = parser.parse_args()
 
 number_of_params = args.p
+Bprime = args.Bprime
 D = int(args.D)
 
 #Bprime=1000000
@@ -52,8 +53,8 @@ def generate_training_data(Bprime, D, save_data=True):
     T = [[],[]]
     for i in range(Bprime):
         #the st.expon.rvs returns just one sample (number) from the exponential distribution, which is what we want
-        theta = np.random.uniform(low=0.5, high=10) + np.random.normal(loc=1, scale=0.5)
-        #sample theta from an exponential distribution,
+        theta = np.random.uniform(low=0.5, high=20) #+ np.random.normal(loc=1, scale=0.5)
+        #sample theta from an exponential distributi#on,
         # theta = np.random.chisquare(df=1)
         #theta has to be positive because its an input to a poisson. This prior should also be close to the cound D
         

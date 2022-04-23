@@ -20,11 +20,18 @@ import os
 TRAINING_DATA = os.environ.get("TRAINING_DATA")
 RUN_NAME = os.environ.get("RUN_NAME")
 
+parser=argparse.ArgumentParser(description='generate training data')
+parser.add_argument('--D', type=int, help='the value of D', required=False)
+
+args = parser.parse_args()
+
+D = args.D
+
 
 EPOCHS=15
 # THIS NOTEBOOK TRAINS A REGRESSOR FOR ONE VALUE OF D
 # training_data_1_param = pd.read_csv('data/Data_1_param'+UNIFORM_2M+'D_eq_1.csv')
-training_data_1_param = pd.read_csv('data/'+RUN_NAME+'D_eq_1.csv')
+training_data_1_param = pd.read_csv('data/'+RUN_NAME+'D_eq_%d.csv' % D)
 theta = np.array(training_data_1_param.theta)
 Z = np.array(training_data_1_param.Z)
 
@@ -52,12 +59,12 @@ test_dataset = utils.CustomDataset(test_data, test_targets)
 
 
 train_loader = torch.utils.data.DataLoader(train_dataset, 
-                                           batch_size=10, 
+                                           batch_size=500, 
                                            num_workers=2, 
                                            shuffle=True)
 
 test_loader = torch.utils.data.DataLoader(test_dataset, 
-                                          batch_size=10, num_workers=2)
+                                          batch_size=500, num_workers=2)
 
 
 
@@ -91,7 +98,7 @@ def Run_Regressor_Training(optimizer,
             best_loss = test_loss
             if save_model:
                 # torch.save(model.state_dict(), "models/Regressor_D_eq_1_uniform.pth")
-                torch.save(model, "models/Regressor_D_eq_1_uniform.pth")
+                torch.save(model, 'models/Regressor_'+RUN_NAME+'D_eq_%d.pth' %D)
 
         else:
             early_stopping_counter += 1
