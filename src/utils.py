@@ -81,6 +81,7 @@ class RegressionEngine:
     @staticmethod
     def loss_fun(targets, outputs):
         return nn.MSELoss()(outputs, targets)
+        # return nn.nn.NLLLoss()(outputs, targets)
         # return nn.KLDivLoss()(outputs, targets)
 
 
@@ -116,6 +117,11 @@ class RegressionEngine:
 
 #Objective function for tuning with optuna
 # nlayers, hidden_size, dropout
+# model =  utils.RegressionModel(nfeatures=train_data.shape[1], 
+#                ntargets=1,
+#                nlayers=params['nlayers'], 
+#                hidden_size=params['hidden_size'], 
+#                dropout=params['dropout'])
 # def objective(trial):
 #     """#Objective function for tuning with optuna. params is a dictionary of parameters that we want to tune
 #     This dictionary is called everytime a trial is started. The key is the number of the parameter name in you model.

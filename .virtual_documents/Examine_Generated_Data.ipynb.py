@@ -23,7 +23,7 @@ mp.rc('lines', linewidth=4)
 
 
 inference_df = pd.read_csv('data/results/inference_df.csv')
-inference_df
+inference_df.describe()
 
 
 plt.scatter(inference_df.theta, inference_df.calulated_p, label='calculated p-value')

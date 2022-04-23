@@ -27,9 +27,9 @@ training_data_1_param = pd.read_csv('data/'+RUN_NAME+'D_eq_1.csv')
 MODEL_PATH='models/Regressor_'+RUN_NAME+'D_eq_%d.pth' % D
 
 
-Bdoubleprime = 100 #size of dataset that we want to compare phat with p_calculated with
+Bdoubleprime = 1200 #size of dataset that we want to compare phat with p_calculated with
 #theta_vec = np.random.uniform(low=0.5,high=5, size=Bdoubleprime)
-theta_vec = np.linspace(3,5,1200)
+theta_vec = np.random.uniform(low=0.5, high=20, size=Bdoubleprime)
 
 # calculated_p_value = [(1-sp.special.gammainc(D+1, theta)) for theta in theta_vec]
 calculated_p_value =[]

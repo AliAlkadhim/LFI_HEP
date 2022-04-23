@@ -100,6 +100,6 @@ def generate_training_data(Bprime, D, save_data=True):
 
 
 if __name__ == '__main__':
-    generate_training_data(Bprime=500, D=args.D)
+    generate_training_data(Bprime=Bprime, D=args.D)
     #now go to the main directory and do something like python src/Generate_Training_Data_One_param.py --D 1
     print('Data generation is done')

@@ -7,7 +7,6 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
 import matplotlib as mp
 import matplotlib.pyplot as plt
-# force inline plots
 plt.style.use('seaborn-deep')
 import torch.nn as nn
 import copy
@@ -16,6 +15,7 @@ import sys
 import argparse
 import utils
 import os
+# import tqdm
 
 TRAINING_DATA = os.environ.get("TRAINING_DATA")
 RUN_NAME = os.environ.get("RUN_NAME")
@@ -28,7 +28,7 @@ args = parser.parse_args()
 D = args.D
 
 
-EPOCHS=15
+EPOCHS=100
 # THIS NOTEBOOK TRAINS A REGRESSOR FOR ONE VALUE OF D
 # training_data_1_param = pd.read_csv('data/Data_1_param'+UNIFORM_2M+'D_eq_1.csv')
 training_data_1_param = pd.read_csv('data/'+RUN_NAME+'D_eq_%d.csv' % D)
@@ -48,9 +48,9 @@ test_targets = test_targets.reshape(-1,1)
 train_data = train_data.reshape(-1,1)
 test_data = test_data.reshape(-1,1)
 
-scaler = MinMaxScaler()
-train_data = scaler.fit_transform(train_data)
-test_data = scaler.transform(test_data)
+# scaler = MinMaxScaler()
+# train_data = scaler.fit_transform(train_data)
+# test_data = scaler.transform(test_data)
 
     
 train_dataset = utils.CustomDataset(train_data, train_targets)
@@ -59,12 +59,12 @@ test_dataset = utils.CustomDataset(test_data, test_targets)
 
 
 train_loader = torch.utils.data.DataLoader(train_dataset, 
-                                           batch_size=500, 
+                                           batch_size=32, 
                                            num_workers=2, 
                                            shuffle=True)
 
 test_loader = torch.utils.data.DataLoader(test_dataset, 
-                                          batch_size=500, num_workers=2)
+                                          batch_size=32, num_workers=2)
 
 
 
@@ -75,11 +75,20 @@ model =  utils.RegressionModel(nfeatures=train_data.shape[1],
                dropout=0.3)
 
 
+#IF YOU WANT TO TUNE HYPERPARAMETERS, USE BELOW
+## params to tune: nlayers, hidden_size, dropout
+# model =  utils.RegressionModel(nfeatures=train_data.shape[1], 
+#                ntargets=1,
+#                nlayers=params['nlayers'], 
+#                hidden_size=params['hidden_size'], 
+#                dropout=params['dropout'])
+
 # %writefile training/RegressionEngine.py
 
 optimizer = torch.optim.Adam(model.parameters())
 
 def Run_Regressor_Training(optimizer, 
+                #params,
                 #engine, 
                 early_stopping_iter, epochs, save_model=False):
     
@@ -110,6 +119,21 @@ def Run_Regressor_Training(optimizer,
     
     return best_loss
 
+def objective(trial):
+    """#Objective function for tuning with optuna. params is a dictionary of parameters that we want to tune
+    This dictionary is called everytime a trial is started. The key is the number of the parameter name in you model.
+    The value name could be different name (but why choose a different name?)
+
+        """
+    params = {
+        "nlayers": trial.suggest_int("nlayers", 1, 10), #number of layers could be between 1 and 7
+        "hidden_size" : trial.suggest_int("hidden_size", 16, 2048), #number of
+         "dropout" : trial.suggest_uniform("dropout", 0.1, 0.7),#sample the dropout (which will always be a fraction from a uniform[0.1,0.7]
+    }
+    all_losses =[]
+    for i in range(5):
+        temp_loss = Run_Regressor_Training(i, params, save_model=False)#we don't want to save the model when it is still being tuned
+        all_losses.append(temp_loss)
 
 
 
