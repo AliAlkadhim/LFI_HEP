@@ -5,6 +5,7 @@ import torch
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 import matplotlib as mp
+mp.rcParams['agg.path.chunksize'] = 10000
 import matplotlib.pyplot as plt
 # force inline plots
 # get_ipython().run_line_magic("matplotlib", " inline")
@@ -98,7 +99,7 @@ def plot_one(lambda_t, theta, nu, ax):
     ax.set_xlabel(r'$\lambda (\theta, n, m, \hat{\nu}(\theta))$',fontsize=ftsize)
     ax.set_ylabel(r'cdf$(\lambda)$', fontsize=ftsize)
     ax.hist(lambda_t, bins=5*xmax, range=x_range,
-    color=(0.8,0.8,0.9), alpha=0.3,
+    color=(0.8,0.8,0.9),
     density=True, cumulative=True,
     histtype='stepfilled', edgecolor='black')
     
@@ -205,9 +206,8 @@ def plot_weighted_hist(data_df):
     theta_bin_centers = (b_theta_w[1:]+b_theta_w[:-1])/2
     # nu_bin_centers = (b_nu_w[1:]+b_nu_w[:-1])/2
     ax.plot(theta_bin_centers, hist_counts_theta, label=r'Weighted Hist/Unweighted Hist for $\theta$')
-    ax.set_xlabel(r'$\theta$')
+    ax.set_xlabel(r'$E[\theta]$')
     ax.legend()
-    
     # ax[1].plot(nu_bin_centers, hist_counts_nu, label=r'Weighted Hist/Unweighted Hist for $\nu$')
     # ax[1].set_xlabel(r'$\nu$')
     # ax[1].legend()
@@ -465,20 +465,54 @@ traces = train(model, optimizer, average_loss,
 plot_average_loss(traces)
 
 
+torch.save(model, 'models/Regressor_TwoParams_theta_nu_m_n.pth')
+model.parameters
+
 
 inputs = ['theta', 'nu', 'N', 'M']
-data_df = pd.read_csv(data_df)
-Input_features = data_df[inputs]
+data_df='data/two_parameters_N_M_Uniformly_sampled_1M.csv'
+df = pd.read_csv(data_df)
+Input_features = df[inputs]
 ############ ML inference part
 with torch.no_grad():
     model.eval()
 
     X = torch.Tensor(Input_features.values)
     phat = model(X)
-    phat = phat.flatten()
+    phat = phat.detach().flatten()
+    # phat=phat.numpy()
+    PHAT = phat.view(-1).numpy()
     print(phat.flatten().shape)
-plt.hist(phat)
+# plt.hist(phat)
 # ax.plot(theta_bin_centers, phat,label='phat')
+
+
+th=np.array(df.theta).flatten()
+plot_weighted_hist(data_df)
+
+
+df=pd.read_csv(data_df)
+
+
+plt.hist(PHAT, label=r'$\hat{p}$',alpha=0.3,bins=50)
+plt.hist(df.Z, label='Z',alpha=0.3,bins=50)
+plt.legend()
+
+
+phat.shape, data_df.shape, torch.cat
+
+
+data_df = pd.read_csv(data_df)
+inference_df = data_df
+inference_df['phat'] = PHAT
+inference_df
+
+
+th = np.array(inference_df.theta)[:100000]
+p=np.array(inference_df.phat)[:100000]
+
+
+plt.plot(th, p)
 
 
 
