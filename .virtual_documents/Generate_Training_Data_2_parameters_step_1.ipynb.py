@@ -61,32 +61,31 @@ def lambda_test(theta, n, m, MLE=True):
     t  = -2*np.log(Ln/Ld)
     return t
 
-# def run_one_simulation(theta0, theta, nu, MLE, Bprime=Bprime):
-#     #sample n from a Poisson with mean theta+nu
-#     n = st.poisson.rvs(theta+ nu, size=Bprime)
-#     #sample m from a poisson with mean k*nu
-#     m = st.poisson.rvs(k*nu, size=Bprime)
-    
 
+chi2_exp_size=4000
 
 def run_sim( theta, nu):
-    n = st.poisson.rvs(theta+nu, size=400)
-    m = st.poisson.rvs(nu, size=400)
+    """Sample n ~ Pois(theta+nu), m ~ Pois(nu), and compute lambda(theta, n, m)"""
+    n = st.poisson.rvs(theta+nu, size=chi2_exp_size)
+    m = st.poisson.rvs(nu, size=chi2_exp_size)
     lambda_t = lambda_test(theta, n, m, MLE)
     return (n, m, lambda_t)
 
 def run_sims(points):
-    t_results=[]
+    """Run an entire simulation (that is, generate n and m from run_sim above, and calculate lambda) for each point, where a point is a tuple of (theta, nu)"""
+    lambda_t_results=[]
 
     for p in points:
         theta, nu = p
-        n, m, t = run_sim(theta, nu)
-        t_results.append((n, m, t, theta, nu))
+        n, m, lambda_t = run_sim(theta, nu)
+        lambda_t_results.append((n, m, lambda_t, theta, nu))
         print((theta, nu))
-    return t_results
+    return lambda_t_results
 
 
-def plot_one(t, theta, nu, ax):
+def plot_one(lambda_t, theta, nu, ax):
+    """Histogram the CDF of  lambda_t = -2log(Lp(theta)/Lp(theta_hat)), for a given (fixed) theta and nu.
+    Also, plot the actual CDF of a chi^2 distribution with 1 free parameter (since only theta is left after we profile nu) """
     ftsize = 16
     xmin= 0
     xmax= 10
@@ -96,12 +95,13 @@ def plot_one(t, theta, nu, ax):
     y_range = (ymin, ymax)
     ax.set_xlim(x_range)
     ax.set_ylim(y_range)
-    ax.set_xlabel(r'$t$',fontsize=ftsize)
-    ax.set_ylabel(r'cdf$(t)$', fontsize=ftsize)
-    ax.hist(t, bins=5*xmax, range=x_range,
+    ax.set_xlabel(r'$\lambda (\theta, n, m, \hat{\nu}(\theta))$',fontsize=ftsize)
+    ax.set_ylabel(r'cdf$(\lambda)$', fontsize=ftsize)
+    ax.hist(lambda_t, bins=5*xmax, range=x_range,
     color=(0.8,0.8,0.9), alpha=0.3,
     density=True, cumulative=True,
     histtype='stepfilled', edgecolor='black')
+    
     x = np.arange(0, xmax, 0.2)
     y = st.chi2.cdf(x, 1)
     ax.plot(x, y, color='blue',
@@ -114,6 +114,7 @@ def plot_one(t, theta, nu, ax):
     ax.text(xpos, ypos,
     r'$ \theta = get_ipython().run_line_magic("d,", " \nu = %d$' % (theta, nu),")
     fontsize=ftsize)
+    
 def plot_all(results, fgsize=(10,6)):
     plt.figure(figsize=fgsize)
     fig, ax = plt.subplots(2, 3, figsize=fgsize)
@@ -122,8 +123,8 @@ def plot_all(results, fgsize=(10,6)):
     ax = ax.flatten()
     
     for i, result in enumerate(results):
-        n, m, t, theta, nu = result
-        plot_one(t, theta, nu, ax[i])
+        n, m, lambda_t, theta, nu = result
+        plot_one(lambda_t, theta, nu, ax[i])
     for j in range(len(results), len(ax)):
         ax[j].set_visible(False)
         
@@ -133,8 +134,9 @@ def plot_all(results, fgsize=(10,6)):
 
 
 MLE=True
+#generate (theta, nu) points
 points = [(theta, nu) for theta, nu in 
-          zip(np.random.randint(low=1,high=4,size=4), np.random.randint(low=0,high=4,size=4))]
+          zip(np.random.randint(low=1,high=4,size=6), np.random.randint(low=0,high=4,size=6))]
 
 results = run_sims(points)
 
@@ -143,24 +145,26 @@ plot_all(results)
 
 
 Bprime    = 1000000
-thetaMin, thetaMax =  0, 20
-nuMin, nuMax = 0, 20
-Mmin, Mmax =  0, 30
+thetaMin, thetaMax =  0, 40
+nuMin, nuMax = 0, 40
+Mmin, Mmax =  0 , 30
 Nmin, Nmax =  0,30
 MLE=True
 def generate_training_data(Bprime, save_data=False):
+    """Generate the training data, that is, features=[theta, nu, N, M], targets=Z"""
     #sample theta and nu from uniform(0,20)
     theta = st.uniform.rvs(thetaMin, thetaMax, size=Bprime)
     nu = st.uniform.rvs(nuMin, nuMax, size=Bprime)
-    #n,m ~ F_{\theta,\nu}, ie our simulator
-    #sample n from a Poisson with mean theta+nu 
+    #n,m ~ F_{\theta,\nu}, ie our simulator. sample n from a Poisson with mean theta+nu 
     n = st.poisson.rvs(theta+ nu, size=Bprime)
     #sample m from a poisson with mean nu
     m = st.poisson.rvs(nu, size=Bprime)
     
     #sample our observed counts (N,M), which take the place of D
-    N = st.uniform.rvs(Nmin, Nmax, size=Bprime)
-    M = st.uniform.rvs(Mmin, Mmax, size=Bprime)
+    N = np.random.randint(Nmin, Nmax, size=Bprime)
+    M = np.random.randint(Mmin, Mmax, size=Bprime)
+    print('n=', n)
+    print('m=', m)
     print('N=', N)
     print('M=', M)
     lambda_gen = lambda_test(theta, n, m, MLE)
@@ -173,13 +177,13 @@ def generate_training_data(Bprime, save_data=False):
 
     data_2_param = pd.DataFrame.from_dict(data_2_param)
     if save_data:
-        data_2_param.to_csv('../data/two_parameters'+'D_Uniformly_sampled.csv')
+        data_2_param.to_csv('data/two_parameters_N_M_Uniformly_sampled_1M.csv')
 
     print(data_2_param.head())
     return data_2_param
 
 
-data_2_param=generate_training_data(Bprime)
+data_2_param=generate_training_data(Bprime,save_data=True)
 
 
 np.sum(data_2_param.Z)/len(data_2_param.Z)
@@ -187,7 +191,7 @@ np.sum(data_2_param.Z)/len(data_2_param.Z)
 
 # Fraction of the data assigned as test data
 fraction = 1/102
-inputs = ['theta', 'nu', 'D']
+inputs = ['theta', 'nu', 'N', 'M']
 data = data_2_param
 # Split data into a part for training and a part for testing
 train_data, test_data = train_test_split(data, 
@@ -228,7 +232,7 @@ def get_batch(x, t, batch_size):
     # selects at random "batch_size" integers from 
     # the range [0, length-1] corresponding to the
     # row indices.
-    rows    = rnd.choice(len(x), batch_size)
+    rows    = np.random.choice(len(x), batch_size)
     batch_x = x[rows]
     batch_t = t[rows]
     return (batch_x, batch_t)
@@ -358,7 +362,7 @@ import torch.nn as nn
 
 class Model(nn.Module):
     
-    def __init__(self, n_inputs=3, n_nodes=20, n_layers=5):
+    def __init__(self, n_inputs=4, n_nodes=20, n_layers=5):
 
         # call constructor of base (or super, or parent) class
         super(Model, self).__init__()
@@ -433,72 +437,45 @@ traces = train(model, optimizer, average_loss,
 plot_average_loss(traces)
 
 
-def plot_data(data, func, Dmin, Dmax, x, 
-              #gfile='fig_data.png', 
-              fgsize=(10, 6)):
+def compare_weighted_hist_to_phat(data_df, model):
+    #we can select which M, N by doing select= data_df.M = M
+    data_df = pd.read_csv(data_df)
+    fig, ax = plt.subplots(1,1, figsize=(7,7))
+    fig.tight_layout()
+    hist_counts_theta_w, b_theta_w = np.histogram(data_df.theta, weights=np.array(data_df.Z), bins=100)
+    hist_counts_theta_uw, b_theta_uw = np.histogram(data_df.theta, bins=100)
+    hist_counts_theta = hist_counts_theta_w/hist_counts_theta_uw
+    #CLEARLY IT DOESN'T WORK FOR NU
+    # hist_counts_nu_w, b_nu_w = np.histogram(data_df.nu, weights=np.array(data_df.Z), bins=100)
+    # hist_counts_nu_uw, b_nu_uw = np.histogram(data_df.nu, bins=100)
+    # hist_counts_nu = hist_counts_nu_w/hist_counts_nu_uw
     
-    # make room for 6 sub-plots
-    fig, ax = plt.subplots(nrows=2, 
-                           ncols=3, 
-                           figsize=fgsize)
+    theta_bin_centers = (b_theta_w[1:]+b_theta_w[:-1])/2
+    # nu_bin_centers = (b_nu_w[1:]+b_nu_w[:-1])/2
+    ax.plot(theta_bin_centers, hist_counts_theta, label=r'Weighted Hist/Unweighted Hist for $\theta$')
+    ax.set_xlabel(r'$\theta$')
     
-    # padding
-    plt.subplots_adjust(hspace=0.01)
-    plt.subplots_adjust(wspace=0.20)
     
-    # use flatten() to convert a numpy array of 
-    # shape (nrows, ncols) to a 1-d array. 
-    ax = ax.flatten()
+    ############ ML inference part
+    with torch.no_grad():
+        model.eval()
+        inputs = ['theta', 'nu', 'N', 'M']
+        Input_features = data_df[inputs]
+        X = torch.Tensor(Input_features.values)
+        phat = model(X)
+        phat = phat.flatten()
+        print(phat.flatten().shape)
+    ax.hist(phat)
+    # ax.plot(theta_bin_centers, phat,label='phat')
+    ax.legend()
     
-    for j, d in enumerate(range(Dmin, Dmax+1)):
-        
-        # compute DL 
-        y, p = func(data, d, x)
-        # "func" is the function used as an input, in this case it is hist_data, which returns (y, p), where y is weighted_histogram/unweighted_histoggram, p is the exact p value
-        
-        ax[j].set_xlim(xmin, xmax)
-        ax[j].set_ylim(0, 1)
-        ax[j].set_xlabel(r'$\theta$', fontsize=FONTSIZE)
-        ax[j].set_ylabel(r'$E(Z|\theta)$', fontsize=FONTSIZE)
-        
-        ax[j].plot(x, y, 'b', lw=2, label='approx')
-        ax[j].plot(x, p, 'r', lw=2, label='exact')
-        
-        ax[j].grid(True, which="both", linestyle='-')
-        ax[j].text(12, 0.42, r'$D = get_ipython().run_line_magic("d$'", " % d, fontsize=FONTSIZE) ")
-
-        ax[j].legend(loc='upper right')
-        
-    # hide unused sub-plots
-    for k in range(Dmax+1-Dmin, len(ax)):
-        ax[k].set_visible(False)
-    
-    plt.tight_layout()
-    plt.savefig(gfile)
-    plt.show()
+    # ax[1].plot(nu_bin_centers, hist_counts_nu, label=r'Weighted Hist/Unweighted Hist for $\nu$')
+    # ax[1].set_xlabel(r'$\nu$')
+    # ax[1].legend()
 
 
-test_x#.theta#, test_data.nu, test_data.
-test_x.shape
-
-
-xmin, xmax = 0, 20
-xrange= (xmin, xmax)
-xbins = 40
-xstep = (xmax - xmin) / xbins
-# x     = np.arange(xmin+0.5*xstep, xmax + 0.5*xstep, xstep)
-
-def usemodel(data, d, x):
-    model.eval()
-    # xx= [[x.theta, x.nu, x.D] for z in x]
-    xx=test_x
-    X = torch.Tensor(xx)
-    y = model(X).detach().numpy()
-    p = DL(d, x)
-    return (y, p)
-
-
-plot_data(data, usemodel, Dmin, Dmax, test_x) 
+data_df='data/two_parameters_N_M_Uniformly_sampled_1M.csv'
+compare_weighted_hist_to_phat(data_df, model)
 
 
 
