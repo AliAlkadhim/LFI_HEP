@@ -189,6 +189,34 @@ data_2_param=generate_training_data(Bprime,save_data=True)
 np.sum(data_2_param.Z)/len(data_2_param.Z)
 
 
+def plot_weighted_hist(data_df):
+    #we can select which M, N by doing select= data_df.M = M
+    data_df = pd.read_csv(data_df)
+    fig, ax = plt.subplots(1,1, figsize=(7,7))
+    fig.tight_layout()
+    hist_counts_theta_w, b_theta_w = np.histogram(data_df.theta, weights=np.array(data_df.Z), bins=100)
+    hist_counts_theta_uw, b_theta_uw = np.histogram(data_df.theta, bins=100)
+    hist_counts_theta = hist_counts_theta_w/hist_counts_theta_uw
+    #CLEARLY IT DOESN'T WORK FOR NU
+    # hist_counts_nu_w, b_nu_w = np.histogram(data_df.nu, weights=np.array(data_df.Z), bins=100)
+    # hist_counts_nu_uw, b_nu_uw = np.histogram(data_df.nu, bins=100)
+    # hist_counts_nu = hist_counts_nu_w/hist_counts_nu_uw
+    
+    theta_bin_centers = (b_theta_w[1:]+b_theta_w[:-1])/2
+    # nu_bin_centers = (b_nu_w[1:]+b_nu_w[:-1])/2
+    ax.plot(theta_bin_centers, hist_counts_theta, label=r'Weighted Hist/Unweighted Hist for $\theta$')
+    ax.set_xlabel(r'$\theta$')
+    ax.legend()
+    
+    # ax[1].plot(nu_bin_centers, hist_counts_nu, label=r'Weighted Hist/Unweighted Hist for $\nu$')
+    # ax[1].set_xlabel(r'$\nu$')
+    # ax[1].legend()
+
+
+data_df='data/two_parameters_N_M_Uniformly_sampled_1M.csv'
+plot_weighted_hist(data_df)
+
+
 # Fraction of the data assigned as test data
 fraction = 1/102
 inputs = ['theta', 'nu', 'N', 'M']
@@ -437,45 +465,20 @@ traces = train(model, optimizer, average_loss,
 plot_average_loss(traces)
 
 
-def compare_weighted_hist_to_phat(data_df, model):
-    #we can select which M, N by doing select= data_df.M = M
-    data_df = pd.read_csv(data_df)
-    fig, ax = plt.subplots(1,1, figsize=(7,7))
-    fig.tight_layout()
-    hist_counts_theta_w, b_theta_w = np.histogram(data_df.theta, weights=np.array(data_df.Z), bins=100)
-    hist_counts_theta_uw, b_theta_uw = np.histogram(data_df.theta, bins=100)
-    hist_counts_theta = hist_counts_theta_w/hist_counts_theta_uw
-    #CLEARLY IT DOESN'T WORK FOR NU
-    # hist_counts_nu_w, b_nu_w = np.histogram(data_df.nu, weights=np.array(data_df.Z), bins=100)
-    # hist_counts_nu_uw, b_nu_uw = np.histogram(data_df.nu, bins=100)
-    # hist_counts_nu = hist_counts_nu_w/hist_counts_nu_uw
-    
-    theta_bin_centers = (b_theta_w[1:]+b_theta_w[:-1])/2
-    # nu_bin_centers = (b_nu_w[1:]+b_nu_w[:-1])/2
-    ax.plot(theta_bin_centers, hist_counts_theta, label=r'Weighted Hist/Unweighted Hist for $\theta$')
-    ax.set_xlabel(r'$\theta$')
-    
-    
-    ############ ML inference part
-    with torch.no_grad():
-        model.eval()
-        inputs = ['theta', 'nu', 'N', 'M']
-        Input_features = data_df[inputs]
-        X = torch.Tensor(Input_features.values)
-        phat = model(X)
-        phat = phat.flatten()
-        print(phat.flatten().shape)
-    ax.hist(phat)
-    # ax.plot(theta_bin_centers, phat,label='phat')
-    ax.legend()
-    
-    # ax[1].plot(nu_bin_centers, hist_counts_nu, label=r'Weighted Hist/Unweighted Hist for $\nu$')
-    # ax[1].set_xlabel(r'$\nu$')
-    # ax[1].legend()
 
+inputs = ['theta', 'nu', 'N', 'M']
+data_df = pd.read_csv(data_df)
+Input_features = data_df[inputs]
+############ ML inference part
+with torch.no_grad():
+    model.eval()
 
-data_df='data/two_parameters_N_M_Uniformly_sampled_1M.csv'
-compare_weighted_hist_to_phat(data_df, model)
+    X = torch.Tensor(Input_features.values)
+    phat = model(X)
+    phat = phat.flatten()
+    print(phat.flatten().shape)
+plt.hist(phat)
+# ax.plot(theta_bin_centers, phat,label='phat')
 
 
 
