@@ -1,0 +1,12 @@
+verify that this works for lambda=-2log lik ratio, and it followes a chi2 dist.
+
+nu 0 to 20, 
+and MLE of theta is theta hat=N-M - negative or positive. 
+
+(or zero otherwise. )
+
+theta hat zero or positive
+
+
+
+

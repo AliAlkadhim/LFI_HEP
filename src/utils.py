@@ -12,6 +12,14 @@ import torch.nn as nn
 import copy
 import pandas as pd
 import optuna
+def L(n,m,theta, number_of_params=2, X=None):
+    """likelihood with one or two parameter"""
+    if number_of_params==1:
+        return st.poisson.pmf(X, mu=theta)
+    elif number_of_params==2:
+        return st.poisson.pmf(n, mu=theta+nu) * st.poisson.pmf(m, mu=nu)
+    
+
 # import Run_Regressor_Training as TRAIN
 class CustomDataset:
     """This takes the index for the data and target and gives dictionary of tensors of data and targets.
