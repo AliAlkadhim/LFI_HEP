@@ -35,6 +35,16 @@ algorithm2 = Image('src/images/Algorithm2.jpg')
 display(algorithm2)
 
 
+n, m = np.arange(0, 10, 0.01), np.arange(0, 10, 0.01)
+theta, nu = 1, 3
+Ln = st.poisson.pmf(n, mu = theta+nu)
+Lm = st.poisson.pmf(m, mu = nu)
+
+plt.scatter(n , Ln, label=r'$P(n|\theta, \nu)$')
+plt.scatter(m, Lm, label=r'$P(m|\nu)$')
+plt.legend()
+
+
 k=1
 def L_prof(n,m,theta):
     k=1
@@ -59,8 +69,8 @@ def theta_hat(n,m, MLE=True):
 def lambda_test(theta, n, m, MLE=True):
     Ln = L_prof(n,m,theta)
     Ld = L_prof(n,m, theta_hat(n,m, MLE))
-    t  = -2*np.log(Ln/Ld)
-    return t
+    lambda_  = -2*np.log(Ln/Ld)
+    return lambda_
 
 
 chi2_exp_size=4000
@@ -69,22 +79,22 @@ def run_sim( theta, nu):
     """Sample n ~ Pois(theta+nu), m ~ Pois(nu), and compute lambda(theta, n, m)"""
     n = st.poisson.rvs(theta+nu, size=chi2_exp_size)
     m = st.poisson.rvs(nu, size=chi2_exp_size)
-    lambda_t = lambda_test(theta, n, m, MLE)
-    return (n, m, lambda_t)
+    lambda_ = lambda_test(theta, n, m, MLE)
+    return (n, m, lambda_)
 
 def run_sims(points):
     """Run an entire simulation (that is, generate n and m from run_sim above, and calculate lambda) for each point, where a point is a tuple of (theta, nu)"""
-    lambda_t_results=[]
+    lambda_results=[]
 
     for p in points:
         theta, nu = p
-        n, m, lambda_t = run_sim(theta, nu)
-        lambda_t_results.append((n, m, lambda_t, theta, nu))
+        n, m, lambda_ = run_sim(theta, nu)
+        lambda_results.append((n, m, lambda_, theta, nu))
         print((theta, nu))
-    return lambda_t_results
+    return lambda_results
 
 
-def plot_one(lambda_t, theta, nu, ax):
+def plot_one(lambda_, theta, nu, ax):
     """Histogram the CDF of  lambda_t = -2log(Lp(theta)/Lp(theta_hat)), for a given (fixed) theta and nu.
     Also, plot the actual CDF of a chi^2 distribution with 1 free parameter (since only theta is left after we profile nu) """
     ftsize = 16
@@ -98,7 +108,7 @@ def plot_one(lambda_t, theta, nu, ax):
     ax.set_ylim(y_range)
     ax.set_xlabel(r'$\lambda (\theta, n, m, \hat{\nu}(\theta))$',fontsize=ftsize)
     ax.set_ylabel(r'cdf$(\lambda)$', fontsize=ftsize)
-    ax.hist(lambda_t, bins=5*xmax, range=x_range,
+    ax.hist(lambda_, bins=5*xmax, range=x_range,
     color=(0.8,0.8,0.9),
     density=True, cumulative=True,
     histtype='stepfilled', edgecolor='black')
@@ -124,8 +134,8 @@ def plot_all(results, fgsize=(10,6)):
     ax = ax.flatten()
     
     for i, result in enumerate(results):
-        n, m, lambda_t, theta, nu = result
-        plot_one(lambda_t, theta, nu, ax[i])
+        n, m, lambda_, theta, nu = result
+        plot_one(lambda_, theta, nu, ax[i])
     for j in range(len(results), len(ax)):
         ax[j].set_visible(False)
         
@@ -140,6 +150,51 @@ points = [(theta, nu) for theta, nu in
           zip(np.random.randint(low=1,high=4,size=6), np.random.randint(low=0,high=4,size=6))]
 
 results = run_sims(points)
+
+
+def lambda_test(theta, n, m, MLE=True):
+    Ln = L_prof(n,m,theta)
+    Ld = L_prof(n,m, theta_hat(n,m, MLE))
+    lambda_  = -2*np.log(Ln/Ld)
+    return lambda_
+
+def run_sim( theta, nu):
+    """Sample n ~ Pois(theta+nu), m ~ Pois(nu), and compute lambda(theta, n, m)"""
+    n = st.poisson.rvs(theta+nu, size=chi2_exp_size)
+    m = st.poisson.rvs(nu, size=chi2_exp_size)
+    lambda_ = lambda_test(theta, n, m, MLE)
+    return (n, m, lambda_)
+
+def plot_likelihood_heatmap(size):
+    
+    
+    theta, nu = np.random.randint(low=0,high=20,size=size), np.random.randint(low=0,high=20,size=size)
+
+    n = st.poisson.rvs(theta+nu, size=size)
+    m = st.poisson.rvs(nu, size=size)
+    
+    L_theta_hat_nu_hat_l = []
+    theta_hat_l =[]
+    for ni, mi in zip(n, m):
+        theta_hat_l.append(theta_hat(n,m, MLE))
+        
+        L_theta_hat_nu_hat_l.append(L_prof(n,m, theta_hat(n,m, MLE)))
+    
+    L_theta_hat_nu_hat_l = np.array(L_theta_hat_nu_hat_l)
+    theta_hat_l = np.array(theta_hat_l)
+    fig, ax0 = plt.subplots()
+    
+    X,Y = np.meshgrid(theta, nu)
+    im0 = ax0.pcolormesh(X, Y, L_theta_hat_nu_hat_l, cmap='bwr')
+    cbar = fig.colorbar(im0, ax=ax0)
+    ax0.set_title(r'$L(\hat{\theta}, \hat{\nu})$')
+    plt.xlabel(r'$\theta$')
+    plt.ylabel(r'$\nu$')
+    plt.show()
+    
+
+
+plot_likelihood_heatmap(1000)
 
 
 plot_all(results)
@@ -172,6 +227,7 @@ def generate_training_data(Bprime, save_data=False):
     print('lambda_gen= ', lambda_gen)
     lambda_D = lambda_test(theta, N, M, MLE)
     print('lambda_D= ', lambda_D)
+    #if lambda_gen <= lambda_D: Z=1, else Z=0
     Z = (lambda_gen <= lambda_D).astype(np.int32)
     
     data_2_param = {'Z' : Z, 'theta' : theta, 'nu': nu, 'N':N, 'M':M}
@@ -469,6 +525,9 @@ torch.save(model, 'models/Regressor_TwoParams_theta_nu_m_n.pth')
 model.parameters
 
 
+model = torch.load('models/Regressor_TwoParams_theta_nu_m_n.pth'); model.parameters
+
+
 inputs = ['theta', 'nu', 'N', 'M']
 data_df='data/two_parameters_N_M_Uniformly_sampled_1M.csv'
 df = pd.read_csv(data_df)
@@ -491,28 +550,87 @@ th=np.array(df.theta).flatten()
 plot_weighted_hist(data_df)
 
 
-df=pd.read_csv(data_df)
+# inference_df.csvplt.hist(PHAT.flatten(), label=r'$\hat{p}=\hat{E}[Z|\theta]$', density=True)
+# plt.hist(df.Z, label=r'Exact $E[Z]=P(\lambda_{\tinference_df.csvext{gen}} \le \lambda_{\text{Obs}})$', density=True); plt.legend()
 
 
-plt.hist(PHAT, label=r'$\hat{p}$',alpha=0.3,bins=50)
-plt.hist(df.Z, label='Z',alpha=0.3,bins=50)
-plt.legend()
+chi2_exp_size=4000
+
+def run_sim( theta, nu):
+    """Sample n ~ Pois(theta+nu), m ~ Pois(nu), and compute lambda(theta, n, m)"""
+    n = st.poisson.rvs(theta+nu, size=chi2_exp_size)
+    m = st.poisson.rvs(nu, size=chi2_exp_size)
+    lambda_ = lambda_test(theta, n, m, MLE)
+    return (n, m, lambda_)
+
+def run_sims(points):
+    """Run an entire simulation (that is, generate n and m from run_sim above, and calculate lambda) for each point, where a point is a tuple of (theta, nu)"""
+    lambda_results=[]
+
+    for p in points:
+        theta, nu = p
+        n, m, lambda_ = run_sim(theta, nu)
+        lambda_results.append((n, m, lambda_, theta, nu))
+        print((theta, nu))
+    return lambda_results
 
 
-phat.shape, data_df.shape, torch.cat
+def plot_one(lambda_, theta, nu, ax):
+    """Histogram the CDF of  lambda_t = -2log(Lp(theta)/Lp(theta_hat)), for a given (fixed) theta and nu.
+    Also, plot the actual CDF of a chi^2 distribution with 1 free parameter (since only theta is left after we profile nu) """
+    ftsize = 16
+    xmin= 0
+    xmax= 10
+    ymin= 0
+    ymax= 1
+    x_range = (xmin, xmax)
+    y_range = (ymin, ymax)
+    ax.set_xlim(x_range)
+    ax.set_ylim(y_range)
+    ax.set_xlabel(r'$\lambda (\theta, n, m, \hat{\nu}(\theta))$',fontsize=ftsize)
+    ax.set_ylabel(r'cdf$(\lambda)$', fontsize=ftsize)
+    ax.hist(lambda_, bins=5*xmax, range=x_range,
+    color=(0.8,0.8,0.9),
+    density=True, cumulative=True,
+    histtype='stepfilled', edgecolor='black')
+    
+    x = np.arange(0, xmax, 0.2)
+    y = st.chi2.cdf(x, 1)
+    ax.plot(x, y, color='blue',
+    linewidth=2)
+    # annotate
+    xwid = (xmax-xmin)/12
+    ywid = (ymax-ymin)/12
+    xpos = xmin + xwid/2
+    ypos = ymin + ywid*2
+    ax.text(xpos, ypos,
+    r'$ \theta = get_ipython().run_line_magic("d,", " \nu = %d$' % (theta, nu),")
+    fontsize=ftsize)
+    
+def plot_all(results, fgsize=(10,6)):
+    plt.figure(figsize=fgsize)
+    fig, ax = plt.subplots(2, 3, figsize=fgsize)
+    plt.subplots_adjust(hspace=0.01)
+    plt.subplots_adjust(wspace=0.2)
+    ax = ax.flatten()
+    
+    for i, result in enumerate(results):
+        n, m, lambda_, theta, nu = result
+        plot_one(lambda_, theta, nu, ax[i])
+    for j in range(len(results), len(ax)):
+        ax[j].set_visible(False)
+        
+    plt.tight_layout()
+    plt.show()
+    
 
 
 data_df = pd.read_csv(data_df)
 inference_df = data_df
 inference_df['phat'] = PHAT
-inference_df
+cols = ['Z', 'theta', 'nu', 'N', 'M', 'phat']
+inference_df=inference_df[cols]
+inference_df.head()
 
 
-th = np.array(inference_df.theta)[:100000]
-p=np.array(inference_df.phat)[:100000]
-
-
-plt.plot(th, p)
-
-
-
+inference_df.to_csv('data/results/INFERENCE_DF_TWOPARAMS_1M.csv')
