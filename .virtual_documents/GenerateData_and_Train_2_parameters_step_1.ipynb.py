@@ -150,20 +150,8 @@ points = [(theta, nu) for theta, nu in
           zip(np.random.randint(low=1,high=4,size=6), np.random.randint(low=0,high=4,size=6))]
 
 results = run_sims(points)
+results[1]
 
-
-def lambda_test(theta, n, m, MLE=True):
-    Ln = L_prof(n,m,theta)
-    Ld = L_prof(n,m, theta_hat(n,m, MLE))
-    lambda_  = -2*np.log(Ln/Ld)
-    return lambda_
-
-def run_sim( theta, nu):
-    """Sample n ~ Pois(theta+nu), m ~ Pois(nu), and compute lambda(theta, n, m)"""
-    n = st.poisson.rvs(theta+nu, size=chi2_exp_size)
-    m = st.poisson.rvs(nu, size=chi2_exp_size)
-    lambda_ = lambda_test(theta, n, m, MLE)
-    return (n, m, lambda_)
 
 def plot_likelihood_heatmap(size):
     
@@ -262,7 +250,8 @@ def plot_weighted_hist(data_df):
     theta_bin_centers = (b_theta_w[1:]+b_theta_w[:-1])/2
     # nu_bin_centers = (b_nu_w[1:]+b_nu_w[:-1])/2
     ax.plot(theta_bin_centers, hist_counts_theta, label=r'Weighted Hist/Unweighted Hist for $\theta$')
-    ax.set_xlabel(r'$E[\theta]$')
+    ax.set_xlabel(r'$\theta$')
+    ax.set_ylabel(r'$E[\theta]$')
     ax.legend()
     # ax[1].plot(nu_bin_centers, hist_counts_nu, label=r'Weighted Hist/Unweighted Hist for $\nu$')
     # ax[1].set_xlabel(r'$\nu$')
@@ -546,8 +535,8 @@ with torch.no_grad():
 # ax.plot(theta_bin_centers, phat,label='phat')
 
 
-th=np.array(df.theta).flatten()
-plot_weighted_hist(data_df)
+# th=np.array(df.theta).flatten()
+# plot_weighted_hist(data_df)
 
 
 # inference_df.csvplt.hist(PHAT.flatten(), label=r'$\hat{p}=\hat{E}[Z|\theta]$', density=True)
