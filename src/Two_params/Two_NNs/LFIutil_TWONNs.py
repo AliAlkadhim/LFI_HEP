@@ -27,8 +27,28 @@ mp.rc('text', usetex=True)
 
 
 # ------------------------
-# 1-parameter model
+# 2-parameter model
 # ------------------------
+
+##############
+XMIN  = 0
+XMAX  = 20
+XBINS = 200
+NU    = 3
+D     = [(1, 0), (2, 0), (3, 0), 
+         (1, 1), (2, 1), (3, 1)]
+
+MLE=False
+
+if MLE:
+    target = 'Z_MLE_TRUE'
+    WHICH  = 'MLE'
+    source = ['theta', 'theta_hat_MLE', 'nu', 'N', 'M']
+else:
+    target = 'Z_MLE_FALSE   '
+    WHICH  = 'nonMLE'
+    source = ['theta', 'theta_hat_nonMLE', 'nu', 'N', 'M']
+
 
 # compute the MLE of theta
 def theta_hat1(n):
@@ -236,7 +256,7 @@ def plot_average_loss(traces):
 
 class Model(nn.Module):
     
-    def __init__(self, n_inputs=4, n_nodes=20, n_layers=5):
+    def __init__(self, n_inputs=len(source), n_nodes=20, n_layers=5):
 
         # call constructor of base (or super, or parent) class
         super(Model, self).__init__()
@@ -271,23 +291,10 @@ class Model(nn.Module):
         y = torch.sigmoid(y)
         return y
 
-##############
-XMIN  = 0
-XMAX  = 20
-XBINS = 200
-NU    = 3
-D     = [(1, 0), (2, 0), (3, 0), 
-         (1, 1), (2, 1), (3, 1)]
-MLE=True
-if MLE:
-    target = 'Z_MLE_TRUE'
-    WHICH  = 'MLE'
-else:
-    target = 'Z_MLE_FALSE   '
-    WHICH  = 'nonMLE'
+
     
-source = ['theta', 'nu', 'N', 'M']
-def hist_data(nu, N, M,
+
+def hist_data(thetahat, nu, N, M,
               xbins=XBINS,
               xmin=XMIN, 
               xmax=XMAX,
@@ -316,7 +323,7 @@ def hist_data(nu, N, M,
     y =  y1 / yt    
     
     return y, bb
-
+thetahat = 0
 def plot_data(nu, D, 
               func=None,
               xbins=XBINS,
@@ -334,7 +341,7 @@ def plot_data(nu, D,
     ax = ax.flatten()
     for j, (N, M) in enumerate(D):    
         #y is the histogram of theta (weighted/unweighted) and bb are its bin edges
-        y, bb = hist_data(nu, N, M)
+        y, bb = hist_data(thetahat=None, nu=nu,N= N,M=M)
         #hist data ON THE FLY GENERATES samples of (theta, n, m) and calculates Z for those, and
         #returns (yy,bb) above.
         ax[j].set_xlim(xmin, xmax)
@@ -346,7 +353,8 @@ def plot_data(nu, D,
         ax[j].plot(x, y, 'b', lw=2, label='weighted/unweighted histogrammed approx')
         
         if func:
-            p, _ = func(nu, N, M)
+            
+            p, _ = func(thetahat, nu, N, M)
             ax[j].plot(x, p, 'r', lw=2, label='model')
         
         ax[j].grid(True, which="both", linestyle='-')

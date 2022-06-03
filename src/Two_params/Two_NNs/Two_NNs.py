@@ -40,7 +40,7 @@ from sklearn.model_selection import train_test_split
 # import importlib
 
 # written out by LFI_generate1.ipynb
-import LFIutil as lfi
+import LFIutil_TWONNs as lfi
 
 # update fonts
 FONTSIZE = 14
@@ -72,7 +72,7 @@ else:
     target = 'Z_MLE_FALSE   '
     WHICH  = 'nonMLE'
     
-source = ['theta', 'nu', 'N', 'M']
+source = ['theta', 'theta_hat_MLE', 'nu', 'N', 'M']
 
 # print(np.allclose(np.array(data.Z_MLE_TRUE), np.array(data.Z_MLE_FALSE) ) )
 
@@ -83,7 +83,7 @@ NU    = 3
 D     = [(1, 0), (2, 0), (3, 0), 
          (1, 1), (2, 1), (3, 1)]
 
-def hist_data(nu, N, M,
+def hist_data(thetahat, nu, N, M,
               xbins=XBINS,
               xmin=XMIN, 
               xmax=XMAX,
@@ -168,7 +168,7 @@ traces = lfi.train(model, optimizer, lfi.average_loss,
 
 ##############################
 
-def usemodel(nu, N, M,
+def usemodel(thetahat, nu, N, M,
              xbins=XBINS,
              xmin=XMIN,
              xmax=XMAX):
@@ -176,7 +176,7 @@ def usemodel(nu, N, M,
     xstep = (xmax-xmin) / xbins
     bb    = np.arange(xmin, xmax+xstep, xstep)
     X     = (bb[1:] + bb[:-1])/2
-    X     = torch.Tensor([[x, nu, N, M] for x in X])
+    X     = torch.Tensor([[x, thetahat, nu, N, M] for x in X])
     
     model.eval()
     return model(X).detach().numpy(), bb
