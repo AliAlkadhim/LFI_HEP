@@ -1,0 +1,9 @@
+the info published for L fit should be very granular - it's not enough to just have 3 components of uncertainties 
+The likelihood fit by Sebastian et al is good but still leaves some problems. Eg for combination with ATLAS results,
+
+map the CMS nuissance parameters to the ATLAS ones
+	modelling of nuisance parameters could be different between CMS and ATLAS
+Need covariance matrix for every nuissance parameter
+
+
+Use Conveno to combine likelihoods, and idea is to publish a convariance matrix for all the nuissance parameters

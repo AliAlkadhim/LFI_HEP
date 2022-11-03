@@ -27,7 +27,7 @@ mp.rc('text', usetex=True)
 
 
 # ------------------------
-# 1-parameter model
+# 2-parameter model
 # ------------------------
 
 # compute the MLE of theta

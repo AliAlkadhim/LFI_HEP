@@ -20,6 +20,61 @@ def L(n,m,theta, number_of_params=2, X=None):
         return st.poisson.pmf(n, mu=theta+nu) * st.poisson.pmf(m, mu=nu)
     
 
+def run_sim( theta, nu):
+    """Sample n ~ Pois(theta+nu), m ~ Pois(nu), and compute lambda(theta, n, m)
+    return (n, m, lambda_), where each are np arrays of length chi2_expo
+    """
+    n = st.poisson.rvs(theta+nu, size=chi2_exp_size)
+    m = st.poisson.rvs(nu, size=chi2_exp_size)
+    lambda_ = lambda_test(theta, n, m, MLE)
+    return (n, m, lambda_)
+
+def run_sims(points):
+    """
+    input: a tuple of (theta, nu)
+    Run an entire simulation (that is, generate n and m from 
+    run_sim above, and calculate lambda) for each point, where 
+    """
+    lambda_results=[]
+
+    for p in points:
+        theta, nu = p
+        n, m, lambda_ = run_sim(theta, nu)
+        lambda_results.append((n, m, lambda_, theta, nu))
+        print( '(theta, nu) =  (%.f, %.f) ' % (theta, nu) )
+        print('\t \t with associated (n, m, lambda) = (%.f, %.f, %.f)' % (n, m, lambda_) )
+    return lambda_results
+
+def DR(s, theta):
+    return sp.special.gammainc(s, theta)
+
+def DL(s, theta):
+    return 1 - sp.special.gammainc(s+1, theta)
+
+k=1
+def L_prof(n,m,theta):
+    k=1
+    k1 = k+1
+    k2 = 0.5/k1
+    g = n+m - k1*theta
+    nu_hat = k2* (g+ np.sqrt(g*g +4*k1*m*theta))
+    p1 = st.poisson.pmf(n, mu = theta + nu_hat)
+    p2 = st.poisson.pmf(m, mu = k * nu_hat)
+    
+    return p1*p2
+
+def theta_hat(n,m, MLE=True):
+    theta_hat = n-m
+    
+    if not MLE:
+        theta_hat = theta_hat * (theta_hat > 0)
+    return theta_hat
+
+def lambda_test(theta, n, m, MLE=True):
+    Ln = L_prof(n,m,theta)
+    Ld = L_prof(n,m, theta_hat(n,m, MLE))
+    lambda_  = -2*np.log(Ln/Ld)
+    return lambda_
 # import Run_Regressor_Training as TRAIN
 class CustomDataset:
     """This takes the index for the data and target and gives dictionary of tensors of data and targets.
