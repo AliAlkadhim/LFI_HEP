@@ -2,6 +2,7 @@ import numpy as np
 import scipy as sp
 import scipy.stats as st
 import torch
+from numba import njit
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 import matplotlib as mp
@@ -12,6 +13,8 @@ import torch.nn as nn
 import copy
 import pandas as pd
 import optuna
+
+@njit
 def L(n,m,theta, number_of_params=2, X=None):
     """likelihood with one or two parameter"""
     if number_of_params==1:
@@ -45,13 +48,16 @@ def run_sims(points):
         print('\t \t with associated (n, m, lambda) = (%.f, %.f, %.f)' % (n, m, lambda_) )
     return lambda_results
 
+@njit
 def DR(s, theta):
     return sp.special.gammainc(s, theta)
 
+@njit
 def DL(s, theta):
     return 1 - sp.special.gammainc(s+1, theta)
 
 k=1
+@njit
 def L_prof(n,m,theta):
     k=1
     k1 = k+1
@@ -63,6 +69,7 @@ def L_prof(n,m,theta):
     
     return p1*p2
 
+@njit
 def theta_hat(n,m, MLE=True):
     theta_hat = n-m
     
@@ -70,11 +77,12 @@ def theta_hat(n,m, MLE=True):
         theta_hat = theta_hat * (theta_hat > 0)
     return theta_hat
 
+@njit
 def lambda_test(theta, n, m, MLE=True):
     Ln = L_prof(n,m,theta)
     Ld = L_prof(n,m, theta_hat(n,m, MLE))
     lambda_  = -2*np.log(Ln/Ld)
-    return lambda_
+    return np.array(lambda_)
 # import Run_Regressor_Training as TRAIN
 class CustomDataset:
     """This takes the index for the data and target and gives dictionary of tensors of data and targets.
