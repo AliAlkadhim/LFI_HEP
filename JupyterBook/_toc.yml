@@ -1,0 +1,8 @@
+# In _toc.yml
+format: jb-book
+root: intro
+chapters:
+- file: markdown
+- file: LFI_train.ipynb
+- file: markdown-notebooks
+

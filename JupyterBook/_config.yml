@@ -1,0 +1,16 @@
+# In _config.yml
+title: My sample book
+author: The Jupyter Book Community
+logo: logo.png
+execute:
+  execute_notebooks: force
+parse:
+  myst_enable_extensions:
+    # don't forget to list any other extensions you want enabled,
+    # including those that are enabled by default!
+    - amsmath
+
+# Add a bibtex file so that we can create citations
+bibtex_bibfiles:
+  - references.bib
+
