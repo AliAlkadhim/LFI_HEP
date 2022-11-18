@@ -310,6 +310,18 @@ title="Print to PDF"
     <a class="reference internal nav-link" href="#pivotal-likelihood-free-inference-for-count-data-in-particle-physics">
      Pivotal Likelihood-Free Inference for Count Data in Particle Physics
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#external-imports">
+       External imports
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#import-utils">
+       import utils
+      </a>
+     </li>
+    </ul>
    </li>
   </ul>
  </li>
@@ -588,6 +600,18 @@ title="Print to PDF"
     <a class="reference internal nav-link" href="#pivotal-likelihood-free-inference-for-count-data-in-particle-physics">
      Pivotal Likelihood-Free Inference for Count Data in Particle Physics
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#external-imports">
+       External imports
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#import-utils">
+       import utils
+      </a>
+     </li>
+    </ul>
    </li>
   </ul>
  </li>
@@ -854,6 +878,8 @@ title="Print to PDF"
 <h2>Pivotal Likelihood-Free Inference for Count Data in Particle Physics<a class="headerlink" href="#pivotal-likelihood-free-inference-for-count-data-in-particle-physics" title="Permalink to this headline">#</a></h2>
 <p>Ali Al Kadhim and Harrison B. Prosper <br>
 Department of Physics, Florida State University <br></p>
+<section id="external-imports">
+<h3>External imports<a class="headerlink" href="#external-imports" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span><span class="p">;</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -870,28 +896,54 @@ Department of Physics, Florida State University <br></p>
 <span class="n">mp</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;agg.path.chunksize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10000</span>
 <span class="n">font_legend</span> <span class="o">=</span> <span class="mi">15</span><span class="p">;</span> <span class="n">font_axes</span><span class="o">=</span><span class="mi">15</span>
 <span class="c1"># %matplotlib inline</span>
-<span class="kn">import</span> <span class="nn">copy</span><span class="p">;</span> <span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">copy</span><span class="p">;</span> <span class="kn">import</span> <span class="nn">sys</span><span class="p">;</span> <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">display</span>
-<span class="kn">import</span> <span class="nn">optuna</span>
-<span class="kn">import</span> <span class="nn">os</span><span class="p">;</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;LFI_BASE&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span>
-<span class="n">LFI_BASE</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;LFI_BASE&#39;</span><span class="p">];</span> <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;BASE directory&#39;</span><span class="p">,</span> <span class="n">LFI_BASE</span><span class="p">,</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="c1">#be extra careful in importing everything from a module, since we know what&#39;s in it it&#39;s fine!</span>
-<span class="kn">import</span> <span class="nn">..utils.utils</span> <span class="k">as</span> <span class="nn">utils</span>
-<span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">importlib</span> <span class="kn">import</span> <span class="n">import_module</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">optuna</span>
+<span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;optuna is only used for hyperparameter tuning, not critical!&#39;</span><span class="p">)</span>
+    <span class="k">pass</span>
+<span class="c1"># import sympy as sy</span>
 <span class="c1">#sometimes jupyter doesnt initialize MathJax automatically for latex, so do this</span>
 <span class="kn">import</span> <span class="nn">ipywidgets</span> <span class="k">as</span> <span class="nn">wid</span><span class="p">;</span> <span class="n">wid</span><span class="o">.</span><span class="n">HTMLMath</span><span class="p">(</span><span class="s1">&#39;$\LaTeX$&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">  File</span><span class="nn"> &quot;/tmp/ipykernel_578833/958571479.py&quot;</span><span class="gt">, line </span><span class="mi">21</span>
-    <span class="kn">import</span> <span class="nn">..utils.utils</span> <span class="k">as</span> <span class="nn">utils</span>
-           <span class="o">^</span>
-<span class="ne">SyntaxError</span>: invalid syntax
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "68dd32ffd039495185403f7810a39c53", "version_major": 2, "version_minor": 0}
+</script></div>
+</div>
+</section>
+<section id="import-utils">
+<h3>import utils<a class="headerlink" href="#import-utils" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="n">LFI_PIVOT_BASE</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;LFI_PIVOT_BASE&#39;</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;BASE directoy properly set = &#39;</span><span class="p">,</span> <span class="n">LFI_PIVOT_BASE</span><span class="p">)</span>
+    <span class="n">utils_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">LFI_PIVOT_BASE</span><span class="p">,</span> <span class="s1">&#39;utils&#39;</span><span class="p">)</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">utils_dir</span><span class="p">)</span>
+    <span class="kn">import</span> <span class="nn">utils</span>
+    <span class="c1">#usually its not recommended to import everything from a module, but we know</span>
+    <span class="c1">#whats in it so its fine</span>
+    <span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;BASE directory not properly set. Read repo README.</span><span class="se">\</span>
+<span class="s2">    If you need a function from utils, use the decorator below, or add utils to sys.path&quot;&quot;&quot;</span><span class="p">)</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>BASE directoy properly set =  /home/ali/Desktop/Pulled_Github_Repositories/LFI_HEP
 </pre></div>
 </div>
 </div>
 </div>
+</section>
 </section>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="background-and-problem-statement">
@@ -901,8 +953,8 @@ Department of Physics, Florida State University <br></p>
 \[ \prod_{k=1}^{N} \frac{e^{-(\epsilon_k \sigma + b_k)} (\epsilon_k \sigma + b_k)^{n_k}}{n_k !} \]</div>
 <p>Where <span class="math notranslate nohighlight">\(\sigma\)</span>, the cross section (the parameter of interest), <span class="math notranslate nohighlight">\(b_k\)</span> is expected background for the <span class="math notranslate nohighlight">\(k\)</span>th channel (the nuissance parameter). <span class="math notranslate nohighlight">\(\epsilon_k\)</span> is the “acceptance parameter”, for the <span class="math notranslate nohighlight">\(k\)</span>th channel, which is typically a product of the detector efficiency, branching fraction, and luminosity.</p>
 <p>This is the prototype of many statistical models in astronomy and particle physics in which data are binned and the count in each bin consist a priori of the sum of counts from signal and background. Written in terms of the simplified 2-parameter model, the expected count in each bin <span class="math notranslate nohighlight">\(k\)</span> takes the form</p>
-<div class="amsmath math notranslate nohighlight" id="equation-69d92605-d920-4e01-aed0-89281b183950">
-<span class="eqno">(8)<a class="headerlink" href="#equation-69d92605-d920-4e01-aed0-89281b183950" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-c14d4f32-267c-4a3b-bc26-440e1d7f5dd0">
+<span class="eqno">(8)<a class="headerlink" href="#equation-c14d4f32-267c-4a3b-bc26-440e1d7f5dd0" title="Permalink to this equation">#</a></span>\[\begin{equation}
     n_{exp}=\theta+\nu
 \end{equation}\]</div>
 <p>Where <span class="math notranslate nohighlight">\(n_{exp}\)</span> is the expected signal count, <span class="math notranslate nohighlight">\(\theta\)</span> is the unknown mean count, which is the parameter of interest (the cross section), and <span class="math notranslate nohighlight">\(\nu\)</span> is the background unknown mean count, which is the nuissance parameter.</p>
@@ -916,7 +968,7 @@ Department of Physics, Florida State University <br></p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_4_0.jpg" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_4_0.jpg" />
+<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_7_0.jpg" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_7_0.jpg" />
 </div>
 </div>
 </section>
@@ -1050,7 +1102,7 @@ L_{\text{prof}}(\theta) \equiv \frac{e^{-(\theta+\hat{\nu})} (\theta+\hat{\nu})^
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_7_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_7_0.png" />
+<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_10_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_10_0.png" />
 </div>
 </div>
 <p>The test statistic in Eq. <span class="math notranslate nohighlight">\((1)\)</span> is used due to its well-known behavior of it converging to ti a <span class="math notranslate nohighlight">\(\chi^2_k\)</span> variate with <span class="math notranslate nohighlight">\(k\)</span> degrees of freedom, according to Wilk’s Theorem, where <span class="math notranslate nohighlight">\(k\)</span> is the number of free parameters (parameters of interest after the nuissance parameters have been replaecd by their MLEs).</p>
@@ -1234,7 +1286,7 @@ L_{\text{prof}}(\theta) \equiv \frac{e^{-(\theta+\hat{\nu})} (\theta+\hat{\nu})^
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_15_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_15_0.png" />
+<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_18_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_18_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1258,13 +1310,13 @@ L_{\text{prof}}(\theta) \equiv \frac{e^{-(\theta+\hat{\nu})} (\theta+\hat{\nu})^
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_16_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_16_0.png" />
+<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_19_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_19_0.png" />
 </div>
 </div>
 <p>As shall be discussed later in this notebook, one way of calculating <span class="math notranslate nohighlight">\(p\)</span>-value for <span class="math notranslate nohighlight">\(\theta\)</span> corresponding to an observed <span class="math notranslate nohighlight">\(\{N,M\}\)</span> pair (which will still be dependent on <span class="math notranslate nohighlight">\(\nu\)</span>) is by calculating the test statistic at the <span class="math notranslate nohighlight">\(\{N,M\}\)</span> pair and calculating
 $$</p>
-<div class="amsmath math notranslate nohighlight" id="equation-11bf68dd-c90f-457d-afeb-fe83616d4641">
-<span class="eqno">(9)<a class="headerlink" href="#equation-11bf68dd-c90f-457d-afeb-fe83616d4641" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-cdd8b58c-97b9-4aa0-a999-23f683252a10">
+<span class="eqno">(9)<a class="headerlink" href="#equation-cdd8b58c-97b9-4aa0-a999-23f683252a10" title="Permalink to this equation">#</a></span>\[\begin{align}
 p_\theta (\nu) &amp;=\int_{\lambda_D}^\infty f \big(\lambda_{gen}(n,m \mid \theta,\nu) \mid H_{null} \big) \ d \lambda_{gen} \\
  &amp;= 1- \text{Prob} \big(\lambda_{gen}(n,m;\theta,\nu) \le \lambda_D(N,M;\theta,\nu) \big), \tag{2}
 \end{align}\]</div>
@@ -1605,7 +1657,7 @@ p_\theta (\nu) &amp;=\int_{\lambda_D}^\infty f \big(\lambda_{gen}(n,m \mid \thet
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_26_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_26_0.png" />
+<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_29_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_29_0.png" />
 </div>
 </div>
 </section>
@@ -1984,7 +2036,7 @@ first features batch shape
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_39_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_39_0.png" />
+<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_42_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_42_0.png" />
 </div>
 </div>
 <section id="plot-the-histogrammed-approximations-for-the-mle-vs-non-mle-cases-for-a-single-value-of-mathbf-nu">
@@ -2071,7 +2123,7 @@ first features batch shape
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_42_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_42_0.png" />
+<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_45_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_45_0.png" />
 </div>
 </div>
 </section>
@@ -2198,7 +2250,7 @@ first features batch shape
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_45_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_45_0.png" />
+<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_48_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_48_0.png" />
 </div>
 </div>
 <hr class="docutils" />
@@ -2953,7 +3005,7 @@ Iteration vs average loss
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_68_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_68_0.png" />
+<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_71_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_71_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -3020,7 +3072,7 @@ Iteration vs average loss
      99600	  0.063669	  0.063138	  0.063138
 </pre></div>
 </div>
-<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_72_1.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_72_1.png" />
+<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_75_1.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_75_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -3419,7 +3471,7 @@ Iteration vs average loss
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_87_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_87_0.png" />
+<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_90_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_90_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -3456,7 +3508,7 @@ Iteration vs average loss
  [0.5165771 ]]
 </pre></div>
 </div>
-<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_88_1.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_88_1.png" />
+<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_91_1.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_91_1.png" />
 </div>
 </div>
 <section id="save-trained-model-if-they-re-good-and-if-you-havent-saved-by-now">
@@ -3666,7 +3718,7 @@ Iteration vs average loss
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_98_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_98_0.png" />
+<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_101_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_101_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -3677,7 +3729,7 @@ Iteration vs average loss
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_99_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_99_0.png" />
+<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_102_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_102_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -3797,7 +3849,7 @@ Iteration vs average loss
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_101_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_101_0.png" />
+<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_104_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_104_0.png" />
 </div>
 </div>
 <hr class="docutils" />
@@ -4529,7 +4581,7 @@ Iteration vs average loss
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_126_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_126_0.png" />
+<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_129_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_129_0.png" />
 </div>
 </div>
 </section>
@@ -4590,7 +4642,7 @@ Iteration vs average loss
  [0.39201   ]]
 </pre></div>
 </div>
-<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_131_1.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_131_1.png" />
+<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_134_1.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_134_1.png" />
 </div>
 </div>
 <div class="cell docutils container">

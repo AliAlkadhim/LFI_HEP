@@ -9,7 +9,9 @@
 # November, 2022
 # 
 
-# In[1]:
+# ### External imports
+
+# In[37]:
 
 
 import numpy as np; import pandas as pd
@@ -28,14 +30,38 @@ font_legend = 15; font_axes=15
 # %matplotlib inline
 import copy; import sys; import os
 from IPython.display import Image, display
-import optuna
+from importlib import import_module
+
+try:
+    import optuna
+except Exception:
+    print('optuna is only used for hyperparameter tuning, not critical!')
+    pass
 # import sympy as sy
 #sometimes jupyter doesnt initialize MathJax automatically for latex, so do this
 import ipywidgets as wid; wid.HTMLMath('$\LaTeX$')
 
 
-# 
-# 
+# ### Import utils
+
+# In[38]:
+
+
+try:
+    LFI_PIVOT_BASE = os.environ['LFI_PIVOT_BASE']
+    print('BASE directoy properly set = ', LFI_PIVOT_BASE)
+    utils_dir = os.path.join(LFI_PIVOT_BASE, 'utils')
+    sys.path.append(utils_dir)
+    import utils
+    #usually its not recommended to import everything from a module, but we know
+    #whats in it so its fine
+    from utils import *
+except Exception:
+    print("""BASE directory not properly set. Read repo README.\
+    If you need a function from utils, use the decorator below, or add utils to sys.path""")
+    pass
+
+
 # 
 # The single count Poisson Model is a classic problem in statistics. Exact coverage means that the following is true
 # 
@@ -740,7 +766,7 @@ for n in np.arange(0, 11, 1):
     print('%10d\t%10.1f\t%10.1f' % (n, u1, u2))
 
 
-# # plot upper, lower and central intervals for one-parameter problem given a CL, $N$, and the CDF, and compare to model output (under construction, might be overkill)
+# # plot upper, lower and central intervals for one-parameter problem given a CL, $N$, and the CDF, and compare to model output (under construction, might be overkill, especially since we're interested in the 2-parameter problem)
 
 # In[ ]:
 

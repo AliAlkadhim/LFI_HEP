@@ -307,6 +307,16 @@ title="Print to PDF"
   </a>
   <ul class="visible nav section-nav flex-column">
    <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#external-imports">
+     External imports
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#import-utils">
+     Import utils
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#algorithm">
      Algorithm
     </a>
@@ -390,12 +400,12 @@ title="Print to PDF"
   </ul>
  </li>
  <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#plot-upper-lower-and-central-intervals-for-one-parameter-problem-given-a-cl-n-and-the-cdf-and-compare-to-model-output-under-construction-might-be-overkill">
+  <a class="reference internal nav-link" href="#plot-upper-lower-and-central-intervals-for-one-parameter-problem-given-a-cl-n-and-the-cdf-and-compare-to-model-output-under-construction-might-be-overkill-especially-since-we-re-interested-in-the-2-parameter-problem">
    plot upper, lower and central intervals for one-parameter problem given a CL,
    <span class="math notranslate nohighlight">
     \(N\)
    </span>
-   , and the CDF, and compare to model output (under construction, might be overkill)
+   , and the CDF, and compare to model output (under construction, might be overkill, especially since we’re interested in the 2-parameter problem)
   </a>
  </li>
 </ul>
@@ -423,6 +433,16 @@ title="Print to PDF"
   </a>
   <ul class="visible nav section-nav flex-column">
    <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#external-imports">
+     External imports
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#import-utils">
+     Import utils
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#algorithm">
      Algorithm
     </a>
@@ -506,12 +526,12 @@ title="Print to PDF"
   </ul>
  </li>
  <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#plot-upper-lower-and-central-intervals-for-one-parameter-problem-given-a-cl-n-and-the-cdf-and-compare-to-model-output-under-construction-might-be-overkill">
+  <a class="reference internal nav-link" href="#plot-upper-lower-and-central-intervals-for-one-parameter-problem-given-a-cl-n-and-the-cdf-and-compare-to-model-output-under-construction-might-be-overkill-especially-since-we-re-interested-in-the-2-parameter-problem">
    plot upper, lower and central intervals for one-parameter problem given a CL,
    <span class="math notranslate nohighlight">
     \(N\)
    </span>
-   , and the CDF, and compare to model output (under construction, might be overkill)
+   , and the CDF, and compare to model output (under construction, might be overkill, especially since we’re interested in the 2-parameter problem)
   </a>
  </li>
 </ul>
@@ -529,6 +549,8 @@ title="Print to PDF"
 <p>Ali Al Kadhim and Harrison B. Prosper<br>
 Department of Physics, Florida State University<br></p>
 <p>November, 2022</p>
+<section id="external-imports">
+<h2>External imports<a class="headerlink" href="#external-imports" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span><span class="p">;</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -547,7 +569,13 @@ Department of Physics, Florida State University<br></p>
 <span class="c1"># %matplotlib inline</span>
 <span class="kn">import</span> <span class="nn">copy</span><span class="p">;</span> <span class="kn">import</span> <span class="nn">sys</span><span class="p">;</span> <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">display</span>
-<span class="kn">import</span> <span class="nn">optuna</span>
+<span class="kn">from</span> <span class="nn">importlib</span> <span class="kn">import</span> <span class="n">import_module</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">optuna</span>
+<span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;optuna is only used for hyperparameter tuning, not critical!&#39;</span><span class="p">)</span>
+    <span class="k">pass</span>
 <span class="c1"># import sympy as sy</span>
 <span class="c1">#sometimes jupyter doesnt initialize MathJax automatically for latex, so do this</span>
 <span class="kn">import</span> <span class="nn">ipywidgets</span> <span class="k">as</span> <span class="nn">wid</span><span class="p">;</span> <span class="n">wid</span><span class="o">.</span><span class="n">HTMLMath</span><span class="p">(</span><span class="s1">&#39;$\LaTeX$&#39;</span><span class="p">)</span>
@@ -556,12 +584,39 @@ Department of Physics, Florida State University<br></p>
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "95be525109f24de6b9584292506e9c84", "version_major": 2, "version_minor": 0}
+{"model_id": "7d71d4c10a454ca6ab661be417f92c6c", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
+</section>
+<section id="import-utils">
+<h2>Import utils<a class="headerlink" href="#import-utils" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="n">LFI_PIVOT_BASE</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;LFI_PIVOT_BASE&#39;</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;BASE directoy properly set = &#39;</span><span class="p">,</span> <span class="n">LFI_PIVOT_BASE</span><span class="p">)</span>
+    <span class="n">utils_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">LFI_PIVOT_BASE</span><span class="p">,</span> <span class="s1">&#39;utils&#39;</span><span class="p">)</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">utils_dir</span><span class="p">)</span>
+    <span class="kn">import</span> <span class="nn">utils</span>
+    <span class="c1">#usually its not recommended to import everything from a module, but we know</span>
+    <span class="c1">#whats in it so its fine</span>
+    <span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;BASE directory not properly set. Read repo README.</span><span class="se">\</span>
+<span class="s2">    If you need a function from utils, use the decorator below, or add utils to sys.path&quot;&quot;&quot;</span><span class="p">)</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>BASE directoy properly set =  /home/ali/Desktop/Pulled_Github_Repositories/LFI_HEP
+</pre></div>
+</div>
+</div>
+</div>
 <p>The single count Poisson Model is a classic problem in statistics. Exact coverage means that the following is true</p>
-<div class="amsmath math notranslate nohighlight" id="equation-e3763fd0-3bca-4bc4-a1ec-ed2fd727139f">
-<span class="eqno">(1)<a class="headerlink" href="#equation-e3763fd0-3bca-4bc4-a1ec-ed2fd727139f" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-004a62e4-e814-48b0-be0b-8ec4e789850c">
+<span class="eqno">(1)<a class="headerlink" href="#equation-004a62e4-e814-48b0-be0b-8ec4e789850c" title="Permalink to this equation">#</a></span>\[\begin{align}
     P\{ \theta \in [ \, \underline{\theta}(n), \, \overline{\theta}(n) \, ] \, \} \geq 1 - \alpha, \forall \textrm{ fixed values of } \theta , 
 \end{align}\]</div>
 <p>where <span class="math notranslate nohighlight">\(P\)</span> is called the <strong>coverage probability</strong>, <span class="math notranslate nohighlight">\(1 - \alpha\)</span> the confidence level (CL), and <span class="math notranslate nohighlight">\(\alpha\)</span> the size of the associated hypothesis test. For a given experiment, the parameter <span class="math notranslate nohighlight">\(\theta\)</span>, the mean count, is presumed <em>fixed</em>. But the quantity <span class="math notranslate nohighlight">\([ \, \underline{\theta}(n), \, \overline{\theta}(n) \, ]\)</span> is a <em>random</em> interval which, in general, differs from one experiment to another.</p>
@@ -572,18 +627,19 @@ In an infinite ensemble of experiments, each of which may be associated with a d
 As the name implies, the <strong>sampling distribution</strong> of <span class="math notranslate nohighlight">\(t\)</span> is the distribution of <span class="math notranslate nohighlight">\(t\)</span> induced by the underlying distribution of the potential observations. In this notebook, the statistic <span class="math notranslate nohighlight">\(t\)</span> is simply <span class="math notranslate nohighlight">\(t(n) = \hat{\theta} = n\)</span>.</p>
 <p>A <strong>statistic</strong> <span class="math notranslate nohighlight">\(t\)</span> is a function of the data that compresses the data in such as way that, ideally, all relevant information in the data about the parameter <span class="math notranslate nohighlight">\(\theta\)</span> is preserved.</p>
 <p>What this means in practice is that the accuracy (suitably defined) with which <span class="math notranslate nohighlight">\(\theta\)</span> can be estimated from <span class="math notranslate nohighlight">\(t\)</span> is equal to the accuracy with which <span class="math notranslate nohighlight">\(\theta\)</span> can be estimated directly from the data without compression. A statistic with this property, for a given parameter, is called a <strong>sufficient statistic</strong> for that parameter. Obviously, the uncompressed data are sufficient statistics! The challenge is finding sufficient statistics that substantially compress the data.</p>
+</section>
 <section id="algorithm">
 <h2>Algorithm<a class="headerlink" href="#algorithm" title="Permalink to this headline">#</a></h2>
 <p>Define the <em>right</em> and <em>left</em> cumulative distribution functions of the
 sampling distribution, <span class="math notranslate nohighlight">\(f_\theta(t)\)</span>, by</p>
-<div class="amsmath math notranslate nohighlight" id="equation-4b00eaf2-c376-4a14-aec7-cd6f319cad1c">
-<span class="eqno">(2)<a class="headerlink" href="#equation-4b00eaf2-c376-4a14-aec7-cd6f319cad1c" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-b5ebe9cf-5db3-4ba8-8ec6-e41e3b30b06a">
+<span class="eqno">(2)<a class="headerlink" href="#equation-b5ebe9cf-5db3-4ba8-8ec6-e41e3b30b06a" title="Permalink to this equation">#</a></span>\[\begin{align}
       D_R(x, \theta) &amp; = \int_{t \geq x} f_\theta(t) \, dt \textrm{ and } \\ 
       D_L(x, \theta) &amp; = \int_{t \leq x} f_\theta(t) \, dt.
  \end{align}\]</div>
 <p>By solving the equations</p>
-<div class="amsmath math notranslate nohighlight" id="equation-bdad17c2-8f38-4370-81e5-766f6c6d34df">
-<span class="eqno">(3)<a class="headerlink" href="#equation-bdad17c2-8f38-4370-81e5-766f6c6d34df" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-ff9d9f5a-4870-4a0e-9150-e778be7eb2a1">
+<span class="eqno">(3)<a class="headerlink" href="#equation-ff9d9f5a-4870-4a0e-9150-e778be7eb2a1" title="Permalink to this equation">#</a></span>\[\begin{align}
     D_R(x, \underline{\theta}) &amp; = \alpha_R,\\
     D_L(x, \overline{\theta}) &amp; =  \alpha_L,
 \end{align}\]</div>
@@ -597,8 +653,8 @@ where <span class="math notranslate nohighlight">\(\text{CL} + \alpha_R + \alpha
 <h2>Application to the Poisson distribution<a class="headerlink" href="#application-to-the-poisson-distribution" title="Permalink to this headline">#</a></h2>
 <p>The Neyman algorithm, applied to the test statistic <span class="math notranslate nohighlight">\(t(n) = n\)</span> for the
 Poisson distribution, requires the functions</p>
-<div class="amsmath math notranslate nohighlight" id="equation-5a41d9ba-f80c-42c5-87b9-cc5293d6c477">
-<span class="eqno">(4)<a class="headerlink" href="#equation-5a41d9ba-f80c-42c5-87b9-cc5293d6c477" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-14177e3c-aca6-4418-8e52-0dce51c83570">
+<span class="eqno">(4)<a class="headerlink" href="#equation-14177e3c-aca6-4418-8e52-0dce51c83570" title="Permalink to this equation">#</a></span>\[\begin{align}
       D_R(N, \theta) &amp; = \sum_{k=N}^\infty \textrm{Poisson}(k, \theta) = P(N, \theta),\\
       \textrm{and   } D_L(N, \theta) &amp; = \sum_{k=0}^N \textrm{Poisson}(k, \theta) = 1 - P(N+1, \theta) ,
  \end{align}\]</div>
@@ -749,7 +805,7 @@ p=\int_{-\infty}^{a} \mathrm{d} x f(x) \quad \text { for } \quad a&lt;A \quad \t
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(40, 40) 		 (40, 40)
 </pre></div>
 </div>
-<img alt="_images/1_Intro_and_One_Parameter_Problem_8_1.png" src="_images/1_Intro_and_One_Parameter_Problem_8_1.png" />
+<img alt="_images/1_Intro_and_One_Parameter_Problem_11_1.png" src="_images/1_Intro_and_One_Parameter_Problem_11_1.png" />
 </div>
 </div>
 <section id="load-data">
@@ -838,8 +894,8 @@ p=\int_{-\infty}^{a} \mathrm{d} x f(x) \quad \text { for } \quad a&lt;A \quad \t
 <section id="define-functions">
 <h3>Define functions<a class="headerlink" href="#define-functions" title="Permalink to this headline">#</a></h3>
 <p>$</p>
-<div class="amsmath math notranslate nohighlight" id="equation-d57867f6-799e-4185-8f1c-39f7f7f6be93">
-<span class="eqno">(5)<a class="headerlink" href="#equation-d57867f6-799e-4185-8f1c-39f7f7f6be93" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-99cb44ce-6fde-476d-a736-9cf59b8d4953">
+<span class="eqno">(5)<a class="headerlink" href="#equation-99cb44ce-6fde-476d-a736-9cf59b8d4953" title="Permalink to this equation">#</a></span>\[\begin{align}
       D_R(N, \theta) &amp; = \sum_{k=N}^\infty \textrm{Poisson}(k, \theta) = P(N, \theta),\\
       \textrm{and   } D_L(N, \theta) &amp; = \sum_{k=0}^N \textrm{Poisson}(k, \theta) = 1 - P(N+1, \theta).
 \end{align}\]</div>
@@ -968,7 +1024,7 @@ p=\int_{-\infty}^{a} \mathrm{d} x f(x) \quad \text { for } \quad a&lt;A \quad \t
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/1_Intro_and_One_Parameter_Problem_17_0.png" src="_images/1_Intro_and_One_Parameter_Problem_17_0.png" />
+<img alt="_images/1_Intro_and_One_Parameter_Problem_20_0.png" src="_images/1_Intro_and_One_Parameter_Problem_20_0.png" />
 </div>
 </div>
 </section>
@@ -1105,8 +1161,8 @@ test set size:           5000
 <section id="empirical-risk-that-is-average-loss">
 <h3>Empirical risk (that is, average loss)<a class="headerlink" href="#empirical-risk-that-is-average-loss" title="Permalink to this headline">#</a></h3>
 <p>The empirical risk, which is the <strong>objective function</strong> we shall minimize, is defined as</p>
-<div class="amsmath math notranslate nohighlight" id="equation-1e9215e0-5cdb-4f07-89a8-a594a1906916">
-<span class="eqno">(6)<a class="headerlink" href="#equation-1e9215e0-5cdb-4f07-89a8-a594a1906916" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-91d23c0c-ccdd-4047-a222-9ec0a0ead91c">
+<span class="eqno">(6)<a class="headerlink" href="#equation-91d23c0c-ccdd-4047-a222-9ec0a0ead91c" title="Permalink to this equation">#</a></span>\[\begin{align}
 R_M(\theta) &amp; = \frac{1}{M}\sum_{m=1}^M L(t_m, f_m),
 \end{align}\]</div>
 <p>where</p>
@@ -1116,8 +1172,8 @@ R_M(\theta) &amp; = \frac{1}{M}\sum_{m=1}^M L(t_m, f_m),
     L(t, f) &amp;= (t - f)^2
 \end{align*}\]</div>
 <p>The empirical risk <span class="math notranslate nohighlight">\(R_M\)</span> approximates the <strong>risk</strong></p>
-<div class="amsmath math notranslate nohighlight" id="equation-d274ffb6-ef1e-48db-bdf7-fdcd959c6f4f">
-<span class="eqno">(7)<a class="headerlink" href="#equation-d274ffb6-ef1e-48db-bdf7-fdcd959c6f4f" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-1b3c60d8-d7a5-49f8-aabf-704e0f99f8ee">
+<span class="eqno">(7)<a class="headerlink" href="#equation-1b3c60d8-d7a5-49f8-aabf-704e0f99f8ee" title="Permalink to this equation">#</a></span>\[\begin{align}
 R[f] &amp; = \int \cdots \int \, p(t, \mathbf{x}) \, L(t, f(\mathbf{x}, \theta)) \, dt \, d\mathbf{x},
 \end{align}\]</div>
 <p>which is a <strong>functional</strong> of the model <span class="math notranslate nohighlight">\(f\)</span>. The quantity <span class="math notranslate nohighlight">\(p(t, \mathbf{x}) \, dt\, d\mathbf{x}\)</span> is the probability distribution from which the sample <span class="math notranslate nohighlight">\(\{ (t_m, \mathbf{x}_m), m = 1,\cdots, M \}\)</span> is presumed to have been drawn.</p>
@@ -1397,7 +1453,7 @@ Iteration vs average loss
      29990	  0.061578	  0.061278
 </pre></div>
 </div>
-<img alt="_images/1_Intro_and_One_Parameter_Problem_37_1.png" src="_images/1_Intro_and_One_Parameter_Problem_37_1.png" />
+<img alt="_images/1_Intro_and_One_Parameter_Problem_40_1.png" src="_images/1_Intro_and_One_Parameter_Problem_40_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1432,7 +1488,7 @@ Iteration vs average loss
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/1_Intro_and_One_Parameter_Problem_39_0.png" src="_images/1_Intro_and_One_Parameter_Problem_39_0.png" />
+<img alt="_images/1_Intro_and_One_Parameter_Problem_42_0.png" src="_images/1_Intro_and_One_Parameter_Problem_42_0.png" />
 </div>
 </div>
 </section>
@@ -1488,8 +1544,8 @@ Iteration vs average loss
 </section>
 </section>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="plot-upper-lower-and-central-intervals-for-one-parameter-problem-given-a-cl-n-and-the-cdf-and-compare-to-model-output-under-construction-might-be-overkill">
-<h1>plot upper, lower and central intervals for one-parameter problem given a CL, <span class="math notranslate nohighlight">\(N\)</span>, and the CDF, and compare to model output (under construction, might be overkill)<a class="headerlink" href="#plot-upper-lower-and-central-intervals-for-one-parameter-problem-given-a-cl-n-and-the-cdf-and-compare-to-model-output-under-construction-might-be-overkill" title="Permalink to this headline">#</a></h1>
+<section class="tex2jax_ignore mathjax_ignore" id="plot-upper-lower-and-central-intervals-for-one-parameter-problem-given-a-cl-n-and-the-cdf-and-compare-to-model-output-under-construction-might-be-overkill-especially-since-we-re-interested-in-the-2-parameter-problem">
+<h1>plot upper, lower and central intervals for one-parameter problem given a CL, <span class="math notranslate nohighlight">\(N\)</span>, and the CDF, and compare to model output (under construction, might be overkill, especially since we’re interested in the 2-parameter problem)<a class="headerlink" href="#plot-upper-lower-and-central-intervals-for-one-parameter-problem-given-a-cl-n-and-the-cdf-and-compare-to-model-output-under-construction-might-be-overkill-especially-since-we-re-interested-in-the-2-parameter-problem" title="Permalink to this headline">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_lower_upper_bounds</span><span class="p">(</span><span class="n">Nrnage</span><span class="p">,</span> <span class="n">thetarange</span><span class="p">,</span> <span class="n">cdf</span><span class="p">,</span> <span class="n">CL_list</span><span class="p">):</span>

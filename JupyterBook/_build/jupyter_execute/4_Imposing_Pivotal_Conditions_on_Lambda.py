@@ -7,6 +7,8 @@
 # Department of Physics, Florida State University <br>
 # 
 
+# ### External imports
+
 # In[1]:
 
 
@@ -24,17 +26,38 @@ plt.style.use('seaborn-deep')
 mp.rcParams['agg.path.chunksize'] = 10000
 font_legend = 15; font_axes=15
 # %matplotlib inline
-#define base directory
-import os; os.environ['LFI_BASE']=os.getcwd() + '/'
-LFI_BASE = os.environ['LFI_BASE']; print('BASE directory', LFI_BASE,'\n')
-import copy; import sys; 
+import copy; import sys; import os
 from IPython.display import Image, display
-import optuna
-#be extra careful in importing everything from a module, since we know what's in it it's fine!
-import utils.utils as utils
-from utils import *
+from importlib import import_module
+
+try:
+    import optuna
+except Exception:
+    print('optuna is only used for hyperparameter tuning, not critical!')
+    pass
+# import sympy as sy
 #sometimes jupyter doesnt initialize MathJax automatically for latex, so do this
 import ipywidgets as wid; wid.HTMLMath('$\LaTeX$')
+
+
+# ### import utils
+
+# In[2]:
+
+
+try:
+    LFI_PIVOT_BASE = os.environ['LFI_PIVOT_BASE']
+    print('BASE directoy properly set = ', LFI_PIVOT_BASE)
+    utils_dir = os.path.join(LFI_PIVOT_BASE, 'utils')
+    sys.path.append(utils_dir)
+    import utils
+    #usually its not recommended to import everything from a module, but we know
+    #whats in it so its fine
+    from utils import *
+except Exception:
+    print("""BASE directory not properly set. Read repo README.\
+    If you need a function from utils, use the decorator below, or add utils to sys.path""")
+    pass
 
 
 # # In the previous notebook, we saw how we can construct a pivotal model $\mathbf{f}$. In this notebook, we explore the possibility of constructing a pivotal test statistic $\mathbf{\lambda}$

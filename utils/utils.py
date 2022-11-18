@@ -795,15 +795,15 @@ def tune_hyperparameters():
     param_df.to_csv(filename)   
     
     
-BEST_PARAMS = pd.read_csv(LFI_BASE+'best_params/best_params_Test_Trials.csv')
-print(BEST_PARAMS)
+# BEST_PARAMS = pd.read_csv(LFI_BASE+'best_params/best_params_Test_Trials.csv')
+# print(BEST_PARAMS)
 
-n_layers = int(BEST_PARAMS["n_layers"]) 
-hidden_size = int(BEST_PARAMS["hidden_size"])
-dropout = float(BEST_PARAMS["dropout"])
-optimizer_name = BEST_PARAMS["optimizer_name"].to_string().split()[1]
-learning_rate =  float(BEST_PARAMS["learning_rate"])
-batch_size = int(BEST_PARAMS["batch_size"])
+# n_layers = int(BEST_PARAMS["n_layers"]) 
+# hidden_size = int(BEST_PARAMS["hidden_size"])
+# dropout = float(BEST_PARAMS["dropout"])
+# optimizer_name = BEST_PARAMS["optimizer_name"].to_string().split()[1]
+# learning_rate =  float(BEST_PARAMS["learning_rate"])
+# batch_size = int(BEST_PARAMS["batch_size"])
 
 def initiate_whose_model(Ali_or_Harrison, MLE):
     whose_model='Ali'

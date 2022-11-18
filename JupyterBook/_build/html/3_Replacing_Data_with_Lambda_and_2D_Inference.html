@@ -310,6 +310,13 @@ title="Print to PDF"
   <a class="reference internal nav-link" href="#under-construction-check-back-here-soon">
    under construction, check back here soon :)
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#import-utils">
+     import utils
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -339,6 +346,13 @@ title="Print to PDF"
   <a class="reference internal nav-link" href="#under-construction-check-back-here-soon">
    under construction, check back here soon :)
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#import-utils">
+     import utils
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -359,6 +373,69 @@ Department of Physics, Florida State University <br></p>
 </section>
 <section id="under-construction-check-back-here-soon">
 <h2>under construction, check back here soon :)<a class="headerlink" href="#under-construction-check-back-here-soon" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span><span class="p">;</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span><span class="p">;</span> <span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">st</span>
+<span class="kn">import</span> <span class="nn">torch</span><span class="p">;</span> <span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="c1">#use numba&#39;s just-in-time compiler to speed things up</span>
+<span class="kn">from</span> <span class="nn">numba</span> <span class="kn">import</span> <span class="n">njit</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span><span class="p">;</span> <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mp</span><span class="p">;</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span><span class="p">;</span> 
+<span class="c1">#reset matplotlib stle/parameters</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">mpl</span><span class="o">.</span><span class="n">rcParamsDefault</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-deep&#39;</span><span class="p">)</span>
+<span class="n">mp</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;agg.path.chunksize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10000</span>
+<span class="n">font_legend</span> <span class="o">=</span> <span class="mi">15</span><span class="p">;</span> <span class="n">font_axes</span><span class="o">=</span><span class="mi">15</span>
+<span class="c1"># %matplotlib inline</span>
+<span class="kn">import</span> <span class="nn">copy</span><span class="p">;</span> <span class="kn">import</span> <span class="nn">sys</span><span class="p">;</span> <span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">display</span>
+<span class="kn">from</span> <span class="nn">importlib</span> <span class="kn">import</span> <span class="n">import_module</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">optuna</span>
+<span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;optuna is only used for hyperparameter tuning, not critical!&#39;</span><span class="p">)</span>
+    <span class="k">pass</span>
+<span class="c1"># import sympy as sy</span>
+<span class="c1">#sometimes jupyter doesnt initialize MathJax automatically for latex, so do this</span>
+<span class="kn">import</span> <span class="nn">ipywidgets</span> <span class="k">as</span> <span class="nn">wid</span><span class="p">;</span> <span class="n">wid</span><span class="o">.</span><span class="n">HTMLMath</span><span class="p">(</span><span class="s1">&#39;$\LaTeX$&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "68dd32ffd039495185403f7810a39c53", "version_major": 2, "version_minor": 0}
+</script></div>
+</div>
+<section id="import-utils">
+<h3>import utils<a class="headerlink" href="#import-utils" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="n">LFI_PIVOT_BASE</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;LFI_PIVOT_BASE&#39;</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;BASE directoy properly set = &#39;</span><span class="p">,</span> <span class="n">LFI_PIVOT_BASE</span><span class="p">)</span>
+    <span class="n">utils_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">LFI_PIVOT_BASE</span><span class="p">,</span> <span class="s1">&#39;utils&#39;</span><span class="p">)</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">utils_dir</span><span class="p">)</span>
+    <span class="kn">import</span> <span class="nn">utils</span>
+    <span class="c1">#usually its not recommended to import everything from a module, but we know</span>
+    <span class="c1">#whats in it so its fine</span>
+    <span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;BASE directory not properly set. Read repo README.</span><span class="se">\</span>
+<span class="s2">    If you need a function from utils, use the decorator below, or add utils to sys.path&quot;&quot;&quot;</span><span class="p">)</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>BASE directoy properly set =  /home/ali/Desktop/Pulled_Github_Repositories/LFI_HEP
+</pre></div>
+</div>
+</div>
+</div>
+</section>
 </section>
 </section>
 
