@@ -3,5 +3,5 @@ format: jb-book
 root: intro
 chapters:
 - file: 1_Intro_and_One_Parameter_Problem.ipynb
-- file: markdown-notebooks
+- file: 2_Two_Parameter_Problem_and_Pivotal_p_Value.ipynb
 
