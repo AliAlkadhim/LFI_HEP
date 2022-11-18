@@ -1,16 +1,11 @@
-# Welcome to your Jupyter Book
+# Welcome to the *Likelihood-Free Inference for Particle Physics* Jupyter book
 
-This is a small sample book to give you a feel for how book content is
-structured.
 
-:::{note}
-Here is a note!
-:::
+Ali Al Kadhim and Harrison B. Prosper<br>
+Department of Physics, Florida State University<br>
 
-And here is a code block:
+November, 2022<br>
 
-```
-e = mc^2
-```
+This is an interactive tutorial-based jupyter book for our work, where we explain the content of our work in a heuristic fashion. The jupyter notebooks are numbered by the order in which they should be read.
 
-Check out the content pages bundled with this sample book to see more.
+

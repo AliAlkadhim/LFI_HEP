@@ -2,7 +2,6 @@
 format: jb-book
 root: intro
 chapters:
-- file: markdown
-- file: LFI_train.ipynb
+- file: 1_Intro_and_One_Parameter_Problem.ipynb
 - file: markdown-notebooks
 

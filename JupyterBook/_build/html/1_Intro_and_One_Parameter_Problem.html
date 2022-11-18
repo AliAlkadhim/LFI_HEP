@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Likelihood-Free Inference - Model Training &#8212; Pivotal Likelihood-Free Inference for Particle Physics</title>
+    <title>Pivotal Likelihood-Free Inference for Count Data in Particle Physics &#8212; Pivotal Likelihood-Free Inference for Particle Physics</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -54,6 +54,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="&lt;no title&gt;" href="markdown-notebooks.html" />
+    <link rel="prev" title="Welcome to the Likelihood-Free Inference for Particle Physics Jupyter book" href="intro.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -108,9 +110,9 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="1_Intro_and_One_Parameter_Problem.html">
+        <ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    Pivotal Likelihood-Free Inference for Count Data in Particle Physics
   </a>
  </li>
@@ -173,7 +175,7 @@ title="Toggle navigation"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="https://mybinder.org/v2/gh/AliAlkadhim/LFI_HEP/master?urlpath=tree/JupyterBook/LFI_train.ipynb"
+        <a href="https://mybinder.org/v2/gh/AliAlkadhim/LFI_HEP/master?urlpath=tree/JupyterBook/1_Intro_and_One_Parameter_Problem.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -216,7 +218,7 @@ title="Fullscreen mode"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="_sources/LFI_train.ipynb"
+        <a href="_sources/1_Intro_and_One_Parameter_Problem.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -275,85 +277,102 @@ title="Print to PDF"
     </div>
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-poisson-problem-a-single-count">
-   The Poisson Problem: A Single Count
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Pivotal Likelihood-Free Inference for Count Data in Particle Physics
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#algorithm">
      Algorithm
     </a>
    </li>
-   <li class="toc-h3 nav-item toc-entry">
+   <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#application-to-the-poisson-distribution">
      Application to the Poisson distribution
     </a>
    </li>
-   <li class="toc-h3 nav-item toc-entry">
+   <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#references">
      References
     </a>
    </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#required-modules">
-     Required modules
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#background-on-confidence-intervals">
+   Background on Confidence Intervals
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
     </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#load-data">
-     Load data
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#define-functions">
-     Define functions
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#plot-data">
-     Plot data
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#train-validation-and-test-sets">
-     Train, validation, and test sets
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#return-a-random-batch-of-data-from-the-training-set">
-     Return a (random) batch of data from the training set
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#empirical-risk-that-is-average-loss">
-     Empirical risk (that is, average loss)
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#function-to-execute-training-loop">
-     Function to execute training loop
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#define-model-f-mathbf-x-theta">
-     Define model
-     <span class="math notranslate nohighlight">
-      \(f(\mathbf{x}, \theta)\)
-     </span>
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#train">
-     Train!
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#computing-90-upper-limits">
-     Computing 90% upper limits
-    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#load-data">
+       Load data
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#define-functions">
+       Define functions
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#plot-data">
+       Plot data
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#train-validation-and-test-sets">
+       Train, validation, and test sets
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#return-a-random-batch-of-data-from-the-training-set">
+       Return a (random) batch of data from the training set
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#empirical-risk-that-is-average-loss">
+       Empirical risk (that is, average loss)
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#function-to-execute-training-loop">
+       Function to execute training loop
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#define-model-f-mathbf-x-theta">
+       Define model
+       <span class="math notranslate nohighlight">
+        \(f(\mathbf{x}, \theta)\)
+       </span>
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#train">
+       Train!
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#computing-90-upper-limits">
+       Computing 90% upper limits
+      </a>
+     </li>
+    </ul>
    </li>
   </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#plot-upper-lower-and-central-intervals-for-one-parameter-problem-given-a-cl-n-and-the-cdf-and-compare-to-model-output-under-construction-might-be-overkill">
+   plot upper, lower and central intervals for one-parameter problem given a CL,
+   <span class="math notranslate nohighlight">
+    \(N\)
+   </span>
+   , and the CDF, and compare to model output (under construction, might be overkill)
+  </a>
  </li>
 </ul>
 
@@ -364,7 +383,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Likelihood-Free Inference - Model Training</h1>
+                <h1>Pivotal Likelihood-Free Inference for Count Data in Particle Physics</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -374,85 +393,102 @@ title="Print to PDF"
                         </div>
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-poisson-problem-a-single-count">
-   The Poisson Problem: A Single Count
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Pivotal Likelihood-Free Inference for Count Data in Particle Physics
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#algorithm">
      Algorithm
     </a>
    </li>
-   <li class="toc-h3 nav-item toc-entry">
+   <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#application-to-the-poisson-distribution">
      Application to the Poisson distribution
     </a>
    </li>
-   <li class="toc-h3 nav-item toc-entry">
+   <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#references">
      References
     </a>
    </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#required-modules">
-     Required modules
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#background-on-confidence-intervals">
+   Background on Confidence Intervals
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
     </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#load-data">
-     Load data
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#define-functions">
-     Define functions
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#plot-data">
-     Plot data
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#train-validation-and-test-sets">
-     Train, validation, and test sets
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#return-a-random-batch-of-data-from-the-training-set">
-     Return a (random) batch of data from the training set
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#empirical-risk-that-is-average-loss">
-     Empirical risk (that is, average loss)
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#function-to-execute-training-loop">
-     Function to execute training loop
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#define-model-f-mathbf-x-theta">
-     Define model
-     <span class="math notranslate nohighlight">
-      \(f(\mathbf{x}, \theta)\)
-     </span>
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#train">
-     Train!
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#computing-90-upper-limits">
-     Computing 90% upper limits
-    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#load-data">
+       Load data
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#define-functions">
+       Define functions
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#plot-data">
+       Plot data
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#train-validation-and-test-sets">
+       Train, validation, and test sets
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#return-a-random-batch-of-data-from-the-training-set">
+       Return a (random) batch of data from the training set
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#empirical-risk-that-is-average-loss">
+       Empirical risk (that is, average loss)
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#function-to-execute-training-loop">
+       Function to execute training loop
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#define-model-f-mathbf-x-theta">
+       Define model
+       <span class="math notranslate nohighlight">
+        \(f(\mathbf{x}, \theta)\)
+       </span>
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#train">
+       Train!
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#computing-90-upper-limits">
+       Computing 90% upper limits
+      </a>
+     </li>
+    </ul>
    </li>
   </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#plot-upper-lower-and-central-intervals-for-one-parameter-problem-given-a-cl-n-and-the-cdf-and-compare-to-model-output-under-construction-might-be-overkill">
+   plot upper, lower and central intervals for one-parameter problem given a CL,
+   <span class="math notranslate nohighlight">
+    \(N\)
+   </span>
+   , and the CDF, and compare to model output (under construction, might be overkill)
+  </a>
  </li>
 </ul>
 
@@ -464,22 +500,44 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="likelihood-free-inference-model-training">
-<h1>Likelihood-Free Inference - Model Training<a class="headerlink" href="#likelihood-free-inference-model-training" title="Permalink to this headline">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="pivotal-likelihood-free-inference-for-count-data-in-particle-physics">
+<h1>Pivotal Likelihood-Free Inference for Count Data in Particle Physics<a class="headerlink" href="#pivotal-likelihood-free-inference-for-count-data-in-particle-physics" title="Permalink to this headline">#</a></h1>
 <p>Ali Al Kadhim and Harrison B. Prosper<br>
-Department of Physics, Florida State University<br>
-Date: 22 April 2022<br>
-Updated: 12 May 2022</p>
-<section id="the-poisson-problem-a-single-count">
-<h2>The Poisson Problem: A Single Count<a class="headerlink" href="#the-poisson-problem-a-single-count" title="Permalink to this headline">#</a></h2>
-<p>Computing confidence intervals with exact coverage for the parameter <span class="math notranslate nohighlight">\(\theta\)</span> of the Poisson distribution</p>
-<div class="amsmath math notranslate nohighlight" id="equation-ccd87c26-bdc8-45c3-b6c8-f6541414db1a">
-<span class="eqno">()<a class="headerlink" href="#equation-ccd87c26-bdc8-45c3-b6c8-f6541414db1a" title="Permalink to this equation">#</a></span>\[\begin{align}
-P(n | \theta) &amp; =  \frac{e^{-\theta} \theta^n}{n!}, 
-\end{align}\]</div>
-<p>is a classic problem in statistics. Exact coverage means that the following is true</p>
-<div class="amsmath math notranslate nohighlight" id="equation-daeab575-f6cc-496f-afb3-218adbf921cd">
-<span class="eqno">()<a class="headerlink" href="#equation-daeab575-f6cc-496f-afb3-218adbf921cd" title="Permalink to this equation">#</a></span>\[\begin{align}
+Department of Physics, Florida State University<br></p>
+<p>November, 2022</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span><span class="p">;</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span><span class="p">;</span> <span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">st</span>
+<span class="kn">import</span> <span class="nn">torch</span><span class="p">;</span> <span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="c1">#use numba&#39;s just-in-time compiler to speed things up</span>
+<span class="kn">from</span> <span class="nn">numba</span> <span class="kn">import</span> <span class="n">njit</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span><span class="p">;</span> <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mp</span><span class="p">;</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span><span class="p">;</span> 
+<span class="c1">#reset matplotlib stle/parameters</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">mpl</span><span class="o">.</span><span class="n">rcParamsDefault</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-deep&#39;</span><span class="p">)</span>
+<span class="n">mp</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;agg.path.chunksize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10000</span>
+<span class="n">font_legend</span> <span class="o">=</span> <span class="mi">15</span><span class="p">;</span> <span class="n">font_axes</span><span class="o">=</span><span class="mi">15</span>
+<span class="c1"># %matplotlib inline</span>
+<span class="kn">import</span> <span class="nn">copy</span><span class="p">;</span> <span class="kn">import</span> <span class="nn">sys</span><span class="p">;</span> <span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">display</span>
+<span class="kn">import</span> <span class="nn">optuna</span>
+<span class="c1"># import sympy as sy</span>
+<span class="c1">#sometimes jupyter doesnt initialize MathJax automatically for latex, so do this</span>
+<span class="kn">import</span> <span class="nn">ipywidgets</span> <span class="k">as</span> <span class="nn">wid</span><span class="p">;</span> <span class="n">wid</span><span class="o">.</span><span class="n">HTMLMath</span><span class="p">(</span><span class="s1">&#39;$\LaTeX$&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "95be525109f24de6b9584292506e9c84", "version_major": 2, "version_minor": 0}
+</script></div>
+</div>
+<p>The single count Poisson Model is a classic problem in statistics. Exact coverage means that the following is true</p>
+<div class="amsmath math notranslate nohighlight" id="equation-751546c4-e347-4f0b-b12e-bcc6997949fa">
+<span class="eqno">(1)<a class="headerlink" href="#equation-751546c4-e347-4f0b-b12e-bcc6997949fa" title="Permalink to this equation">#</a></span>\[\begin{align}
     P\{ \theta \in [ \, \underline{\theta}(n), \, \overline{\theta}(n) \, ] \, \} \geq 1 - \alpha, \forall \textrm{ fixed values of } \theta , 
 \end{align}\]</div>
 <p>where <span class="math notranslate nohighlight">\(P\)</span> is called the <strong>coverage probability</strong>, <span class="math notranslate nohighlight">\(1 - \alpha\)</span> the confidence level (CL), and <span class="math notranslate nohighlight">\(\alpha\)</span> the size of the associated hypothesis test. For a given experiment, the parameter <span class="math notranslate nohighlight">\(\theta\)</span>, the mean count, is presumed <em>fixed</em>. But the quantity <span class="math notranslate nohighlight">\([ \, \underline{\theta}(n), \, \overline{\theta}(n) \, ]\)</span> is a <em>random</em> interval which, in general, differs from one experiment to another.</p>
@@ -491,17 +549,17 @@ As the name implies, the <strong>sampling distribution</strong> of <span class="
 <p>A <strong>statistic</strong> <span class="math notranslate nohighlight">\(t\)</span> is a function of the data that compresses the data in such as way that, ideally, all relevant information in the data about the parameter <span class="math notranslate nohighlight">\(\theta\)</span> is preserved.</p>
 <p>What this means in practice is that the accuracy (suitably defined) with which <span class="math notranslate nohighlight">\(\theta\)</span> can be estimated from <span class="math notranslate nohighlight">\(t\)</span> is equal to the accuracy with which <span class="math notranslate nohighlight">\(\theta\)</span> can be estimated directly from the data without compression. A statistic with this property, for a given parameter, is called a <strong>sufficient statistic</strong> for that parameter. Obviously, the uncompressed data are sufficient statistics! The challenge is finding sufficient statistics that substantially compress the data.</p>
 <section id="algorithm">
-<h3>Algorithm<a class="headerlink" href="#algorithm" title="Permalink to this headline">#</a></h3>
+<h2>Algorithm<a class="headerlink" href="#algorithm" title="Permalink to this headline">#</a></h2>
 <p>Define the <em>right</em> and <em>left</em> cumulative distribution functions of the
 sampling distribution, <span class="math notranslate nohighlight">\(f_\theta(t)\)</span>, by</p>
-<div class="amsmath math notranslate nohighlight" id="equation-ac452116-5cb3-4a9a-9640-4b3a007178e1">
-<span class="eqno">()<a class="headerlink" href="#equation-ac452116-5cb3-4a9a-9640-4b3a007178e1" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-ae1a769d-f631-4d64-9047-3952981f9186">
+<span class="eqno">(2)<a class="headerlink" href="#equation-ae1a769d-f631-4d64-9047-3952981f9186" title="Permalink to this equation">#</a></span>\[\begin{align}
       D_R(x, \theta) &amp; = \int_{t \geq x} f_\theta(t) \, dt \textrm{ and } \\ 
       D_L(x, \theta) &amp; = \int_{t \leq x} f_\theta(t) \, dt.
  \end{align}\]</div>
 <p>By solving the equations</p>
-<div class="amsmath math notranslate nohighlight" id="equation-20b86266-2020-42d0-b3ab-19813d21104d">
-<span class="eqno">()<a class="headerlink" href="#equation-20b86266-2020-42d0-b3ab-19813d21104d" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-730be29b-7918-49a8-8b19-ab873ce6ef9b">
+<span class="eqno">(3)<a class="headerlink" href="#equation-730be29b-7918-49a8-8b19-ab873ce6ef9b" title="Permalink to this equation">#</a></span>\[\begin{align}
     D_R(x, \underline{\theta}) &amp; = \alpha_R,\\
     D_L(x, \overline{\theta}) &amp; =  \alpha_L,
 \end{align}\]</div>
@@ -512,11 +570,11 @@ where <span class="math notranslate nohighlight">\(\text{CL} + \alpha_R + \alpha
 <p>Clearly for a given confidence level there are infinitely many ensembles of confidence intervals or regions that can be computed. Which interval or region is reported is a matter of convention. For a 1-parameter sampling distribution the following convention is often used: one sets <span class="math notranslate nohighlight">\(\alpha_R = \alpha_L = (1 - \text{CL})/2\)</span> to arrive at <strong>central intervals</strong>.</p>
 </section>
 <section id="application-to-the-poisson-distribution">
-<h3>Application to the Poisson distribution<a class="headerlink" href="#application-to-the-poisson-distribution" title="Permalink to this headline">#</a></h3>
+<h2>Application to the Poisson distribution<a class="headerlink" href="#application-to-the-poisson-distribution" title="Permalink to this headline">#</a></h2>
 <p>The Neyman algorithm, applied to the test statistic <span class="math notranslate nohighlight">\(t(n) = n\)</span> for the
 Poisson distribution, requires the functions</p>
-<div class="amsmath math notranslate nohighlight" id="equation-3f609605-4baa-4504-b5ad-23890bd1d2f9">
-<span class="eqno">()<a class="headerlink" href="#equation-3f609605-4baa-4504-b5ad-23890bd1d2f9" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-254b9a1b-6a35-41c5-af48-3bcac22c41d6">
+<span class="eqno">(4)<a class="headerlink" href="#equation-254b9a1b-6a35-41c5-af48-3bcac22c41d6" title="Permalink to this equation">#</a></span>\[\begin{align}
       D_R(N, \theta) &amp; = \sum_{k=N}^\infty \textrm{Poisson}(k, \theta) = P(N, \theta),\\
       \textrm{and   } D_L(N, \theta) &amp; = \sum_{k=0}^N \textrm{Poisson}(k, \theta) = 1 - P(N+1, \theta) ,
  \end{align}\]</div>
@@ -524,15 +582,64 @@ Poisson distribution, requires the functions</p>
 <p>In this notebook, we use the method of Ref.[1] to approximate <span class="math notranslate nohighlight">\(E(Z | \theta, N)\)</span>, that is, <span class="math notranslate nohighlight">\(D_L(N, \theta)\)</span> using a simple deep neural network trained, that is, fitted, to data comprising the triplets <span class="math notranslate nohighlight">\((Z_i, \theta_i, N_i)\)</span>. (See notebook <strong>LFI_generate_data.ipynb</strong> for details.)</p>
 </section>
 <section id="references">
-<h3>References<a class="headerlink" href="#references" title="Permalink to this headline">#</a></h3>
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">#</a></h2>
 <ol class="simple">
 <li><p>Anne Lee et al., <a class="reference external" href="https://arxiv.org/abs/2107.03920">https://arxiv.org/abs/2107.03920</a></p></li>
 <li><p>Neyman, Jerzy (1937). “Outline of a Theory of Statistical Estimation Based on the Classical Theory of Probability”. Philosophical Transactions of the Royal Society of London. Series A, Mathematical and Physical Sciences. 236 (767): 333–380. doi:10.1098/rsta.1937.0005.</p></li>
 <li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Incomplete_gamma_function">https://en.wikipedia.org/wiki/Incomplete_gamma_function</a>. The normalized function is the unnormalized function divided by <span class="math notranslate nohighlight">\(\Gamma(s)\)</span> and can be computed using scipy.special.gammainc(<span class="math notranslate nohighlight">\(s\)</span>, <span class="math notranslate nohighlight">\(\theta\)</span>).</p></li>
 </ol>
+<p>We propose in this study that even though LFI methods are used to make inderences when we do not have access to the likelihood function, we still want to use these methods in the case where we do know the likelihood explicitly, in order to arrive at frequentist guarantees.</p>
+<p>Before we go on to demonstrate our methods, we review the relevant statistics</p>
+<p>Suppose we have the Poisson distribution
+$<span class="math notranslate nohighlight">\(
+P(N | \theta)  =  \frac{e^{-\theta} \theta^N}{N!}, 
+\)</span>$</p>
+<p>We can calculate the CDF <span class="math notranslate nohighlight">\(F(N, \theta)\)</span></p>
+<div class="math notranslate nohighlight">
+\[
+F(N, \theta) = \sum_{k=0}^N \textrm{Poisson}(k, \theta) = \sum_{k=0}^N \frac{e^{-\theta} \theta^N}{N!}
+\]</div>
+<p>Let us plot it and simplify it with the help of scipy</p>
 </section>
-<section id="required-modules">
-<h3>Required modules<a class="headerlink" href="#required-modules" title="Permalink to this headline">#</a></h3>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="background-on-confidence-intervals">
+<h1>Background on Confidence Intervals<a class="headerlink" href="#background-on-confidence-intervals" title="Permalink to this headline">#</a></h1>
+<p>Suppose we have a random variable <span class="math notranslate nohighlight">\(x\)</span>, which is distributed according to some PDF <span class="math notranslate nohighlight">\(f(x)\)</span>. Then the probability of finding <span class="math notranslate nohighlight">\(x\)</span> between <span class="math notranslate nohighlight">\([x^{low}. x^{up}]\)</span> is given by</p>
+<div class="math notranslate nohighlight">
+\[ 
+\text{Prob} \left( x \in [x^{low}, x^{up}] \right) =\text{Prob} \left( x^{low} \le x \le x^{up} \right) = \int_{x^{low}}^{x^{up}} dx f(x) 
+\]</div>
+<p>We can express this in terms of comulative distribution functions (CDFS) where for a random variable <span class="math notranslate nohighlight">\(X\)</span>  the CDF is defined as</p>
+<div class="math notranslate nohighlight">
+\[
+F_X(x)=\text{Prob}(X \leq x), \text { for all } x \in \mathbb{R}
+\]</div>
+<p>And since <span class="math notranslate nohighlight">\(x \in \mathbb{R}\)</span>, we have</p>
+<div class="math notranslate nohighlight">
+\[
+\int_{-\infty}^{x^{low}} f(x) dx + \int_{x^{low}}^{x^{up} } f(x) dx+ \int_{x^{up}}^{\infty} f(x)dx = 1
+\]</div>
+<p>which, by definition of CDF above, gives</p>
+<div class="math notranslate nohighlight">
+\[
+F(x^{low}) + \int_{x^{low}}^{x^{up} } f(x) dx+ (1-F(x^{up}) =1,
+\]</div>
+<p>which gives</p>
+<div class="math notranslate nohighlight">
+\[
+\int_{x^{low}}^{x^{up} } f(x) dx =F(x^{up}) - F(x^{low}).
+\]</div>
+<p>Sometimes we report upper and lower limits, e.g.</p>
+<div class="math notranslate nohighlight">
+\[
+p=\int_a^{\infty} \mathrm{d} x f(x) \quad \text { for } \quad a&gt;A; \quad \text{lower limit} \quad \text{(with prob. $p$ we are confident that $a$ is larger than $A$ )} 
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+p=\int_{-\infty}^{a} \mathrm{d} x f(x) \quad \text { for } \quad a&lt;A \quad \text{upper limit} \quad \text{(with prob. $p$ we are confident that $a$ smaller larger than $A$ )} 
+\]</div>
+<section id="id1">
+<h2><a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># standard system modules</span>
@@ -597,7 +704,29 @@ Poisson distribution, requires the functions</p>
 </div>
 </div>
 </div>
-</section>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N_range</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">40</span><span class="p">)[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+<span class="n">theta_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">40</span><span class="p">)</span>
+<span class="n">PCDF</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">poisson</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="n">N_range</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="n">theta_range</span><span class="p">)</span>
+<span class="n">theta_N_grid</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">theta_range</span><span class="p">,</span> <span class="n">N_range</span><span class="p">)</span>
+<span class="c1">#remember meshgrid returns TWo arrays</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">theta_N_grid</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\t\t</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">theta_N_grid</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> 
+<span class="n">plt</span><span class="o">.</span><span class="n">pcolor</span><span class="p">(</span><span class="n">theta_N_grid</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">theta_N_grid</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">PCDF</span><span class="p">,</span> <span class="n">shading</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Poisson CDF&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\theta$&#39;</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$N$&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(40, 40) 		 (40, 40)
+</pre></div>
+</div>
+<img alt="_images/1_Intro_and_One_Parameter_Problem_8_1.png" src="_images/1_Intro_and_One_Parameter_Problem_8_1.png" />
+</div>
+</div>
 <section id="load-data">
 <h3>Load data<a class="headerlink" href="#load-data" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
@@ -684,8 +813,8 @@ Poisson distribution, requires the functions</p>
 <section id="define-functions">
 <h3>Define functions<a class="headerlink" href="#define-functions" title="Permalink to this headline">#</a></h3>
 <p>$</p>
-<div class="amsmath math notranslate nohighlight" id="equation-869c2941-eb6e-4b15-ae15-2394601fcfd2">
-<span class="eqno">()<a class="headerlink" href="#equation-869c2941-eb6e-4b15-ae15-2394601fcfd2" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-f4872234-bba8-4d7e-b0d2-67c2cfd36fdd">
+<span class="eqno">(5)<a class="headerlink" href="#equation-f4872234-bba8-4d7e-b0d2-67c2cfd36fdd" title="Permalink to this equation">#</a></span>\[\begin{align}
       D_R(N, \theta) &amp; = \sum_{k=N}^\infty \textrm{Poisson}(k, \theta) = P(N, \theta),\\
       \textrm{and   } D_L(N, \theta) &amp; = \sum_{k=0}^N \textrm{Poisson}(k, \theta) = 1 - P(N+1, \theta).
 \end{align}\]</div>
@@ -814,7 +943,7 @@ Poisson distribution, requires the functions</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/LFI_train_12_0.png" src="_images/LFI_train_12_0.png" />
+<img alt="_images/1_Intro_and_One_Parameter_Problem_17_0.png" src="_images/1_Intro_and_One_Parameter_Problem_17_0.png" />
 </div>
 </div>
 </section>
@@ -951,8 +1080,8 @@ test set size:           5000
 <section id="empirical-risk-that-is-average-loss">
 <h3>Empirical risk (that is, average loss)<a class="headerlink" href="#empirical-risk-that-is-average-loss" title="Permalink to this headline">#</a></h3>
 <p>The empirical risk, which is the <strong>objective function</strong> we shall minimize, is defined as</p>
-<div class="amsmath math notranslate nohighlight" id="equation-6e5f2f62-80e3-498b-846a-537a0fa5f5d1">
-<span class="eqno">()<a class="headerlink" href="#equation-6e5f2f62-80e3-498b-846a-537a0fa5f5d1" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-7ce294ab-28bf-4e10-8eba-0452b815192a">
+<span class="eqno">(6)<a class="headerlink" href="#equation-7ce294ab-28bf-4e10-8eba-0452b815192a" title="Permalink to this equation">#</a></span>\[\begin{align}
 R_M(\theta) &amp; = \frac{1}{M}\sum_{m=1}^M L(t_m, f_m),
 \end{align}\]</div>
 <p>where</p>
@@ -962,8 +1091,8 @@ R_M(\theta) &amp; = \frac{1}{M}\sum_{m=1}^M L(t_m, f_m),
     L(t, f) &amp;= (t - f)^2
 \end{align*}\]</div>
 <p>The empirical risk <span class="math notranslate nohighlight">\(R_M\)</span> approximates the <strong>risk</strong></p>
-<div class="amsmath math notranslate nohighlight" id="equation-e9922390-cd16-4ef3-909a-13131071d474">
-<span class="eqno">()<a class="headerlink" href="#equation-e9922390-cd16-4ef3-909a-13131071d474" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-ebb6b07d-3cb3-4bb2-bdbe-dc88f9ccb32e">
+<span class="eqno">(7)<a class="headerlink" href="#equation-ebb6b07d-3cb3-4bb2-bdbe-dc88f9ccb32e" title="Permalink to this equation">#</a></span>\[\begin{align}
 R[f] &amp; = \int \cdots \int \, p(t, \mathbf{x}) \, L(t, f(\mathbf{x}, \theta)) \, dt \, d\mathbf{x},
 \end{align}\]</div>
 <p>which is a <strong>functional</strong> of the model <span class="math notranslate nohighlight">\(f\)</span>. The quantity <span class="math notranslate nohighlight">\(p(t, \mathbf{x}) \, dt\, d\mathbf{x}\)</span> is the probability distribution from which the sample <span class="math notranslate nohighlight">\(\{ (t_m, \mathbf{x}_m), m = 1,\cdots, M \}\)</span> is presumed to have been drawn.</p>
@@ -1243,7 +1372,7 @@ Iteration vs average loss
      29990	  0.061578	  0.061278
 </pre></div>
 </div>
-<img alt="_images/LFI_train_32_1.png" src="_images/LFI_train_32_1.png" />
+<img alt="_images/1_Intro_and_One_Parameter_Problem_37_1.png" src="_images/1_Intro_and_One_Parameter_Problem_37_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1278,7 +1407,7 @@ Iteration vs average loss
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/LFI_train_34_0.png" src="_images/LFI_train_34_0.png" />
+<img alt="_images/1_Intro_and_One_Parameter_Problem_39_0.png" src="_images/1_Intro_and_One_Parameter_Problem_39_0.png" />
 </div>
 </div>
 </section>
@@ -1334,6 +1463,18 @@ Iteration vs average loss
 </section>
 </section>
 </section>
+<section class="tex2jax_ignore mathjax_ignore" id="plot-upper-lower-and-central-intervals-for-one-parameter-problem-given-a-cl-n-and-the-cdf-and-compare-to-model-output-under-construction-might-be-overkill">
+<h1>plot upper, lower and central intervals for one-parameter problem given a CL, <span class="math notranslate nohighlight">\(N\)</span>, and the CDF, and compare to model output (under construction, might be overkill)<a class="headerlink" href="#plot-upper-lower-and-central-intervals-for-one-parameter-problem-given-a-cl-n-and-the-cdf-and-compare-to-model-output-under-construction-might-be-overkill" title="Permalink to this headline">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_lower_upper_bounds</span><span class="p">(</span><span class="n">Nrnage</span><span class="p">,</span> <span class="n">thetarange</span><span class="p">,</span> <span class="n">cdf</span><span class="p">,</span> <span class="n">CL_list</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;plot the confidence intervals for one-parameter problem given CDF &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">CL</span> <span class="ow">in</span> <span class="n">CL_list</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -1362,6 +1503,20 @@ Iteration vs average loss
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="intro.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Welcome to the <em>Likelihood-Free Inference for Particle Physics</em> Jupyter book</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="markdown-notebooks.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">&lt;no title&gt;</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
 </div>
             </footer>
         </div>
