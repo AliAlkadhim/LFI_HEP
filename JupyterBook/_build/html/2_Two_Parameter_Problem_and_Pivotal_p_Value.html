@@ -54,6 +54,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="3 - Replacing Observed Data with Test Statistics and 2-Dimensional Inference in \(\theta - \nu\) Space" href="3_Replacing_Data_with_Lambda_and_2D_Inference.html" />
     <link rel="prev" title="1 - Pivotal LFI for Count Data in Particle Physics: Background and one-parameter Problem" href="1_Intro_and_One_Parameter_Problem.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -118,6 +119,25 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    2 - Two-Parameter Problem and Pivotal Likelihood-Free p-Values
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="3_Replacing_Data_with_Lambda_and_2D_Inference.html">
+   3 - Replacing Observed Data with Test Statistics and 2-Dimensional Inference in
+   <span class="math notranslate nohighlight">
+    \(\theta - \nu\)
+   </span>
+   Space
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="4_Imposing_Pivotal_Conditions_on_Lambda.html">
+   Pivotal Likelihood-Free Inference for Count Data in Particle Physics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="5_Mapping_Confidence_Sets_to_Confidence_Intervals.html">
+   5 - Mapping Confidence Sets to Confidence Intervals
   </a>
  </li>
 </ul>
@@ -299,10 +319,17 @@ title="Print to PDF"
   </a>
   <ul class="visible nav section-nav flex-column">
    <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#the-two-parameter-problem">
-     The two-parameter problem
+    <a class="reference internal nav-link" href="#ann-lee-s-algorithm">
+     Ann Lee’s Algorithm
     </a>
    </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-two-parameter-problem">
+   The two-parameter problem
+  </a>
+  <ul class="visible nav section-nav flex-column">
    <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#observed-data">
      Observed Data:
@@ -319,18 +346,13 @@ title="Print to PDF"
     </a>
     <ul class="nav section-nav flex-column">
      <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#our-algorithm">
-       Our Algorithm
+      <a class="reference internal nav-link" href="#our-algorithm-for-finding-p-value-with-lfi">
+       Our Algorithm for Finding p-value with LFI
       </a>
      </li>
      <li class="toc-h3 nav-item toc-entry">
       <a class="reference internal nav-link" href="#generate-training-data-or-take-a-look-at-the-saved-training-data">
        Generate Training data (or take a look at the saved training data)
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#ann-lee-s-algorithm">
-       Ann Lee’s Algorithm
       </a>
      </li>
     </ul>
@@ -575,10 +597,17 @@ title="Print to PDF"
   </a>
   <ul class="visible nav section-nav flex-column">
    <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#the-two-parameter-problem">
-     The two-parameter problem
+    <a class="reference internal nav-link" href="#ann-lee-s-algorithm">
+     Ann Lee’s Algorithm
     </a>
    </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-two-parameter-problem">
+   The two-parameter problem
+  </a>
+  <ul class="visible nav section-nav flex-column">
    <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#observed-data">
      Observed Data:
@@ -595,18 +624,13 @@ title="Print to PDF"
     </a>
     <ul class="nav section-nav flex-column">
      <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#our-algorithm">
-       Our Algorithm
+      <a class="reference internal nav-link" href="#our-algorithm-for-finding-p-value-with-lfi">
+       Our Algorithm for Finding p-value with LFI
       </a>
      </li>
      <li class="toc-h3 nav-item toc-entry">
       <a class="reference internal nav-link" href="#generate-training-data-or-take-a-look-at-the-saved-training-data">
        Generate Training data (or take a look at the saved training data)
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#ann-lee-s-algorithm">
-       Ann Lee’s Algorithm
       </a>
      </li>
     </ul>
@@ -852,7 +876,7 @@ Department of Physics, Florida State University <br></p>
 <span class="kn">import</span> <span class="nn">os</span><span class="p">;</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;LFI_BASE&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span>
 <span class="n">LFI_BASE</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;LFI_BASE&#39;</span><span class="p">];</span> <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;BASE directory&#39;</span><span class="p">,</span> <span class="n">LFI_BASE</span><span class="p">,</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
 <span class="c1">#be extra careful in importing everything from a module, since we know what&#39;s in it it&#39;s fine!</span>
-<span class="kn">import</span> <span class="nn">utils.utils</span> <span class="k">as</span> <span class="nn">utils</span>
+<span class="kn">import</span> <span class="nn">..utils.utils</span> <span class="k">as</span> <span class="nn">utils</span>
 <span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="c1">#sometimes jupyter doesnt initialize MathJax automatically for latex, so do this</span>
 <span class="kn">import</span> <span class="nn">ipywidgets</span> <span class="k">as</span> <span class="nn">wid</span><span class="p">;</span> <span class="n">wid</span><span class="o">.</span><span class="n">HTMLMath</span><span class="p">(</span><span class="s1">&#39;$\LaTeX$&#39;</span><span class="p">)</span>
@@ -860,45 +884,61 @@ Department of Physics, Florida State University <br></p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>BASE directory /home/ali/Desktop/Pulled_Github_Repositories/LFI_HEP/ 
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">  File</span><span class="nn"> &quot;/tmp/ipykernel_578833/958571479.py&quot;</span><span class="gt">, line </span><span class="mi">21</span>
+    <span class="kn">import</span> <span class="nn">..utils.utils</span> <span class="k">as</span> <span class="nn">utils</span>
+           <span class="o">^</span>
+<span class="ne">SyntaxError</span>: invalid syntax
 </pre></div>
 </div>
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "1df7939f96f54e72a4d040e0204137a7", "version_major": 2, "version_minor": 0}
-</script></div>
+</div>
 </div>
 </section>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="background-and-problem-statement">
 <h1>Background and Problem Statement<a class="headerlink" href="#background-and-problem-statement" title="Permalink to this headline">#</a></h1>
-<p>In particle physics, the most important experiment is a counting experiment, represented by a Poisson probability model.Suppose we have a count experiment, we we observe in each bin (or channel) <span class="math notranslate nohighlight">\(k\)</span> a count <span class="math notranslate nohighlight">\(n_k\)</span>. Given <span class="math notranslate nohighlight">\(N\)</span> total channels, the probability of obtaining the observed result is given by the Poisson
-$<span class="math notranslate nohighlight">\( \prod_{k=1}^{N} \frac{e^{-(\epsilon_k \sigma + b_k)} (\epsilon_k \sigma + b_k)^{n_k}}{n_k !} \)</span>$</p>
+<p>In particle physics, the most important experiment is a counting experiment, represented by a Poisson probability model.Suppose we have a count experiment, we we observe in each bin (or channel) <span class="math notranslate nohighlight">\(k\)</span> a count <span class="math notranslate nohighlight">\(n_k\)</span>. Given <span class="math notranslate nohighlight">\(N\)</span> total channels, the probability of obtaining the observed result is given by the Poisson</p>
+<div class="math notranslate nohighlight">
+\[ \prod_{k=1}^{N} \frac{e^{-(\epsilon_k \sigma + b_k)} (\epsilon_k \sigma + b_k)^{n_k}}{n_k !} \]</div>
 <p>Where <span class="math notranslate nohighlight">\(\sigma\)</span>, the cross section (the parameter of interest), <span class="math notranslate nohighlight">\(b_k\)</span> is expected background for the <span class="math notranslate nohighlight">\(k\)</span>th channel (the nuissance parameter). <span class="math notranslate nohighlight">\(\epsilon_k\)</span> is the “acceptance parameter”, for the <span class="math notranslate nohighlight">\(k\)</span>th channel, which is typically a product of the detector efficiency, branching fraction, and luminosity.</p>
 <p>This is the prototype of many statistical models in astronomy and particle physics in which data are binned and the count in each bin consist a priori of the sum of counts from signal and background. Written in terms of the simplified 2-parameter model, the expected count in each bin <span class="math notranslate nohighlight">\(k\)</span> takes the form</p>
-<div class="amsmath math notranslate nohighlight" id="equation-3f48e9fa-58db-4598-960c-75f05022e33f">
-<span class="eqno">(8)<a class="headerlink" href="#equation-3f48e9fa-58db-4598-960c-75f05022e33f" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-69d92605-d920-4e01-aed0-89281b183950">
+<span class="eqno">(8)<a class="headerlink" href="#equation-69d92605-d920-4e01-aed0-89281b183950" title="Permalink to this equation">#</a></span>\[\begin{equation}
     n_{exp}=\theta+\nu
 \end{equation}\]</div>
 <p>Where <span class="math notranslate nohighlight">\(n_{exp}\)</span> is the expected signal count, <span class="math notranslate nohighlight">\(\theta\)</span> is the unknown mean count, which is the parameter of interest (the cross section), and <span class="math notranslate nohighlight">\(\nu\)</span> is the background unknown mean count, which is the nuissance parameter.</p>
-<section id="the-two-parameter-problem">
-<h2>The two-parameter problem<a class="headerlink" href="#the-two-parameter-problem" title="Permalink to this headline">#</a></h2>
+<section id="ann-lee-s-algorithm">
+<h2><a class="reference external" href="https://arxiv.org/pdf/2107.03920.pdf">Ann Lee</a>’s Algorithm<a class="headerlink" href="#ann-lee-s-algorithm" title="Permalink to this headline">#</a></h2>
+<p>Before proceeding, let us recall Ann Lee et al.’s brilliant algorithm for estimating p-values with robust frequentist guarantees.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">algorithm2</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="s1">&#39;images/Algorithm2.jpg&#39;</span><span class="p">);</span> <span class="n">display</span><span class="p">(</span><span class="n">algorithm2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_4_0.jpg" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_4_0.jpg" />
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="the-two-parameter-problem">
+<h1>The two-parameter problem<a class="headerlink" href="#the-two-parameter-problem" title="Permalink to this headline">#</a></h1>
 <p>the conditional probability of observing <span class="math notranslate nohighlight">\(n\)</span> signal counts and <span class="math notranslate nohighlight">\(m\)</span> background counts in a <em>single channel or bin</em> is given by</p>
 <div class="math notranslate nohighlight">
 \[
-    \text{Prob}(n, m \mid \theta, v)= L(\theta, \nu) = \frac{e^{-(\theta+v)}(\theta+v)^{n}}{n !} \frac{e^{-v} v^{m}}{m !}
+    \text{Prob}(n, m \mid \theta, v)= L(\theta, \nu) = \frac{e^{-(\theta+v)}(\theta+v)^{n}}{n !} \frac{e^{-v} v^{m}}{m !},
     \label{prob_model}
 \]</div>
-<p>Where, once the counts <span class="math notranslate nohighlight">\(n\)</span> and <span class="math notranslate nohighlight">\(m\)</span> have been observed becomes the likelihood <span class="math notranslate nohighlight">\(L(\theta,\nu)\)</span>. <span class="math notranslate nohighlight">\(L(\theta,\nu)\)</span> could be viewed as a product of the main measurement where signal events (<span class="math notranslate nohighlight">\(s\)</span>) could be present, and a control measurement where only background events (<span class="math notranslate nohighlight">\(b\)</span>) exist, which helps us constrain the nuissance parameters.</p>
+<p>where, once the counts <span class="math notranslate nohighlight">\(n\)</span> and <span class="math notranslate nohighlight">\(m\)</span> have been observed becomes the likelihood <span class="math notranslate nohighlight">\(L(\theta,\nu)\)</span>. <span class="math notranslate nohighlight">\(L(\theta,\nu)\)</span> could be viewed as a product of the main measurement where signal events (<span class="math notranslate nohighlight">\(s\)</span>) could be present, and a control measurement where only background events (<span class="math notranslate nohighlight">\(b\)</span>) exist, which helps us constrain the nuissance parameters.</p>
 <div class="math notranslate nohighlight">
 \[L(\theta,\nu) = L_{s+b}(\theta,\nu) L_b(\nu)\]</div>
 <p>The likelihood function contains all the information from the experiment that is relevent to inference for the parameters (also known as the <em>likelihood principle</em>). The likelihood function is defined only upto an arbitrary constant, and so only ratios of likelihoods containing different values of the parameters are meaningful.</p>
 <p>The objective now is to derive confidence intervals or limits for the parameter of interest <span class="math notranslate nohighlight">\(\theta\)</span>. What makes this challenging is the presence of the <em>nuissance parameter</em> <span class="math notranslate nohighlight">\(\nu\)</span>, which is a parameter whose value is not known precisely, and can be related to the physics or the experimental aparatus/detector. In the Bayesian approach, nuissance parameters are assigned prior probabilities <span class="math notranslate nohighlight">\(\pi(\nu) d \nu\)</span> and are integrated out in order to arrive at the posterior for <span class="math notranslate nohighlight">\(\theta\)</span> in a process called marginalization: <span class="math notranslate nohighlight">\(L(\theta) = \int L(\theta,\nu) \pi (\nu) d \nu\)</span>. However, this introduces a fair bit of subjectivity into the problem through the choice of the prior. Frequentist methods deal with nuissance parameters by profiling them the likelihood in order to arrive at their MLEs.</p>
-<p>The typical way to arrive at confidence intervals that guarantee coverage is the Neyman-Pearson construction. However, it does not deal with the existence of nuissance parameters…</p>
+<p>The typical way to arrive at confidence intervals that guarantee coverage is the Neyman-Pearson construction. However, it does not guarantee coverage for multi-parameter problems with the existence of nuissance parameters.</p>
 <p>the Poisson mean<span class="math notranslate nohighlight">\(=\theta+\nu\)</span>, and the probability model <em>for a single bin</em> is given by</p>
 <div class="math notranslate nohighlight">
 \[\text{Prob}(N,M|\theta, \nu) = \text{Poiss}(N; \theta+\nu)\text{Poiss}(M;\nu) =L(\theta, \nu)= \frac{e^{-(\theta+\nu)} (\theta+\nu)^N }{N !} \ \frac{e^{-\nu} \nu^M}{M !}\]</div>
 <p>Where <span class="math notranslate nohighlight">\(\nu\)</span> is the nuissance parameter, <span class="math notranslate nohighlight">\(\theta\)</span> is the paramter of interest, for which we want to estimate confidence intervals or (upper) limits.</p>
-</section>
 <section id="observed-data">
 <h2>Observed Data:<a class="headerlink" href="#observed-data" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
@@ -956,17 +996,34 @@ Z  = \mathbb{I}
 \[ \lambda \equiv - 2 \log{\frac{p(n,m|\theta, \hat{\nu}(\theta) )}{ p(n,m|\hat{\theta}, \hat{\nu}(\theta) )}} = -2 \log \frac{L_{\text{prof}} \big(\theta \big) }{L_{\text{prof}} \big( \hat{\theta} \big)}, \tag{1}\]</div>
 <p>where <span class="math notranslate nohighlight">\(L_{\text{prof}} \big( n, m, \theta, \hat{\nu}(\theta) \big)\)</span> is the profiled likelihood - that is - the likelihood function when the nuissance parameters are replaced by their maximum likelihood estimates (MLE) for a given value of the parameter of interest.</p>
 <div class="math notranslate nohighlight">
-\[L_{\text{prof}}(\theta) \equiv \frac{e^{-(\theta+\hat{\nu})} (\theta+\hat{\nu})^N }{N !} \ \frac{e^{-\hat{\nu}} \hat{\nu}^M}{M !}.\]</div>
+\[
+L_{\text{prof}}(\theta) \equiv \frac{e^{-(\theta+\hat{\nu})} (\theta+\hat{\nu})^N }{N !} \ \frac{e^{-\hat{\nu}} \hat{\nu}^M}{M !}.
+\]</div>
+<p>Test statistics play a paramount role in the theory of hypothesis testing. Given observed data <span class="math notranslate nohighlight">\(x\)</span>, a test statistic <span class="math notranslate nohighlight">\(\lambda\)</span> evaluated for the observed data <span class="math notranslate nohighlight">\(\lambda_{observed}\)</span> is the only way to decide which of two hypothesis; the null hypothesis <span class="math notranslate nohighlight">\(H_{0}\)</span> (parameterized by parameters <span class="math notranslate nohighlight">\(\theta_0\)</span>) and the alternative hypothesis <span class="math notranslate nohighlight">\(H_1\)</span> (parameterized by parameters <span class="math notranslate nohighlight">\(\theta_1\)</span>). One can construct an infinite number of test statistics, by choosing different functions of the data <span class="math notranslate nohighlight">\(x\)</span>, but most functions of the data are useless! The Neyman-Pearson (NP) Lemma states that the most powerful test statistic \footnote{By powerful we mean that it has the greatest power <span class="math notranslate nohighlight">\(1-\beta\)</span> where <span class="math notranslate nohighlight">\(\beta\)</span> is the probability of rejecting <span class="math notranslate nohighlight">\(H_1\)</span> when it is in fact true, commonly referred to as “Type II Error”.} between simple hypothesis <span class="math notranslate nohighlight">\(H_0\)</span> and <span class="math notranslate nohighlight">\(H_1\)</span> is <span class="math notranslate nohighlight">\(\lambda_{NP}=\frac{L(H_1)}{L(H_0)} = \frac{L(x |\theta_1)}{L(x|\theta_0)}\)</span>, which rejects <span class="math notranslate nohighlight">\(H_0\)</span> in favor of <span class="math notranslate nohighlight">\(H_1\)</span>. For convenience, it is used as <span class="math notranslate nohighlight">\(\lambda_{NP}=-2 \log \frac{L(x|\theta_0)}{L(x|\theta_1)}\)</span>.</p>
+<p>Conceptually, in statistical evidence analyses one uses the test statistic that minimizes <span class="math notranslate nohighlight">\(\alpha\)</span> while maximizing <span class="math notranslate nohighlight">\(1-\beta\)</span>. Where <span class="math notranslate nohighlight">\(\alpha\)</span> is Type I error</p>
+<div class="math notranslate nohighlight">
+\[
+    \alpha = \text{Prob}(\text{Reject } H_0 \mid H_0)
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+1-\beta = \text{Prob}(\text{Reject } H_0 | H_1)
+\]</div>
+<p>\footnote{Birnbaum (1962, 1977) suggested that <span class="math notranslate nohighlight">\(\frac{\alpha}{1-\beta}\)</span> should be used as a measure of the strength of a statistical test, rather than <span class="math notranslate nohighlight">\(\alpha\)</span> alone.}</p>
+<p>Neyman has shown a method for calculation of confidence intervals that guarantees coverage via a method usually referred to as “Neyman Construction”. The problem with Neyman construction, however, is that it doesn’t tell you how to deal with nuissance parameters (systematics). In dealing with statistical inference it is important to deal with nuissance parameters (eg jet energy scale, other parameters dealing with experiment or theory) because you want to isolate to what extent your result is sensetive to a particular nuissance parameter (as opposed to, say, statistical fluctuations). Marginalization (Bayesian) and profiling (frequentist are two ways to deal with nuissance parameters.</p>
 <p>It was proven, by the Neyman-Pearson Lemma that <span class="math notranslate nohighlight">\(\lambda_{NP}\)</span> is the most powerful statistic for hypothesis testing (where the subscript “NP” refers to Neyman-Person” or “New Physics” or “Not Pivotal”, if you like). This, and the fact that everyone in particle physics is familiar with this test statistic, motivates us to us it further in our techniques.</p>
 <p>The goal is to model the distribution of <span class="math notranslate nohighlight">\(\lambda\)</span>, and when <span class="math notranslate nohighlight">\(\hat{\theta}=\hat{\theta}_{\text{MLE}}\)</span>, i.e.</p>
 <div class="math notranslate nohighlight">
-\[\lambda_{\text{MLE}} \equiv -2 \log \frac{L_{\text{prof}} \big(\theta, \hat{\nu}(\theta) \big) }{L_{\text{prof}} \big( \hat{\theta}_{\text{MLE}}, \hat{\nu}(\theta) \big)},\]</div>
+\[
+\lambda_{\text{MLE}} \equiv -2 \log \frac{L_{\text{prof}} \big(\theta, \hat{\nu}(\theta) \big) }{L_{\text{prof}} \big( \hat{\theta}_{\text{MLE}}, \hat{\nu}(\theta) \big)},
+\]</div>
 <p>where we have kept the <span class="math notranslate nohighlight">\(\nu\)</span> dependence in the equation for clarity. We have a nice functional form for <span class="math notranslate nohighlight">\(\lambda\)</span>, where The MLE of <span class="math notranslate nohighlight">\(\hat{\theta}\)</span> is given by</p>
 <div class="math notranslate nohighlight">
 \[\hat{\theta}_{\text{MLE}}=n-m.\]</div>
 <p>Low-count data can sometimes yield spurious results, where the MLE of a parameter of interest <span class="math notranslate nohighlight">\(\theta\)</span>, could yield a negative result. In the case that <span class="math notranslate nohighlight">\(\theta\)</span> is the cross section, yielding a negative result is non-physical, which leads to the ad-hoc fix: taking ignoring the MLE solution and taking <span class="math notranslate nohighlight">\(\hat{\theta}=0\)</span> when <span class="math notranslate nohighlight">\(n&lt;m\)</span>:</p>
 <div class="math notranslate nohighlight">
-\[\begin{split}\hat{\theta}_{\text{non-MLE}} =\left\{
+\[\begin{split}
+\hat{\theta}_{\text{non-MLE}} =\left\{
 \begin{array}{ll}
     n-m &amp; \quad  n&gt;m \\
     0 &amp; \quad n \le m
@@ -975,13 +1032,17 @@ Z  = \mathbb{I}
 \end{split}\]</div>
 <p>The MLE <span class="math notranslate nohighlight">\(\hat{\nu}(\theta)\)</span> is attained by solving <span class="math notranslate nohighlight">\(\frac{\partial \log{p(n,m|\theta,\nu)}}{ \partial \nu} =0\)</span>, leading to</p>
 <div class="math notranslate nohighlight">
-\[\log{p(n,m|\theta,\nu)} = -(\theta+\nu)+n\log{(\theta+\nu)|-\nu+m\log{\nu}} + \text{constants}\]</div>
+\[
+\log{p(n,m|\theta,\nu)} = -(\theta+\nu)+n\log{(\theta+\nu)|-\nu+m\log{\nu}} + \text{constants}
+\]</div>
 <div class="math notranslate nohighlight">
-\[\hat{\nu}(\theta)=\left(g+\sqrt{g^2 + 8 m \theta} \right)/4,\]</div>
+\[
+\hat{\nu}(\theta)=\left(g+\sqrt{g^2 + 8 m \theta} \right)/4,
+\]</div>
 <p>where <span class="math notranslate nohighlight">\(g \equiv n+m-2 \theta\)</span>.</p>
 <p>The procedure can be summarized by the following algorithm:</p>
-<section id="our-algorithm">
-<h3>Our Algorithm<a class="headerlink" href="#our-algorithm" title="Permalink to this headline">#</a></h3>
+<section id="our-algorithm-for-finding-p-value-with-lfi">
+<h3>Our Algorithm for Finding p-value with LFI<a class="headerlink" href="#our-algorithm-for-finding-p-value-with-lfi" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">our_algorithm</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="s1">&#39;images/NMLambda_algorithm.png&#39;</span><span class="p">);</span> <span class="n">display</span><span class="p">(</span><span class="n">our_algorithm</span><span class="p">)</span>
@@ -989,7 +1050,7 @@ Z  = \mathbb{I}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_5_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_5_0.png" />
+<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_7_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_7_0.png" />
 </div>
 </div>
 <p>The test statistic in Eq. <span class="math notranslate nohighlight">\((1)\)</span> is used due to its well-known behavior of it converging to ti a <span class="math notranslate nohighlight">\(\chi^2_k\)</span> variate with <span class="math notranslate nohighlight">\(k\)</span> degrees of freedom, according to Wilk’s Theorem, where <span class="math notranslate nohighlight">\(k\)</span> is the number of free parameters (parameters of interest after the nuissance parameters have been replaecd by their MLEs).</p>
@@ -1173,7 +1234,7 @@ Z  = \mathbb{I}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_13_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_13_0.png" />
+<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_15_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_15_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1197,13 +1258,13 @@ Z  = \mathbb{I}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_14_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_14_0.png" />
+<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_16_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_16_0.png" />
 </div>
 </div>
 <p>As shall be discussed later in this notebook, one way of calculating <span class="math notranslate nohighlight">\(p\)</span>-value for <span class="math notranslate nohighlight">\(\theta\)</span> corresponding to an observed <span class="math notranslate nohighlight">\(\{N,M\}\)</span> pair (which will still be dependent on <span class="math notranslate nohighlight">\(\nu\)</span>) is by calculating the test statistic at the <span class="math notranslate nohighlight">\(\{N,M\}\)</span> pair and calculating
 $$</p>
-<div class="amsmath math notranslate nohighlight" id="equation-b3c53386-e3d6-4760-b540-fa11dbf5ceb1">
-<span class="eqno">(9)<a class="headerlink" href="#equation-b3c53386-e3d6-4760-b540-fa11dbf5ceb1" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-11bf68dd-c90f-457d-afeb-fe83616d4641">
+<span class="eqno">(9)<a class="headerlink" href="#equation-11bf68dd-c90f-457d-afeb-fe83616d4641" title="Permalink to this equation">#</a></span>\[\begin{align}
 p_\theta (\nu) &amp;=\int_{\lambda_D}^\infty f \big(\lambda_{gen}(n,m \mid \theta,\nu) \mid H_{null} \big) \ d \lambda_{gen} \\
  &amp;= 1- \text{Prob} \big(\lambda_{gen}(n,m;\theta,\nu) \le \lambda_D(N,M;\theta,\nu) \big), \tag{2}
 \end{align}\]</div>
@@ -1407,19 +1468,6 @@ p^{\text{MLE}}_\theta (\nu) \rightarrow 1-\alpha \left( 1- F_{\chi^2} [\theta, \
 <section id="generate-training-data-or-take-a-look-at-the-saved-training-data">
 <h3>Generate Training data (or take a look at the saved training data)<a class="headerlink" href="#generate-training-data-or-take-a-look-at-the-saved-training-data" title="Permalink to this headline">#</a></h3>
 <p>We then generate training data where the number of training examples is <span class="math notranslate nohighlight">\(B'\)</span> according to Alg. 2 of Anne Lee et al. (shown below). The training data now has <span class="math notranslate nohighlight">\(\{\theta, \nu, N, M \} \)</span> as training features and <span class="math notranslate nohighlight">\(Z\)</span> as the target. We then use Pytorch to build MLP regression model with average quadratic loss to estimate the distribution of <span class="math notranslate nohighlight">\(Z\)</span>, <span class="math notranslate nohighlight">\(E[Z|\theta,\nu]\)</span>, which according to Alg. 2 is the p-value.</p>
-</section>
-<section id="ann-lee-s-algorithm">
-<h3><a class="reference external" href="https://arxiv.org/pdf/2107.03920.pdf">Ann Lee</a>’s Algorithm<a class="headerlink" href="#ann-lee-s-algorithm" title="Permalink to this headline">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">algorithm2</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="s1">&#39;images/Algorithm2.jpg&#39;</span><span class="p">);</span> <span class="n">display</span><span class="p">(</span><span class="n">algorithm2</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_23_0.jpg" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_23_0.jpg" />
-</div>
-</div>
 <p>As we know, the p-value is the probability under the null hypothesis <span class="math notranslate nohighlight">\(H_{null}\)</span> (which is in this case parameterized by <span class="math notranslate nohighlight">\(\theta\)</span>) of finding data of equal or greater <em>incompatibility</em> with the predictions of <span class="math notranslate nohighlight">\(H_{null}\)</span>. Therefore, in our case, the p-value under the null hypothesis (defined by <span class="math notranslate nohighlight">\(\theta\)</span>) is given by</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -2475,7 +2523,7 @@ first features batch shape
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="make-a-hyperparameter-tuning-workflow">
 <h1>Make a hyperparameter Tuning Workflow<a class="headerlink" href="#make-a-hyperparameter-tuning-workflow" title="Permalink to this headline">#</a></h1>
-<p>Use Optuna ( <a class="reference external" href="https://arxiv.org/pdf/1907.10902.pdf">axriv:1907.10902</a> ) for hyperparameter tuning. The search space for the hyperparameters that I’m tuning is defined in the params dictionary:</p>
+<p>Use Optuna ( <a class="reference external" href="https://arxiv.org/pdf/1907.10902.pdf">axriv:1907.10902</a> ) for hyperparameter tuning. The search space for the hyperparameters that I’m tuning is defined in the <code class="docutils literal notranslate"><span class="pre">params</span></code> dictionary:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
       <span class="s2">&quot;nlayers&quot;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_int</span><span class="p">(</span><span class="s2">&quot;nlayers&quot;</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">13</span><span class="p">),</span>      
       <span class="s2">&quot;hidden_size&quot;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_int</span><span class="p">(</span><span class="s2">&quot;hidden_size&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">130</span><span class="p">),</span>
@@ -4874,90 +4922,7 @@ Iteration vs average loss
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tune_hyperparameters_pivot</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Getting best hyperparameters
-</pre></div>
-</div>
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_52945</span><span class="o">/</span><span class="mf">3081406728.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">tune_hyperparameters_pivot</span><span class="p">()</span>
-
-<span class="nn">/tmp/ipykernel_52945/2442251305.py</span> in <span class="ni">tune_hyperparameters_pivot</span><span class="nt">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">269</span>     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Getting best hyperparameters&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">270</span>     <span class="n">study</span><span class="o">=</span><span class="n">optuna</span><span class="o">.</span><span class="n">create_study</span><span class="p">(</span><span class="n">direction</span><span class="o">=</span><span class="s2">&quot;minimize&quot;</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">271</span>     <span class="n">study</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="n">objective</span><span class="p">,</span> <span class="n">n_trials</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">272</span>     <span class="n">best_trial</span> <span class="o">=</span> <span class="n">study</span><span class="o">.</span><span class="n">best_trial</span>
-<span class="g g-Whitespace">    </span><span class="mi">273</span>     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;best model parameters&#39;</span><span class="p">,</span> <span class="n">best_trial</span><span class="o">.</span><span class="n">params</span><span class="p">)</span>
-
-<span class="nn">~/anaconda3/lib/python3.7/site-packages/optuna/study.py</span> in <span class="ni">optimize</span><span class="nt">(self, func, n_trials, timeout, n_jobs, catch, callbacks, gc_after_trial, show_progress_bar)</span>
-<span class="g g-Whitespace">    </span><span class="mi">408</span>             <span class="n">callbacks</span><span class="o">=</span><span class="n">callbacks</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">409</span>             <span class="n">gc_after_trial</span><span class="o">=</span><span class="n">gc_after_trial</span><span class="p">,</span>
-<span class="ne">--&gt; </span><span class="mi">410</span>             <span class="n">show_progress_bar</span><span class="o">=</span><span class="n">show_progress_bar</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">411</span>         <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">412</span> 
-
-<span class="nn">~/anaconda3/lib/python3.7/site-packages/optuna/_optimize.py</span> in <span class="ni">_optimize</span><span class="nt">(study, func, n_trials, timeout, n_jobs, catch, callbacks, gc_after_trial, show_progress_bar)</span>
-<span class="g g-Whitespace">     </span><span class="mi">73</span>                 <span class="n">reseed_sampler_rng</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">74</span>                 <span class="n">time_start</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-<span class="ne">---&gt; </span><span class="mi">75</span>                 <span class="n">progress_bar</span><span class="o">=</span><span class="n">progress_bar</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">76</span>             <span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">77</span>         <span class="k">else</span><span class="p">:</span>
-
-<span class="nn">~/anaconda3/lib/python3.7/site-packages/optuna/_optimize.py</span> in <span class="ni">_optimize_sequential</span><span class="nt">(study, func, n_trials, timeout, catch, callbacks, gc_after_trial, reseed_sampler_rng, time_start, progress_bar)</span>
-<span class="g g-Whitespace">    </span><span class="mi">160</span> 
-<span class="g g-Whitespace">    </span><span class="mi">161</span>         <span class="k">try</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">162</span>             <span class="n">trial</span> <span class="o">=</span> <span class="n">_run_trial</span><span class="p">(</span><span class="n">study</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">catch</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">163</span>         <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">164</span>             <span class="k">raise</span>
-
-<span class="nn">~/anaconda3/lib/python3.7/site-packages/optuna/_optimize.py</span> in <span class="ni">_run_trial</span><span class="nt">(study, func, catch)</span>
-<span class="g g-Whitespace">    </span><span class="mi">214</span> 
-<span class="g g-Whitespace">    </span><span class="mi">215</span>     <span class="k">try</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">216</span>         <span class="n">value_or_values</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">trial</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">217</span>     <span class="k">except</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">TrialPruned</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">218</span>         <span class="c1"># TODO(mamu): Handle multi-objective cases.</span>
-
-<span class="nn">/tmp/ipykernel_52945/1407402583.py</span> in <span class="ni">objective</span><span class="nt">(trial)</span>
-<span class="g g-Whitespace">    </span><span class="mi">110</span>     <span class="c1"># all_losses=[]</span>
-<span class="g g-Whitespace">    </span><span class="mi">111</span> 
-<span class="ne">--&gt; </span><span class="mi">112</span>     <span class="n">temp_loss</span> <span class="o">=</span> <span class="n">run_train</span><span class="p">(</span><span class="n">params</span><span class="p">,</span><span class="n">save_model</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">113</span>     <span class="c1"># all_losses.append(temp_loss)</span>
-<span class="g g-Whitespace">    </span><span class="mi">114</span>     <span class="k">return</span> <span class="n">temp_loss</span>
-
-<span class="nn">/tmp/ipykernel_52945/1407402583.py</span> in <span class="ni">run_train</span><span class="nt">(params, save_model)</span>
-<span class="g g-Whitespace">     </span><span class="mi">82</span> 
-<span class="g g-Whitespace">     </span><span class="mi">83</span>     <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">EPOCHS</span><span class="p">):</span>
-<span class="ne">---&gt; </span><span class="mi">84</span>         <span class="n">train_loss</span> <span class="o">=</span> <span class="n">eng</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">train_x</span><span class="p">,</span> <span class="n">train_t</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">85</span>         <span class="n">valid_loss</span><span class="o">=</span><span class="n">eng</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">test_x</span><span class="p">,</span> <span class="n">test_t</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">86</span> 
-
-<span class="nn">/tmp/ipykernel_52945/1407402583.py</span> in <span class="ni">train</span><span class="nt">(self, x, t)</span>
-<span class="g g-Whitespace">     </span><span class="mi">32</span>             <span class="n">outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">33</span>             <span class="n">loss</span> <span class="o">=</span> <span class="n">average_quadratic_loss</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">targets</span><span class="p">,</span> <span class="n">inputs</span><span class="p">)</span>
-<span class="ne">---&gt; </span><span class="mi">34</span>             <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
-<span class="g g-Whitespace">     </span><span class="mi">35</span>             <span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
-<span class="g g-Whitespace">     </span><span class="mi">36</span>             <span class="n">final_loss</span> <span class="o">+=</span> <span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
-
-<span class="nn">~/anaconda3/lib/python3.7/site-packages/torch/_tensor.py</span> in <span class="ni">backward</span><span class="nt">(self, gradient, retain_graph, create_graph, inputs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">253</span>                 <span class="n">create_graph</span><span class="o">=</span><span class="n">create_graph</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">254</span>                 <span class="n">inputs</span><span class="o">=</span><span class="n">inputs</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">255</span>         <span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">backward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gradient</span><span class="p">,</span> <span class="n">retain_graph</span><span class="p">,</span> <span class="n">create_graph</span><span class="p">,</span> <span class="n">inputs</span><span class="o">=</span><span class="n">inputs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">256</span> 
-<span class="g g-Whitespace">    </span><span class="mi">257</span>     <span class="k">def</span> <span class="nf">register_hook</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hook</span><span class="p">):</span>
-
-<span class="nn">~/anaconda3/lib/python3.7/site-packages/torch/autograd/__init__.py</span> in <span class="ni">backward</span><span class="nt">(tensors, grad_tensors, retain_graph, create_graph, grad_variables, inputs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">147</span>     <span class="n">Variable</span><span class="o">.</span><span class="n">_execution_engine</span><span class="o">.</span><span class="n">run_backward</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">148</span>         <span class="n">tensors</span><span class="p">,</span> <span class="n">grad_tensors_</span><span class="p">,</span> <span class="n">retain_graph</span><span class="p">,</span> <span class="n">create_graph</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span>
-<span class="ne">--&gt; </span><span class="mi">149</span>         <span class="n">allow_unreachable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">accumulate_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># allow_unreachable flag</span>
-<span class="g g-Whitespace">    </span><span class="mi">150</span> 
-<span class="g g-Whitespace">    </span><span class="mi">151</span> 
-
-<span class="ne">KeyboardInterrupt</span>: 
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># tune_hyperparameters_pivot()</span>
 </pre></div>
 </div>
 </div>
@@ -4987,37 +4952,6 @@ $<span class="math notranslate nohighlight">\(L(\theta, \nu)= \frac{e^{-(\theta+
 <li><p>Likelihood regions and confidence intervals from confidence sets of two or more parameters</p></li>
 <li><p>Using more test statistics, motivated by <a class="reference external" href="https://arxiv.org/pdf/1007.1727.pdf">Asymptotic formulae for likelihood-based tests of new physics</a></p></li>
 </ol>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">2.</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="nb">type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>torch.Tensor
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="n">x</span> <span class="o">@</span> <span class="n">x</span><span class="o">.</span><span class="n">t</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-<span class="n">f</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
-<span class="n">x</span><span class="o">.</span><span class="n">grad</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor(8., grad_fn=&lt;DotBackward&gt;)
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([4., 4.])
-</pre></div>
-</div>
-</div>
-</div>
 </section>
 
     <script type="text/x-thebe-config">
@@ -5053,6 +4987,13 @@ $<span class="math notranslate nohighlight">\(L(\theta, \nu)= \frac{e^{-(\theta+
             <p class="prev-next-subtitle">previous</p>
             <p class="prev-next-title">1 - Pivotal LFI for Count Data in Particle Physics: Background and one-parameter Problem</p>
         </div>
+    </a>
+    <a class='right-next' id="next-link" href="3_Replacing_Data_with_Lambda_and_2D_Inference.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">3 - Replacing Observed Data with Test Statistics and 2-Dimensional Inference in <span class="math notranslate nohighlight">\(\theta - \nu\)</span> Space</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
     </a>
 </div>
             </footer>

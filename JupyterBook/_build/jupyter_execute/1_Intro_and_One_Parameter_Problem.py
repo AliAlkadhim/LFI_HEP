@@ -91,7 +91,7 @@ import ipywidgets as wid; wid.HTMLMath('$\LaTeX$')
 # 
 # 
 # 
-# ### References
+# ### Initial References
 #   1. Anne Lee et al., https://arxiv.org/abs/2107.03920
 #   2. Neyman, Jerzy (1937). "Outline of a Theory of Statistical Estimation Based on the Classical Theory of Probability". Philosophical Transactions of the Royal Society of London. Series A, Mathematical and Physical Sciences. 236 (767): 333–380. doi:10.1098/rsta.1937.0005.
 #   3. https://en.wikipedia.org/wiki/Incomplete_gamma_function. The normalized function is the unnormalized function divided by $\Gamma(s)$ and can be computed using scipy.special.gammainc($s$, $\theta$).
@@ -102,9 +102,9 @@ import ipywidgets as wid; wid.HTMLMath('$\LaTeX$')
 # 
 # Before we go on to demonstrate our methods, we review the relevant statistics 
 
-# %%latex
 # 
 # Suppose we have the Poisson distribution
+# 
 # $$
 # P(N | \theta)  =  \frac{e^{-\theta} \theta^N}{N!}, 
 # $$

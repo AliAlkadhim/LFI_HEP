@@ -10,7 +10,7 @@
 # Department of Physics, Florida State University <br>
 # 
 
-# In[7]:
+# In[3]:
 
 
 import numpy as np; import pandas as pd
@@ -33,7 +33,7 @@ import optuna
 import os; os.environ['LFI_BASE']=os.getcwd() + '/'
 LFI_BASE = os.environ['LFI_BASE']; print('BASE directory', LFI_BASE,'\n')
 #be extra careful in importing everything from a module, since we know what's in it it's fine!
-import utils.utils as utils
+import ..utils.utils as utils
 from utils import *
 #sometimes jupyter doesnt initialize MathJax automatically for latex, so do this
 import ipywidgets as wid; wid.HTMLMath('$\LaTeX$')
@@ -42,6 +42,7 @@ import ipywidgets as wid; wid.HTMLMath('$\LaTeX$')
 # # Background and Problem Statement
 # 
 # In particle physics, the most important experiment is a counting experiment, represented by a Poisson probability model.Suppose we have a count experiment, we we observe in each bin (or channel) $k$ a count $n_k$. Given $N$ total channels, the probability of obtaining the observed result is given by the Poisson
+# 
 # $$ \prod_{k=1}^{N} \frac{e^{-(\epsilon_k \sigma + b_k)} (\epsilon_k \sigma + b_k)^{n_k}}{n_k !} $$
 # 
 # Where $\sigma$, the cross section (the parameter of interest), $b_k$ is expected background for the $k$th channel (the nuissance parameter). $\epsilon_k$ is the "acceptance parameter", for the $k$th channel, which is typically a product of the detector efficiency, branching fraction, and luminosity.
@@ -55,18 +56,28 @@ import ipywidgets as wid; wid.HTMLMath('$\LaTeX$')
 # 
 # Where $n_{exp}$ is the expected signal count, $\theta$ is the unknown mean count, which is the parameter of interest (the cross section), and $\nu$ is the background unknown mean count, which is the nuissance parameter. 
 # 
+
+# ### [Ann Lee](https://arxiv.org/pdf/2107.03920.pdf)'s Algorithm
 # 
-# ## The two-parameter problem
+# Before proceeding, let us recall Ann Lee et al.'s brilliant algorithm for estimating p-values with robust frequentist guarantees.
+
+# In[14]:
+
+
+algorithm2 = Image('images/Algorithm2.jpg'); display(algorithm2)
+
+
+# # The two-parameter problem
 # 
 # the conditional probability of observing $n$ signal counts and $m$ background counts in a *single channel or bin* is given by
 # 
 # $$
-#     \text{Prob}(n, m \mid \theta, v)= L(\theta, \nu) = \frac{e^{-(\theta+v)}(\theta+v)^{n}}{n !} \frac{e^{-v} v^{m}}{m !}
+#     \text{Prob}(n, m \mid \theta, v)= L(\theta, \nu) = \frac{e^{-(\theta+v)}(\theta+v)^{n}}{n !} \frac{e^{-v} v^{m}}{m !},
 #     \label{prob_model}
 # $$
 # 
 # 
-# Where, once the counts $n$ and $m$ have been observed becomes the likelihood $L(\theta,\nu)$. $L(\theta,\nu)$ could be viewed as a product of the main measurement where signal events ($s$) could be present, and a control measurement where only background events ($b$) exist, which helps us constrain the nuissance parameters. 
+# where, once the counts $n$ and $m$ have been observed becomes the likelihood $L(\theta,\nu)$. $L(\theta,\nu)$ could be viewed as a product of the main measurement where signal events ($s$) could be present, and a control measurement where only background events ($b$) exist, which helps us constrain the nuissance parameters. 
 # 
 # $$L(\theta,\nu) = L_{s+b}(\theta,\nu) L_b(\nu)$$
 # 
@@ -75,7 +86,8 @@ import ipywidgets as wid; wid.HTMLMath('$\LaTeX$')
 # The objective now is to derive confidence intervals or limits for the parameter of interest $\theta$. What makes this challenging is the presence of the *nuissance parameter* $\nu$, which is a parameter whose value is not known precisely, and can be related to the physics or the experimental aparatus/detector. In the Bayesian approach, nuissance parameters are assigned prior probabilities $\pi(\nu) d \nu$ and are integrated out in order to arrive at the posterior for $\theta$ in a process called marginalization: $L(\theta) = \int L(\theta,\nu) \pi (\nu) d \nu$. However, this introduces a fair bit of subjectivity into the problem through the choice of the prior. Frequentist methods deal with nuissance parameters by profiling them the likelihood in order to arrive at their MLEs.
 # 
 # 
-# The typical way to arrive at confidence intervals that guarantee coverage is the Neyman-Pearson construction. However, it does not deal with the existence of nuissance parameters....
+# 
+# The typical way to arrive at confidence intervals that guarantee coverage is the Neyman-Pearson construction. However, it does not guarantee coverage for multi-parameter problems with the existence of nuissance parameters.
 # 
 # 
 # the Poisson mean$=\theta+\nu$, and the probability model *for a single bin* is given by
@@ -86,7 +98,7 @@ import ipywidgets as wid; wid.HTMLMath('$\LaTeX$')
 # 
 # Where $\nu$ is the nuissance parameter, $\theta$ is the paramter of interest, for which we want to estimate confidence intervals or (upper) limits. 
 # 
-
+# 
 # ## Observed Data:
 # 
 #    * $N$ (observed counts for signal)
@@ -152,14 +164,36 @@ import ipywidgets as wid; wid.HTMLMath('$\LaTeX$')
 # where $L_{\text{prof}} \big( n, m, \theta, \hat{\nu}(\theta) \big)$ is the profiled likelihood - that is - the likelihood function when the nuissance parameters are replaced by their maximum likelihood estimates (MLE) for a given value of the parameter of interest.
 # 
 # 
-# $$L_{\text{prof}}(\theta) \equiv \frac{e^{-(\theta+\hat{\nu})} (\theta+\hat{\nu})^N }{N !} \ \frac{e^{-\hat{\nu}} \hat{\nu}^M}{M !}.$$
+# $$
+# L_{\text{prof}}(\theta) \equiv \frac{e^{-(\theta+\hat{\nu})} (\theta+\hat{\nu})^N }{N !} \ \frac{e^{-\hat{\nu}} \hat{\nu}^M}{M !}.
+# $$
+# 
+# 
+# Test statistics play a paramount role in the theory of hypothesis testing. Given observed data $x$, a test statistic $\lambda$ evaluated for the observed data $\lambda_{observed}$ is the only way to decide which of two hypothesis; the null hypothesis $H_{0}$ (parameterized by parameters $\theta_0$) and the alternative hypothesis $H_1$ (parameterized by parameters $\theta_1$). One can construct an infinite number of test statistics, by choosing different functions of the data $x$, but most functions of the data are useless! The Neyman-Pearson (NP) Lemma states that the most powerful test statistic \footnote{By powerful we mean that it has the greatest power $1-\beta$ where $\beta$ is the probability of rejecting $H_1$ when it is in fact true, commonly referred to as "Type II Error".} between simple hypothesis $H_0$ and $H_1$ is $\lambda_{NP}=\frac{L(H_1)}{L(H_0)} = \frac{L(x |\theta_1)}{L(x|\theta_0)}$, which rejects $H_0$ in favor of $H_1$. For convenience, it is used as $\lambda_{NP}=-2 \log \frac{L(x|\theta_0)}{L(x|\theta_1)}$.
+# 
+# Conceptually, in statistical evidence analyses one uses the test statistic that minimizes $\alpha$ while maximizing $1-\beta$. Where $\alpha$ is Type I error
+# 
+# $$
+#     \alpha = \text{Prob}(\text{Reject } H_0 \mid H_0)
+# $$
+# 
+# 
+# $$
+# 1-\beta = \text{Prob}(\text{Reject } H_0 | H_1)
+# $$
+# 
+# \footnote{Birnbaum (1962, 1977) suggested that $\frac{\alpha}{1-\beta}$ should be used as a measure of the strength of a statistical test, rather than $\alpha$ alone.} 
+# 
+# Neyman has shown a method for calculation of confidence intervals that guarantees coverage via a method usually referred to as "Neyman Construction". The problem with Neyman construction, however, is that it doesn't tell you how to deal with nuissance parameters (systematics). In dealing with statistical inference it is important to deal with nuissance parameters (eg jet energy scale, other parameters dealing with experiment or theory) because you want to isolate to what extent your result is sensetive to a particular nuissance parameter (as opposed to, say, statistical fluctuations). Marginalization (Bayesian) and profiling (frequentist are two ways to deal with nuissance parameters.
 # 
 # 
 # It was proven, by the Neyman-Pearson Lemma that $\lambda_{NP}$ is the most powerful statistic for hypothesis testing (where the subscript "NP" refers to Neyman-Person" or "New Physics" or "Not Pivotal", if you like). This, and the fact that everyone in particle physics is familiar with this test statistic, motivates us to us it further in our techniques.
 # 
 # The goal is to model the distribution of $\lambda$, and when $\hat{\theta}=\hat{\theta}_{\text{MLE}}$, i.e.
 # 
-# $$\lambda_{\text{MLE}} \equiv -2 \log \frac{L_{\text{prof}} \big(\theta, \hat{\nu}(\theta) \big) }{L_{\text{prof}} \big( \hat{\theta}_{\text{MLE}}, \hat{\nu}(\theta) \big)},$$
+# $$
+# \lambda_{\text{MLE}} \equiv -2 \log \frac{L_{\text{prof}} \big(\theta, \hat{\nu}(\theta) \big) }{L_{\text{prof}} \big( \hat{\theta}_{\text{MLE}}, \hat{\nu}(\theta) \big)},
+# $$
 # 
 # 
 # 
@@ -172,7 +206,8 @@ import ipywidgets as wid; wid.HTMLMath('$\LaTeX$')
 # Low-count data can sometimes yield spurious results, where the MLE of a parameter of interest $\theta$, could yield a negative result. In the case that $\theta$ is the cross section, yielding a negative result is non-physical, which leads to the ad-hoc fix: taking ignoring the MLE solution and taking $\hat{\theta}=0$ when $n<m$:
 # 
 # 
-# $$\hat{\theta}_{\text{non-MLE}} =\left\{
+# $$
+# \hat{\theta}_{\text{non-MLE}} =\left\{
 # \begin{array}{ll}
 #     n-m & \quad  n>m \\
 #     0 & \quad n \le m
@@ -185,14 +220,19 @@ import ipywidgets as wid; wid.HTMLMath('$\LaTeX$')
 # 
 # The MLE $\hat{\nu}(\theta)$ is attained by solving $\frac{\partial \log{p(n,m|\theta,\nu)}}{ \partial \nu} =0$, leading to 
 # 
-# $$\log{p(n,m|\theta,\nu)} = -(\theta+\nu)+n\log{(\theta+\nu)|-\nu+m\log{\nu}} + \text{constants}$$
+# $$
+# \log{p(n,m|\theta,\nu)} = -(\theta+\nu)+n\log{(\theta+\nu)|-\nu+m\log{\nu}} + \text{constants}
+# $$
 # 
-# $$\hat{\nu}(\theta)=\left(g+\sqrt{g^2 + 8 m \theta} \right)/4,$$
+# $$
+# \hat{\nu}(\theta)=\left(g+\sqrt{g^2 + 8 m \theta} \right)/4,
+# $$
+# 
 # where $g \equiv n+m-2 \theta$.
 # 
 # The procedure can be summarized by the following algorithm:
 # 
-# ### Our Algorithm
+# ### Our Algorithm for Finding p-value with LFI
 
 # In[154]:
 
@@ -469,14 +509,6 @@ print(f'''\n (n.shape, m.shape, lambda_.shape, theta.size, nu.size) =
 # ### Generate Training data (or take a look at the saved training data)
 # 
 # We then generate training data where the number of training examples is $B'$ according to Alg. 2 of Anne Lee et al. (shown below). The training data now has $\{\theta, \nu, N, M \} $ as training features and $Z$ as the target. We then use Pytorch to build MLP regression model with average quadratic loss to estimate the distribution of $Z$, $E[Z|\theta,\nu]$, which according to Alg. 2 is the p-value. 
-
-# ### [Ann Lee](https://arxiv.org/pdf/2107.03920.pdf)'s Algorithm
-
-# In[14]:
-
-
-algorithm2 = Image('images/Algorithm2.jpg'); display(algorithm2)
-
 
 # As we know, the p-value is the probability under the null hypothesis $H_{null}$ (which is in this case parameterized by $\theta$) of finding data of equal or greater *incompatibility* with the predictions of $H_{null}$. Therefore, in our case, the p-value under the null hypothesis (defined by $\theta$) is given by
 # 
@@ -1305,7 +1337,7 @@ class RegularizedRegressionModel(nn.Module):
 
 # # Make a hyperparameter Tuning Workflow
 # 
-# Use Optuna ( [axriv:1907.10902](https://arxiv.org/pdf/1907.10902.pdf) ) for hyperparameter tuning. The search space for the hyperparameters that I'm tuning is defined in the params dictionary:
+# Use Optuna ( [axriv:1907.10902](https://arxiv.org/pdf/1907.10902.pdf) ) for hyperparameter tuning. The search space for the hyperparameters that I'm tuning is defined in the `params` dictionary:
 # 
 # ```python
 #     params = {
@@ -2941,16 +2973,10 @@ def tune_hyperparameters_pivot():
     param_df.to_csv(filename)   
 
 
-# In[356]:
+# In[1]:
 
 
-tune_hyperparameters_pivot()
-
-
-# In[ ]:
-
-
-
+# tune_hyperparameters_pivot()
 
 
 # ------------------
@@ -2976,25 +3002,3 @@ tune_hyperparameters_pivot()
 # 2. Likelihood regions and confidence intervals from confidence sets of two or more parameters
 # 
 # 3. Using more test statistics, motivated by [Asymptotic formulae for likelihood-based tests of new physics](https://arxiv.org/pdf/1007.1727.pdf)
-
-# In[233]:
-
-
-x = torch.tensor([2.,2], requires_grad=True)
-type(x)
-
-
-# In[240]:
-
-
-f = x @ x.t()
-print(f)
-f.backward()
-x.grad
-
-
-# In[ ]:
-
-
-
-

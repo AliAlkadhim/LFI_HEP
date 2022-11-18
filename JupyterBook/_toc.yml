@@ -4,4 +4,7 @@ root: intro
 chapters:
 - file: 1_Intro_and_One_Parameter_Problem.ipynb
 - file: 2_Two_Parameter_Problem_and_Pivotal_p_Value.ipynb
+- file: 3_Replacing_Data_with_Lambda_and_2D_Inference.ipynb
+- file: 4_Imposing_Pivotal_Conditions_on_Lambda.ipynb
+- file: 5_Mapping_Confidence_Sets_to_Confidence_Intervals.ipynb
 
