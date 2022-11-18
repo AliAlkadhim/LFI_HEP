@@ -1,2 +1,2 @@
-# Likelihood-free Inference for Confidence Interval Estimation in Particle Physics
+# Pivotal Likelihood-free Inference for Particle Physics
 
