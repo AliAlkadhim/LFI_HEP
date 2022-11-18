@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # Pivotal Likelihood-Free Inference for Count Data in Particle Physics
+# # 1 - Pivotal LFI for Count Data in Particle Physics: Background and one-parameter Problem
 # 
 # Ali Al Kadhim and Harrison B. Prosper<br>
 # Department of Physics, Florida State University<br>

@@ -111,7 +111,7 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="1_Intro_and_One_Parameter_Problem.html">
-   Pivotal Likelihood-Free Inference for Count Data in Particle Physics
+   1 - Pivotal LFI for Count Data in Particle Physics: Background and one-parameter Problem
   </a>
  </li>
 </ul>
@@ -473,13 +473,13 @@ Updated: 12 May 2022</p>
 <section id="the-poisson-problem-a-single-count">
 <h2>The Poisson Problem: A Single Count<a class="headerlink" href="#the-poisson-problem-a-single-count" title="Permalink to this headline">#</a></h2>
 <p>Computing confidence intervals with exact coverage for the parameter <span class="math notranslate nohighlight">\(\theta\)</span> of the Poisson distribution</p>
-<div class="amsmath math notranslate nohighlight" id="equation-ccd87c26-bdc8-45c3-b6c8-f6541414db1a">
-<span class="eqno">()<a class="headerlink" href="#equation-ccd87c26-bdc8-45c3-b6c8-f6541414db1a" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-8d3a9b85-d39f-40f7-9355-f5fbfdede774">
+<span class="eqno">()<a class="headerlink" href="#equation-8d3a9b85-d39f-40f7-9355-f5fbfdede774" title="Permalink to this equation">#</a></span>\[\begin{align}
 P(n | \theta) &amp; =  \frac{e^{-\theta} \theta^n}{n!}, 
 \end{align}\]</div>
 <p>is a classic problem in statistics. Exact coverage means that the following is true</p>
-<div class="amsmath math notranslate nohighlight" id="equation-daeab575-f6cc-496f-afb3-218adbf921cd">
-<span class="eqno">()<a class="headerlink" href="#equation-daeab575-f6cc-496f-afb3-218adbf921cd" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-722f8e2c-23cf-40fd-93a7-c4e078d4be63">
+<span class="eqno">()<a class="headerlink" href="#equation-722f8e2c-23cf-40fd-93a7-c4e078d4be63" title="Permalink to this equation">#</a></span>\[\begin{align}
     P\{ \theta \in [ \, \underline{\theta}(n), \, \overline{\theta}(n) \, ] \, \} \geq 1 - \alpha, \forall \textrm{ fixed values of } \theta , 
 \end{align}\]</div>
 <p>where <span class="math notranslate nohighlight">\(P\)</span> is called the <strong>coverage probability</strong>, <span class="math notranslate nohighlight">\(1 - \alpha\)</span> the confidence level (CL), and <span class="math notranslate nohighlight">\(\alpha\)</span> the size of the associated hypothesis test. For a given experiment, the parameter <span class="math notranslate nohighlight">\(\theta\)</span>, the mean count, is presumed <em>fixed</em>. But the quantity <span class="math notranslate nohighlight">\([ \, \underline{\theta}(n), \, \overline{\theta}(n) \, ]\)</span> is a <em>random</em> interval which, in general, differs from one experiment to another.</p>
@@ -494,14 +494,14 @@ As the name implies, the <strong>sampling distribution</strong> of <span class="
 <h3>Algorithm<a class="headerlink" href="#algorithm" title="Permalink to this headline">#</a></h3>
 <p>Define the <em>right</em> and <em>left</em> cumulative distribution functions of the
 sampling distribution, <span class="math notranslate nohighlight">\(f_\theta(t)\)</span>, by</p>
-<div class="amsmath math notranslate nohighlight" id="equation-ac452116-5cb3-4a9a-9640-4b3a007178e1">
-<span class="eqno">()<a class="headerlink" href="#equation-ac452116-5cb3-4a9a-9640-4b3a007178e1" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-7e1b51ac-8063-44c0-b222-89ec792de091">
+<span class="eqno">()<a class="headerlink" href="#equation-7e1b51ac-8063-44c0-b222-89ec792de091" title="Permalink to this equation">#</a></span>\[\begin{align}
       D_R(x, \theta) &amp; = \int_{t \geq x} f_\theta(t) \, dt \textrm{ and } \\ 
       D_L(x, \theta) &amp; = \int_{t \leq x} f_\theta(t) \, dt.
  \end{align}\]</div>
 <p>By solving the equations</p>
-<div class="amsmath math notranslate nohighlight" id="equation-20b86266-2020-42d0-b3ab-19813d21104d">
-<span class="eqno">()<a class="headerlink" href="#equation-20b86266-2020-42d0-b3ab-19813d21104d" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-86af9aa7-74f6-42c1-af84-61569c8ee488">
+<span class="eqno">()<a class="headerlink" href="#equation-86af9aa7-74f6-42c1-af84-61569c8ee488" title="Permalink to this equation">#</a></span>\[\begin{align}
     D_R(x, \underline{\theta}) &amp; = \alpha_R,\\
     D_L(x, \overline{\theta}) &amp; =  \alpha_L,
 \end{align}\]</div>
@@ -515,8 +515,8 @@ where <span class="math notranslate nohighlight">\(\text{CL} + \alpha_R + \alpha
 <h3>Application to the Poisson distribution<a class="headerlink" href="#application-to-the-poisson-distribution" title="Permalink to this headline">#</a></h3>
 <p>The Neyman algorithm, applied to the test statistic <span class="math notranslate nohighlight">\(t(n) = n\)</span> for the
 Poisson distribution, requires the functions</p>
-<div class="amsmath math notranslate nohighlight" id="equation-3f609605-4baa-4504-b5ad-23890bd1d2f9">
-<span class="eqno">()<a class="headerlink" href="#equation-3f609605-4baa-4504-b5ad-23890bd1d2f9" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-13fbaeb2-4fe2-4b9b-b2da-8d2f0e566533">
+<span class="eqno">()<a class="headerlink" href="#equation-13fbaeb2-4fe2-4b9b-b2da-8d2f0e566533" title="Permalink to this equation">#</a></span>\[\begin{align}
       D_R(N, \theta) &amp; = \sum_{k=N}^\infty \textrm{Poisson}(k, \theta) = P(N, \theta),\\
       \textrm{and   } D_L(N, \theta) &amp; = \sum_{k=0}^N \textrm{Poisson}(k, \theta) = 1 - P(N+1, \theta) ,
  \end{align}\]</div>
@@ -684,8 +684,8 @@ Poisson distribution, requires the functions</p>
 <section id="define-functions">
 <h3>Define functions<a class="headerlink" href="#define-functions" title="Permalink to this headline">#</a></h3>
 <p>$</p>
-<div class="amsmath math notranslate nohighlight" id="equation-869c2941-eb6e-4b15-ae15-2394601fcfd2">
-<span class="eqno">()<a class="headerlink" href="#equation-869c2941-eb6e-4b15-ae15-2394601fcfd2" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-2743d441-71d8-412f-be0c-f1cd03caa49e">
+<span class="eqno">()<a class="headerlink" href="#equation-2743d441-71d8-412f-be0c-f1cd03caa49e" title="Permalink to this equation">#</a></span>\[\begin{align}
       D_R(N, \theta) &amp; = \sum_{k=N}^\infty \textrm{Poisson}(k, \theta) = P(N, \theta),\\
       \textrm{and   } D_L(N, \theta) &amp; = \sum_{k=0}^N \textrm{Poisson}(k, \theta) = 1 - P(N+1, \theta).
 \end{align}\]</div>
@@ -951,8 +951,8 @@ test set size:           5000
 <section id="empirical-risk-that-is-average-loss">
 <h3>Empirical risk (that is, average loss)<a class="headerlink" href="#empirical-risk-that-is-average-loss" title="Permalink to this headline">#</a></h3>
 <p>The empirical risk, which is the <strong>objective function</strong> we shall minimize, is defined as</p>
-<div class="amsmath math notranslate nohighlight" id="equation-6e5f2f62-80e3-498b-846a-537a0fa5f5d1">
-<span class="eqno">()<a class="headerlink" href="#equation-6e5f2f62-80e3-498b-846a-537a0fa5f5d1" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-5841becb-10d6-4676-838e-153104fe1ecc">
+<span class="eqno">()<a class="headerlink" href="#equation-5841becb-10d6-4676-838e-153104fe1ecc" title="Permalink to this equation">#</a></span>\[\begin{align}
 R_M(\theta) &amp; = \frac{1}{M}\sum_{m=1}^M L(t_m, f_m),
 \end{align}\]</div>
 <p>where</p>
@@ -962,8 +962,8 @@ R_M(\theta) &amp; = \frac{1}{M}\sum_{m=1}^M L(t_m, f_m),
     L(t, f) &amp;= (t - f)^2
 \end{align*}\]</div>
 <p>The empirical risk <span class="math notranslate nohighlight">\(R_M\)</span> approximates the <strong>risk</strong></p>
-<div class="amsmath math notranslate nohighlight" id="equation-e9922390-cd16-4ef3-909a-13131071d474">
-<span class="eqno">()<a class="headerlink" href="#equation-e9922390-cd16-4ef3-909a-13131071d474" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-ec1ba58d-f407-4f08-8367-01735ef224c1">
+<span class="eqno">()<a class="headerlink" href="#equation-ec1ba58d-f407-4f08-8367-01735ef224c1" title="Permalink to this equation">#</a></span>\[\begin{align}
 R[f] &amp; = \int \cdots \int \, p(t, \mathbf{x}) \, L(t, f(\mathbf{x}, \theta)) \, dt \, d\mathbf{x},
 \end{align}\]</div>
 <p>which is a <strong>functional</strong> of the model <span class="math notranslate nohighlight">\(f\)</span>. The quantity <span class="math notranslate nohighlight">\(p(t, \mathbf{x}) \, dt\, d\mathbf{x}\)</span> is the probability distribution from which the sample <span class="math notranslate nohighlight">\(\{ (t_m, \mathbf{x}_m), m = 1,\cdots, M \}\)</span> is presumed to have been drawn.</p>
