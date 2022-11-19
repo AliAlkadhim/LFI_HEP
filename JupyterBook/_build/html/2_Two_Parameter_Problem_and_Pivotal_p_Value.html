@@ -140,6 +140,11 @@ const thebe_selector_output = ".output, .cell_output"
    5 - Mapping Confidence Sets to Confidence Intervals
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="6_More_Ideas.html">
+   More Discussions
+  </a>
+ </li>
 </ul>
 
     </div>
@@ -562,16 +567,6 @@ title="Print to PDF"
    (under construction)
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#more-discussions">
-   More Discussions
-  </a>
- </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#more-ideas">
-   More ideas
-  </a>
- </li>
 </ul>
 
     </nav>
@@ -852,16 +847,6 @@ title="Print to PDF"
    (under construction)
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#more-discussions">
-   More Discussions
-  </a>
- </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#more-ideas">
-   More ideas
-  </a>
- </li>
 </ul>
 
                         </nav>
@@ -878,6 +863,7 @@ title="Print to PDF"
 <h2>Pivotal Likelihood-Free Inference for Count Data in Particle Physics<a class="headerlink" href="#pivotal-likelihood-free-inference-for-count-data-in-particle-physics" title="Permalink to this headline">#</a></h2>
 <p>Ali Al Kadhim and Harrison B. Prosper <br>
 Department of Physics, Florida State University <br></p>
+<p>Please make sure to have read the content of <a class="reference internal" href="1_Intro_and_One_Parameter_Problem.html"><span class="doc std std-doc">the previous notebook</span></a> as we will use the concepts and theory used there.</p>
 <section id="external-imports">
 <h3>External imports<a class="headerlink" href="#external-imports" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
@@ -951,10 +937,10 @@ Department of Physics, Florida State University <br></p>
 <p>In particle physics, the most important experiment is a counting experiment, represented by a Poisson probability model.Suppose we have a count experiment, we we observe in each bin (or channel) <span class="math notranslate nohighlight">\(k\)</span> a count <span class="math notranslate nohighlight">\(n_k\)</span>. Given <span class="math notranslate nohighlight">\(N\)</span> total channels, the probability of obtaining the observed result is given by the Poisson</p>
 <div class="math notranslate nohighlight">
 \[ \prod_{k=1}^{N} \frac{e^{-(\epsilon_k \sigma + b_k)} (\epsilon_k \sigma + b_k)^{n_k}}{n_k !} \]</div>
-<p>Where <span class="math notranslate nohighlight">\(\sigma\)</span>, the cross section (the parameter of interest), <span class="math notranslate nohighlight">\(b_k\)</span> is expected background for the <span class="math notranslate nohighlight">\(k\)</span>th channel (the nuissance parameter). <span class="math notranslate nohighlight">\(\epsilon_k\)</span> is the “acceptance parameter”, for the <span class="math notranslate nohighlight">\(k\)</span>th channel, which is typically a product of the detector efficiency, branching fraction, and luminosity.</p>
+<p>Where <span class="math notranslate nohighlight">\(\sigma\)</span>, the cross section (<strong>the parameter of interest</strong>), <span class="math notranslate nohighlight">\(b_k\)</span> is expected background for the <span class="math notranslate nohighlight">\(k\)</span>th channel (in this context, it is <strong>the nuissance parameter</strong>, which is a parameter that is not unkown precisely, typically constrained in a control measurement). <span class="math notranslate nohighlight">\(\epsilon_k\)</span> is the “acceptance parameter”, for the <span class="math notranslate nohighlight">\(k\)</span>th channel, which is typically a product of the detector efficiency, branching fraction, and luminosity.</p>
 <p>This is the prototype of many statistical models in astronomy and particle physics in which data are binned and the count in each bin consist a priori of the sum of counts from signal and background. Written in terms of the simplified 2-parameter model, the expected count in each bin <span class="math notranslate nohighlight">\(k\)</span> takes the form</p>
-<div class="amsmath math notranslate nohighlight" id="equation-c14d4f32-267c-4a3b-bc26-440e1d7f5dd0">
-<span class="eqno">(8)<a class="headerlink" href="#equation-c14d4f32-267c-4a3b-bc26-440e1d7f5dd0" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-d160492a-d7da-4b78-b2cb-a476b539be0e">
+<span class="eqno">(8)<a class="headerlink" href="#equation-d160492a-d7da-4b78-b2cb-a476b539be0e" title="Permalink to this equation">#</a></span>\[\begin{equation}
     n_{exp}=\theta+\nu
 \end{equation}\]</div>
 <p>Where <span class="math notranslate nohighlight">\(n_{exp}\)</span> is the expected signal count, <span class="math notranslate nohighlight">\(\theta\)</span> is the unknown mean count, which is the parameter of interest (the cross section), and <span class="math notranslate nohighlight">\(\nu\)</span> is the background unknown mean count, which is the nuissance parameter.</p>
@@ -968,14 +954,14 @@ Department of Physics, Florida State University <br></p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_7_0.jpg" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_7_0.jpg" />
+<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_8_0.jpg" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_8_0.jpg" />
 </div>
 </div>
 </section>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="the-two-parameter-problem">
 <h1>The two-parameter problem<a class="headerlink" href="#the-two-parameter-problem" title="Permalink to this headline">#</a></h1>
-<p>the conditional probability of observing <span class="math notranslate nohighlight">\(n\)</span> signal counts and <span class="math notranslate nohighlight">\(m\)</span> background counts in a <em>single channel or bin</em> is given by</p>
+<p>the conditional probability of observing <span class="math notranslate nohighlight">\(n\)</span> signal counts and <span class="math notranslate nohighlight">\(m\)</span> background counts (in a control measurement which is a single Poisson value) in a <em>single channel or bin</em> is given by</p>
 <div class="math notranslate nohighlight">
 \[
     \text{Prob}(n, m \mid \theta, v)= L(\theta, \nu) = \frac{e^{-(\theta+v)}(\theta+v)^{n}}{n !} \frac{e^{-v} v^{m}}{m !},
@@ -983,8 +969,9 @@ Department of Physics, Florida State University <br></p>
 \]</div>
 <p>where, once the counts <span class="math notranslate nohighlight">\(n\)</span> and <span class="math notranslate nohighlight">\(m\)</span> have been observed becomes the likelihood <span class="math notranslate nohighlight">\(L(\theta,\nu)\)</span>. <span class="math notranslate nohighlight">\(L(\theta,\nu)\)</span> could be viewed as a product of the main measurement where signal events (<span class="math notranslate nohighlight">\(s\)</span>) could be present, and a control measurement where only background events (<span class="math notranslate nohighlight">\(b\)</span>) exist, which helps us constrain the nuissance parameters.</p>
 <div class="math notranslate nohighlight">
-\[L(\theta,\nu) = L_{s+b}(\theta,\nu) L_b(\nu)\]</div>
-<p>The likelihood function contains all the information from the experiment that is relevent to inference for the parameters (also known as the <em>likelihood principle</em>). The likelihood function is defined only upto an arbitrary constant, and so only ratios of likelihoods containing different values of the parameters are meaningful.</p>
+\[L(\theta,\nu) = L_{s+b}(\theta,\nu) L_b(\nu)]. \tag{4}\]</div>
+<p>If you’re familiar with using “strength parameter” <span class="math notranslate nohighlight">\(\mu\)</span>, then <span class="math notranslate nohighlight">\(s+b\)</span> corresponds to having <span class="math notranslate nohighlight">\(\mu=1\)</span> and <span class="math notranslate nohighlight">\(b\)</span> corresponds to <span class="math notranslate nohighlight">\(\mu=0\)</span>.
+The likelihood function contains all the information from the experiment that is relevent to inference for the parameters (also known as the <em>likelihood principle</em>). The likelihood function is defined only upto an arbitrary constant, and so only ratios of likelihoods containing different values of the parameters are meaningful.</p>
 <p>The objective now is to derive confidence intervals or limits for the parameter of interest <span class="math notranslate nohighlight">\(\theta\)</span>. What makes this challenging is the presence of the <em>nuissance parameter</em> <span class="math notranslate nohighlight">\(\nu\)</span>, which is a parameter whose value is not known precisely, and can be related to the physics or the experimental aparatus/detector. In the Bayesian approach, nuissance parameters are assigned prior probabilities <span class="math notranslate nohighlight">\(\pi(\nu) d \nu\)</span> and are integrated out in order to arrive at the posterior for <span class="math notranslate nohighlight">\(\theta\)</span> in a process called marginalization: <span class="math notranslate nohighlight">\(L(\theta) = \int L(\theta,\nu) \pi (\nu) d \nu\)</span>. However, this introduces a fair bit of subjectivity into the problem through the choice of the prior. Frequentist methods deal with nuissance parameters by profiling them the likelihood in order to arrive at their MLEs.</p>
 <p>The typical way to arrive at confidence intervals that guarantee coverage is the Neyman-Pearson construction. However, it does not guarantee coverage for multi-parameter problems with the existence of nuissance parameters.</p>
 <p>the Poisson mean<span class="math notranslate nohighlight">\(=\theta+\nu\)</span>, and the probability model <em>for a single bin</em> is given by</p>
@@ -1051,16 +1038,6 @@ Z  = \mathbb{I}
 \[
 L_{\text{prof}}(\theta) \equiv \frac{e^{-(\theta+\hat{\nu})} (\theta+\hat{\nu})^N }{N !} \ \frac{e^{-\hat{\nu}} \hat{\nu}^M}{M !}.
 \]</div>
-<p>Test statistics play a paramount role in the theory of hypothesis testing. Given observed data <span class="math notranslate nohighlight">\(x\)</span>, a test statistic <span class="math notranslate nohighlight">\(\lambda\)</span> evaluated for the observed data <span class="math notranslate nohighlight">\(\lambda_{observed}\)</span> is the only way to decide which of two hypothesis; the null hypothesis <span class="math notranslate nohighlight">\(H_{0}\)</span> (parameterized by parameters <span class="math notranslate nohighlight">\(\theta_0\)</span>) and the alternative hypothesis <span class="math notranslate nohighlight">\(H_1\)</span> (parameterized by parameters <span class="math notranslate nohighlight">\(\theta_1\)</span>). One can construct an infinite number of test statistics, by choosing different functions of the data <span class="math notranslate nohighlight">\(x\)</span>, but most functions of the data are useless! The Neyman-Pearson (NP) Lemma states that the most powerful test statistic \footnote{By powerful we mean that it has the greatest power <span class="math notranslate nohighlight">\(1-\beta\)</span> where <span class="math notranslate nohighlight">\(\beta\)</span> is the probability of rejecting <span class="math notranslate nohighlight">\(H_1\)</span> when it is in fact true, commonly referred to as “Type II Error”.} between simple hypothesis <span class="math notranslate nohighlight">\(H_0\)</span> and <span class="math notranslate nohighlight">\(H_1\)</span> is <span class="math notranslate nohighlight">\(\lambda_{NP}=\frac{L(H_1)}{L(H_0)} = \frac{L(x |\theta_1)}{L(x|\theta_0)}\)</span>, which rejects <span class="math notranslate nohighlight">\(H_0\)</span> in favor of <span class="math notranslate nohighlight">\(H_1\)</span>. For convenience, it is used as <span class="math notranslate nohighlight">\(\lambda_{NP}=-2 \log \frac{L(x|\theta_0)}{L(x|\theta_1)}\)</span>.</p>
-<p>Conceptually, in statistical evidence analyses one uses the test statistic that minimizes <span class="math notranslate nohighlight">\(\alpha\)</span> while maximizing <span class="math notranslate nohighlight">\(1-\beta\)</span>. Where <span class="math notranslate nohighlight">\(\alpha\)</span> is Type I error</p>
-<div class="math notranslate nohighlight">
-\[
-    \alpha = \text{Prob}(\text{Reject } H_0 \mid H_0)
-\]</div>
-<div class="math notranslate nohighlight">
-\[
-1-\beta = \text{Prob}(\text{Reject } H_0 | H_1)
-\]</div>
 <p>\footnote{Birnbaum (1962, 1977) suggested that <span class="math notranslate nohighlight">\(\frac{\alpha}{1-\beta}\)</span> should be used as a measure of the strength of a statistical test, rather than <span class="math notranslate nohighlight">\(\alpha\)</span> alone.}</p>
 <p>Neyman has shown a method for calculation of confidence intervals that guarantees coverage via a method usually referred to as “Neyman Construction”. The problem with Neyman construction, however, is that it doesn’t tell you how to deal with nuissance parameters (systematics). In dealing with statistical inference it is important to deal with nuissance parameters (eg jet energy scale, other parameters dealing with experiment or theory) because you want to isolate to what extent your result is sensetive to a particular nuissance parameter (as opposed to, say, statistical fluctuations). Marginalization (Bayesian) and profiling (frequentist are two ways to deal with nuissance parameters.</p>
 <p>It was proven, by the Neyman-Pearson Lemma that <span class="math notranslate nohighlight">\(\lambda_{NP}\)</span> is the most powerful statistic for hypothesis testing (where the subscript “NP” refers to Neyman-Person” or “New Physics” or “Not Pivotal”, if you like). This, and the fact that everyone in particle physics is familiar with this test statistic, motivates us to us it further in our techniques.</p>
@@ -1102,7 +1079,7 @@ L_{\text{prof}}(\theta) \equiv \frac{e^{-(\theta+\hat{\nu})} (\theta+\hat{\nu})^
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_10_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_10_0.png" />
+<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_11_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_11_0.png" />
 </div>
 </div>
 <p>The test statistic in Eq. <span class="math notranslate nohighlight">\((1)\)</span> is used due to its well-known behavior of it converging to ti a <span class="math notranslate nohighlight">\(\chi^2_k\)</span> variate with <span class="math notranslate nohighlight">\(k\)</span> degrees of freedom, according to Wilk’s Theorem, where <span class="math notranslate nohighlight">\(k\)</span> is the number of free parameters (parameters of interest after the nuissance parameters have been replaecd by their MLEs).</p>
@@ -1286,7 +1263,7 @@ L_{\text{prof}}(\theta) \equiv \frac{e^{-(\theta+\hat{\nu})} (\theta+\hat{\nu})^
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_18_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_18_0.png" />
+<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_19_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_19_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1310,13 +1287,13 @@ L_{\text{prof}}(\theta) \equiv \frac{e^{-(\theta+\hat{\nu})} (\theta+\hat{\nu})^
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_19_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_19_0.png" />
+<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_20_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_20_0.png" />
 </div>
 </div>
 <p>As shall be discussed later in this notebook, one way of calculating <span class="math notranslate nohighlight">\(p\)</span>-value for <span class="math notranslate nohighlight">\(\theta\)</span> corresponding to an observed <span class="math notranslate nohighlight">\(\{N,M\}\)</span> pair (which will still be dependent on <span class="math notranslate nohighlight">\(\nu\)</span>) is by calculating the test statistic at the <span class="math notranslate nohighlight">\(\{N,M\}\)</span> pair and calculating
 $$</p>
-<div class="amsmath math notranslate nohighlight" id="equation-cdd8b58c-97b9-4aa0-a999-23f683252a10">
-<span class="eqno">(9)<a class="headerlink" href="#equation-cdd8b58c-97b9-4aa0-a999-23f683252a10" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-d5065b1d-6dfe-4244-a32c-9a4ce624319f">
+<span class="eqno">(9)<a class="headerlink" href="#equation-d5065b1d-6dfe-4244-a32c-9a4ce624319f" title="Permalink to this equation">#</a></span>\[\begin{align}
 p_\theta (\nu) &amp;=\int_{\lambda_D}^\infty f \big(\lambda_{gen}(n,m \mid \theta,\nu) \mid H_{null} \big) \ d \lambda_{gen} \\
  &amp;= 1- \text{Prob} \big(\lambda_{gen}(n,m;\theta,\nu) \le \lambda_D(N,M;\theta,\nu) \big), \tag{2}
 \end{align}\]</div>
@@ -1657,7 +1634,7 @@ p_\theta (\nu) &amp;=\int_{\lambda_D}^\infty f \big(\lambda_{gen}(n,m \mid \thet
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_29_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_29_0.png" />
+<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_30_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_30_0.png" />
 </div>
 </div>
 </section>
@@ -2036,7 +2013,7 @@ first features batch shape
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_42_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_42_0.png" />
+<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_43_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_43_0.png" />
 </div>
 </div>
 <section id="plot-the-histogrammed-approximations-for-the-mle-vs-non-mle-cases-for-a-single-value-of-mathbf-nu">
@@ -2123,7 +2100,7 @@ first features batch shape
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_45_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_45_0.png" />
+<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_46_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_46_0.png" />
 </div>
 </div>
 </section>
@@ -2250,7 +2227,7 @@ first features batch shape
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_48_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_48_0.png" />
+<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_49_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_49_0.png" />
 </div>
 </div>
 <hr class="docutils" />
@@ -3005,7 +2982,7 @@ Iteration vs average loss
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_71_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_71_0.png" />
+<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_72_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_72_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -3072,7 +3049,7 @@ Iteration vs average loss
      99600	  0.063669	  0.063138	  0.063138
 </pre></div>
 </div>
-<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_75_1.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_75_1.png" />
+<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_76_1.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_76_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -3471,7 +3448,7 @@ Iteration vs average loss
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_90_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_90_0.png" />
+<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_91_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_91_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -3508,7 +3485,7 @@ Iteration vs average loss
  [0.5165771 ]]
 </pre></div>
 </div>
-<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_91_1.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_91_1.png" />
+<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_92_1.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_92_1.png" />
 </div>
 </div>
 <section id="save-trained-model-if-they-re-good-and-if-you-havent-saved-by-now">
@@ -3718,7 +3695,7 @@ Iteration vs average loss
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_101_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_101_0.png" />
+<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_102_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_102_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -3729,7 +3706,7 @@ Iteration vs average loss
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_102_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_102_0.png" />
+<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_103_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_103_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -3849,7 +3826,7 @@ Iteration vs average loss
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_104_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_104_0.png" />
+<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_105_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_105_0.png" />
 </div>
 </div>
 <hr class="docutils" />
@@ -4581,7 +4558,7 @@ Iteration vs average loss
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_129_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_129_0.png" />
+<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_130_0.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_130_0.png" />
 </div>
 </div>
 </section>
@@ -4642,7 +4619,7 @@ Iteration vs average loss
  [0.39201   ]]
 </pre></div>
 </div>
-<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_134_1.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_134_1.png" />
+<img alt="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_135_1.png" src="_images/2_Two_Parameter_Problem_and_Pivotal_p_Value_135_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -4680,294 +4657,294 @@ Iteration vs average loss
 <h1>Try to automatically tune <span class="math notranslate nohighlight">\(\kappa\)</span> (under construction)<a class="headerlink" href="#try-to-automatically-tune-kappa-under-construction" title="Permalink to this headline">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Modify the tuning workflow to tune $\kappa$ in our pivotal loss function</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># # Modify the tuning workflow to tune $\kappa$ in our pivotal loss function</span>
 
-<span class="c1">### Retune ALL parameters of our model for the pivotal case - they might not converge o the same values as earlier!</span>
+<span class="c1"># ### Retune ALL parameters of our model for the pivotal case - they might not converge o the same values as earlier!</span>
 
-<span class="k">def</span> <span class="nf">average_quadratic_loss_pivot</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">df_dnu</span><span class="p">,</span> <span class="n">kappa</span><span class="p">):</span>
-    <span class="c1"># f and t must be of the same shape</span>
-    <span class="k">return</span>  <span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">f</span> <span class="o">-</span> <span class="n">t</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="n">kappa</span><span class="o">/</span><span class="mi">2</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">df_dnu</span><span class="p">)</span>
+<span class="c1"># def average_quadratic_loss_pivot(f, t, x, df_dnu, kappa):</span>
+<span class="c1">#     # f and t must be of the same shape</span>
+<span class="c1">#     return  torch.mean((f - t)**2) - kappa/2 * torch.mean(df_dnu)</span>
 
-<span class="k">def</span> <span class="nf">validate_pivot</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">avloss</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">targets</span><span class="p">,</span> <span class="n">df_dnu</span><span class="p">):</span>
-    <span class="c1"># make sure we set evaluation mode so that any training specific</span>
-    <span class="c1"># operations are disabled.</span>
-    <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span> <span class="c1"># evaluation mode</span>
+<span class="c1"># def validate_pivot(model, avloss, inputs, targets, df_dnu):</span>
+<span class="c1">#     # make sure we set evaluation mode so that any training specific</span>
+<span class="c1">#     # operations are disabled.</span>
+<span class="c1">#     model.eval() # evaluation mode</span>
     
-    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span> <span class="c1"># no need to compute gradients wrt. x and t</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
-        <span class="n">t</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">targets</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
-        <span class="c1"># remember to reshape!</span>
-        <span class="n">o</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">avloss</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">df_dnu</span><span class="p">,</span> <span class="n">kappa</span><span class="p">)</span>
+<span class="c1">#     with torch.no_grad(): # no need to compute gradients wrt. x and t</span>
+<span class="c1">#         x = torch.from_numpy(inputs).float()</span>
+<span class="c1">#         t = torch.from_numpy(targets).float()</span>
+<span class="c1">#         # remember to reshape!</span>
+<span class="c1">#         o = model(x).reshape(t.shape)</span>
+<span class="c1">#     return avloss(o, t, x, df_dnu, kappa)</span>
 
-<span class="c1"># we dont want to tune the old parameters so just load them</span>
-<span class="n">n_layers</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">BEST_PARAMS</span><span class="p">[</span><span class="s2">&quot;n_layers&quot;</span><span class="p">])</span> 
-<span class="n">hidden_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">BEST_PARAMS</span><span class="p">[</span><span class="s2">&quot;hidden_size&quot;</span><span class="p">])</span>
-<span class="n">dropout</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">BEST_PARAMS</span><span class="p">[</span><span class="s2">&quot;dropout&quot;</span><span class="p">])</span>
-<span class="n">optimizer_name</span> <span class="o">=</span> <span class="n">BEST_PARAMS</span><span class="p">[</span><span class="s2">&quot;optimizer_name&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_string</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
-<span class="n">learning_rate</span> <span class="o">=</span>  <span class="nb">float</span><span class="p">(</span><span class="n">BEST_PARAMS</span><span class="p">[</span><span class="s2">&quot;learning_rate&quot;</span><span class="p">])</span>
-<span class="c1"># batch_size = int(BEST_PARAMS[&quot;batch_size&quot;])</span>
-<span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span>
+<span class="c1"># # we dont want to tune the old parameters so just load them</span>
+<span class="c1"># n_layers = int(BEST_PARAMS[&quot;n_layers&quot;]) </span>
+<span class="c1"># hidden_size = int(BEST_PARAMS[&quot;hidden_size&quot;])</span>
+<span class="c1"># dropout = float(BEST_PARAMS[&quot;dropout&quot;])</span>
+<span class="c1"># optimizer_name = BEST_PARAMS[&quot;optimizer_name&quot;].to_string().split()[1]</span>
+<span class="c1"># learning_rate =  float(BEST_PARAMS[&quot;learning_rate&quot;])</span>
+<span class="c1"># # batch_size = int(BEST_PARAMS[&quot;batch_size&quot;])</span>
+<span class="c1"># batch_size=32</span>
     
-<span class="k">class</span> <span class="nc">Engine_kappa</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;loss, training and evaluation&quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">,</span> <span class="n">kappa</span><span class="p">):</span>
-                 <span class="c1">#, device):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">model</span>
-        <span class="c1">#self.device= device</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span> <span class="o">=</span> <span class="n">optimizer</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">kappa</span><span class="o">=</span><span class="n">kappa</span>
+<span class="c1"># class Engine_kappa:</span>
+<span class="c1">#     &quot;&quot;&quot;loss, training and evaluation&quot;&quot;&quot;</span>
+<span class="c1">#     def __init__(self, model, optimizer, batch_size, kappa):</span>
+<span class="c1">#                  #, device):</span>
+<span class="c1">#         self.model = model</span>
+<span class="c1">#         #self.device= device</span>
+<span class="c1">#         self.optimizer = optimizer</span>
+<span class="c1">#         self.batch_size=batch_size</span>
+<span class="c1">#         self.kappa=kappa</span>
         
-    <span class="c1">#the loss function returns the loss function. It is a static method so it doesn&#39;t need self</span>
-    <span class="c1"># @staticmethod</span>
-    <span class="c1"># def loss_fun(targets, outputs):</span>
-    <span class="c1">#   tau = torch.rand(outputs.shape)</span>
-    <span class="c1">#   return torch.mean(torch.where(targets &gt;= outputs, </span>
-    <span class="c1">#                                   tau * (targets - outputs), </span>
-    <span class="c1">#                                   (1 - tau)*(outputs - targets)))</span>
+<span class="c1">#     #the loss function returns the loss function. It is a static method so it doesn&#39;t need self</span>
+<span class="c1">#     # @staticmethod</span>
+<span class="c1">#     # def loss_fun(targets, outputs):</span>
+<span class="c1">#     #   tau = torch.rand(outputs.shape)</span>
+<span class="c1">#     #   return torch.mean(torch.where(targets &gt;= outputs, </span>
+<span class="c1">#     #                                   tau * (targets - outputs), </span>
+<span class="c1">#     #                                   (1 - tau)*(outputs - targets)))</span>
 
-<span class="c1">#     This loss combines a Sigmoid layer and the BCELoss in one single class. This version is more numerically stable than using a plain Sigmoid followed by a BCELoss as, </span>
-<span class="c1">#     by combining the operations into one layer</span>
+<span class="c1"># #     This loss combines a Sigmoid layer and the BCELoss in one single class. This version is more numerically stable than using a plain Sigmoid followed by a BCELoss as, </span>
+<span class="c1"># #     by combining the operations into one layer</span>
 
-    <span class="k">def</span> <span class="nf">train_pivot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;the training function: takes the training dataloader&quot;&quot;&quot;</span>
+<span class="c1">#     def train_pivot(self, x, t):</span>
+<span class="c1">#         &quot;&quot;&quot;the training function: takes the training dataloader&quot;&quot;&quot;</span>
         
-        <span class="n">final_loss</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">for</span> <span class="n">iteration</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_iterations</span><span class="p">):</span>
+<span class="c1">#         final_loss = 0</span>
+<span class="c1">#         for iteration in range(n_iterations):</span>
 
-            <span class="n">batch_x</span><span class="p">,</span> <span class="n">batch_t</span> <span class="o">=</span> <span class="n">get_features_training_batch</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span>  <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span><span class="p">)</span><span class="c1">#x and t are train_x and train_t</span>
+<span class="c1">#             batch_x, batch_t = get_features_training_batch(x, t,  self.batch_size)#x and t are train_x and train_t</span>
             
 
             
-            <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">batch_x</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
-            <span class="c1"># print(&#39;x is leaf: &#39;, x.is_leaf)</span>
-            <span class="n">x</span><span class="o">.</span><span class="n">requires_grad_</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-            <span class="c1"># x.retain_grad()</span>
-            <span class="c1"># print(&#39;x is leaf after retain: &#39;, x.is_leaf)</span>
-            <span class="c1"># x.requires_grad_(True)</span>
-            <span class="c1"># x.retain_grad()</span>
-            <span class="n">f</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-            <span class="n">f</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-            <span class="c1">#multiply the model by its ransverse, remember we can only take gradients of scalars</span>
-            <span class="c1">#and f will be a vector before this</span>
-            <span class="n">f</span> <span class="o">=</span> <span class="n">f</span> <span class="o">@</span> <span class="n">f</span><span class="o">.</span><span class="n">t</span><span class="p">()</span>
-            <span class="c1"># f = torch.tensor(f, requires_grad=True)</span>
-            <span class="c1"># print(&#39;f shape: &#39;, f.shape)</span>
-            <span class="c1"># print(&#39;f is leaf: &#39;, f.is_leaf)</span>
+<span class="c1">#             x = torch.from_numpy(batch_x).float()</span>
+<span class="c1">#             # print(&#39;x is leaf: &#39;, x.is_leaf)</span>
+<span class="c1">#             x.requires_grad_(True)</span>
+<span class="c1">#             # x.retain_grad()</span>
+<span class="c1">#             # print(&#39;x is leaf after retain: &#39;, x.is_leaf)</span>
+<span class="c1">#             # x.requires_grad_(True)</span>
+<span class="c1">#             # x.retain_grad()</span>
+<span class="c1">#             f = self.model(x)</span>
+<span class="c1">#             f = f.view(-1)</span>
+<span class="c1">#             #multiply the model by its ransverse, remember we can only take gradients of scalars</span>
+<span class="c1">#             #and f will be a vector before this</span>
+<span class="c1">#             f = f @ f.t()</span>
+<span class="c1">#             # f = torch.tensor(f, requires_grad=True)</span>
+<span class="c1">#             # print(&#39;f shape: &#39;, f.shape)</span>
+<span class="c1">#             # print(&#39;f is leaf: &#39;, f.is_leaf)</span>
 
-            <span class="c1"># f_2 = f**2</span>
-            <span class="c1"># print(&#39;f2 shape&#39;, f_2.shape)</span>
-            <span class="c1"># nu = torch.autograd.Variable( x[:,1], requires_grad=True)</span>
+<span class="c1">#             # f_2 = f**2</span>
+<span class="c1">#             # print(&#39;f2 shape&#39;, f_2.shape)</span>
+<span class="c1">#             # nu = torch.autograd.Variable( x[:,1], requires_grad=True)</span>
 
-            <span class="c1"># nu=torch.autograd.Variable(x[:,1], requires_grad=True)</span>
-            <span class="n">nu</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">x</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-            <span class="c1"># print(type(nu))</span>
+<span class="c1">#             # nu=torch.autograd.Variable(x[:,1], requires_grad=True)</span>
+<span class="c1">#             nu=torch.tensor(x[:,1], requires_grad=True)</span>
+<span class="c1">#             # print(type(nu))</span>
 
-            <span class="c1"># nu.retain_grad()</span>
+<span class="c1">#             # nu.retain_grad()</span>
 
-            <span class="c1"># print(&#39;nu shape: &#39;, nu.shape)</span>
-            <span class="c1"># print(&#39;nu is leaf: &#39;, nu.is_leaf)</span>
-            <span class="c1"># print(&#39;nu type&#39;, type(nu))</span>
+<span class="c1">#             # print(&#39;nu shape: &#39;, nu.shape)</span>
+<span class="c1">#             # print(&#39;nu is leaf: &#39;, nu.is_leaf)</span>
+<span class="c1">#             # print(&#39;nu type&#39;, type(nu))</span>
 
 
-            <span class="c1"># WE NEED TO RETAIN_GRAD ON NON-LEAF NODES </span>
-            <span class="n">f</span><span class="o">.</span><span class="n">retain_grad</span><span class="p">()</span>
-            <span class="n">f</span><span class="o">.</span><span class="n">backward</span><span class="p">(</span><span class="n">gradient</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">f</span><span class="p">),</span> <span class="n">retain_graph</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1">#             # WE NEED TO RETAIN_GRAD ON NON-LEAF NODES </span>
+<span class="c1">#             f.retain_grad()</span>
+<span class="c1">#             f.backward(gradient=torch.ones_like(f), retain_graph=True)</span>
 
-            <span class="c1">#or f.backward(torch.ones_like(f) , retain, graph</span>
-            <span class="c1"># we cant do f.backward() here because backeard() can only be called for scalara</span>
-            <span class="c1"># and f here will be a tensor of shape torch.Size([1000, 1]</span>
-            <span class="c1">#e.g. see https://abishekbashyall.medium.com/playing-with-backward-method-in-pytorch-bd34b58745a0</span>
+<span class="c1">#             #or f.backward(torch.ones_like(f) , retain, graph</span>
+<span class="c1">#             # we cant do f.backward() here because backeard() can only be called for scalara</span>
+<span class="c1">#             # and f here will be a tensor of shape torch.Size([1000, 1]</span>
+<span class="c1">#             #e.g. see https://abishekbashyall.medium.com/playing-with-backward-method-in-pytorch-bd34b58745a0</span>
 
-            <span class="c1"># PyTorch accumulates the gradient in default, we need to clear the previous</span>
-            <span class="c1"># values</span>
-            <span class="c1"># df_dnu = nu.grad</span>
-            <span class="n">df_dx</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">grad</span>
-            <span class="c1"># print(&#39;df_dnu =&#39;, df_dnu)</span>
-            <span class="c1"># print(&#39;df_dx =&#39;, df_dx)</span>
-            <span class="c1"># print(&#39;df_dx shape :&#39;, df_dx.shape)</span>
-            <span class="c1">#clear the gradient after you take it</span>
-            <span class="n">df_dnu</span> <span class="o">=</span> <span class="n">df_dx</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span>
-            <span class="c1"># print(&#39;df_dnu shape: &#39;, df_dnu.shape)</span>
-            <span class="n">x</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">zero_</span><span class="p">()</span>
+<span class="c1">#             # PyTorch accumulates the gradient in default, we need to clear the previous</span>
+<span class="c1">#             # values</span>
+<span class="c1">#             # df_dnu = nu.grad</span>
+<span class="c1">#             df_dx = x.grad</span>
+<span class="c1">#             # print(&#39;df_dnu =&#39;, df_dnu)</span>
+<span class="c1">#             # print(&#39;df_dx =&#39;, df_dx)</span>
+<span class="c1">#             # print(&#39;df_dx shape :&#39;, df_dx.shape)</span>
+<span class="c1">#             #clear the gradient after you take it</span>
+<span class="c1">#             df_dnu = df_dx[:,1]</span>
+<span class="c1">#             # print(&#39;df_dnu shape: &#39;, df_dnu.shape)</span>
+<span class="c1">#             x.grad.zero_()</span>
         
             
-            <span class="c1">#now we can zero grads</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
-            <span class="c1"># with torch.no_grad():</span>
+<span class="c1">#             #now we can zero grads</span>
+<span class="c1">#             self.optimizer.zero_grad()</span>
+<span class="c1">#             self.model.train()</span>
+<span class="c1">#             # with torch.no_grad():</span>
 
-            <span class="n">y</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">batch_t</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+<span class="c1">#             y=torch.from_numpy(batch_t).float()</span>
             
-            <span class="n">outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-            <span class="n">loss</span> <span class="o">=</span> <span class="n">average_quadratic_loss_pivot</span><span class="p">(</span><span class="n">f</span> <span class="o">=</span> <span class="n">outputs</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">df_dnu</span><span class="o">=</span><span class="n">df_dnu</span><span class="p">,</span> <span class="n">kappa</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">kappa</span><span class="p">)</span>
-            <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
-            <span class="n">final_loss</span> <span class="o">+=</span> <span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+<span class="c1">#             outputs = self.model(x)</span>
+<span class="c1">#             loss = average_quadratic_loss_pivot(f = outputs, t=y, x=x, df_dnu=df_dnu, kappa=self.kappa)</span>
+<span class="c1">#             loss.backward()</span>
+<span class="c1">#             self.optimizer.step()</span>
+<span class="c1">#             final_loss += loss.item()</span>
 
-        <span class="k">return</span> <span class="n">final_loss</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span>
+<span class="c1">#         return final_loss / self.batch_size</span>
     
-    <span class="k">def</span> <span class="nf">evaluate_pivot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;the training function: takes the training dataloader&quot;&quot;&quot;</span>
+<span class="c1">#     def evaluate_pivot(self, x, t):</span>
+<span class="c1">#         &quot;&quot;&quot;the training function: takes the training dataloader&quot;&quot;&quot;</span>
         
-        <span class="n">final_loss</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">for</span> <span class="n">iteration</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_iterations</span><span class="p">):</span>
-            <span class="n">batch_x</span><span class="p">,</span> <span class="n">batch_t</span> <span class="o">=</span> <span class="n">get_features_training_batch</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span>  <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span><span class="p">)</span><span class="c1">#x and t are train_x and train_t</span>
+<span class="c1">#         final_loss = 0</span>
+<span class="c1">#         for iteration in range(n_iterations):</span>
+<span class="c1">#             batch_x, batch_t = get_features_training_batch(x, t,  self.batch_size)#x and t are train_x and train_t</span>
 
-            <span class="c1"># with torch.no_grad():            </span>
+<span class="c1">#             # with torch.no_grad():            </span>
             
             
-            <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">batch_x</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
-            <span class="c1"># print(&#39;x is leaf: &#39;, x.is_leaf)</span>
-            <span class="n">x</span><span class="o">.</span><span class="n">requires_grad_</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-            <span class="c1"># x.retain_grad()</span>
-            <span class="c1"># print(&#39;x is leaf after retain: &#39;, x.is_leaf)</span>
-            <span class="c1"># x.requires_grad_(True)</span>
-            <span class="c1"># x.retain_grad()</span>
-            <span class="n">f</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-            <span class="n">f</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-            <span class="c1">#multiply the model by its ransverse, remember we can only take gradients of scalars</span>
-            <span class="c1">#and f will be a vector before this</span>
-            <span class="n">f</span> <span class="o">=</span> <span class="n">f</span> <span class="o">@</span> <span class="n">f</span><span class="o">.</span><span class="n">t</span><span class="p">()</span>
-            <span class="c1"># f = torch.tensor(f, requires_grad=True)</span>
-            <span class="c1"># print(&#39;f shape: &#39;, f.shape)</span>
-            <span class="c1"># print(&#39;f is leaf: &#39;, f.is_leaf)</span>
+<span class="c1">#             x = torch.from_numpy(batch_x).float()</span>
+<span class="c1">#             # print(&#39;x is leaf: &#39;, x.is_leaf)</span>
+<span class="c1">#             x.requires_grad_(True)</span>
+<span class="c1">#             # x.retain_grad()</span>
+<span class="c1">#             # print(&#39;x is leaf after retain: &#39;, x.is_leaf)</span>
+<span class="c1">#             # x.requires_grad_(True)</span>
+<span class="c1">#             # x.retain_grad()</span>
+<span class="c1">#             f = self.model(x)</span>
+<span class="c1">#             f = f.view(-1)</span>
+<span class="c1">#             #multiply the model by its ransverse, remember we can only take gradients of scalars</span>
+<span class="c1">#             #and f will be a vector before this</span>
+<span class="c1">#             f = f @ f.t()</span>
+<span class="c1">#             # f = torch.tensor(f, requires_grad=True)</span>
+<span class="c1">#             # print(&#39;f shape: &#39;, f.shape)</span>
+<span class="c1">#             # print(&#39;f is leaf: &#39;, f.is_leaf)</span>
 
-            <span class="c1"># f_2 = f**2</span>
-            <span class="c1"># print(&#39;f2 shape&#39;, f_2.shape)</span>
-            <span class="c1"># nu = torch.autograd.Variable( x[:,1], requires_grad=True)</span>
+<span class="c1">#             # f_2 = f**2</span>
+<span class="c1">#             # print(&#39;f2 shape&#39;, f_2.shape)</span>
+<span class="c1">#             # nu = torch.autograd.Variable( x[:,1], requires_grad=True)</span>
 
-            <span class="c1"># nu=torch.autograd.Variable(x[:,1], requires_grad=True)</span>
-            <span class="n">nu</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">x</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-            <span class="c1"># print(type(nu))</span>
+<span class="c1">#             # nu=torch.autograd.Variable(x[:,1], requires_grad=True)</span>
+<span class="c1">#             nu=torch.tensor(x[:,1], requires_grad=True)</span>
+<span class="c1">#             # print(type(nu))</span>
 
-            <span class="c1"># nu.retain_grad()</span>
+<span class="c1">#             # nu.retain_grad()</span>
 
-            <span class="c1"># print(&#39;nu shape: &#39;, nu.shape)</span>
-            <span class="c1"># print(&#39;nu is leaf: &#39;, nu.is_leaf)</span>
-            <span class="c1"># print(&#39;nu type&#39;, type(nu))</span>
+<span class="c1">#             # print(&#39;nu shape: &#39;, nu.shape)</span>
+<span class="c1">#             # print(&#39;nu is leaf: &#39;, nu.is_leaf)</span>
+<span class="c1">#             # print(&#39;nu type&#39;, type(nu))</span>
 
 
-            <span class="c1"># WE NEED TO RETAIN_GRAD ON NON-LEAF NODES </span>
-            <span class="n">f</span><span class="o">.</span><span class="n">retain_grad</span><span class="p">()</span>
-            <span class="n">f</span><span class="o">.</span><span class="n">backward</span><span class="p">(</span><span class="n">gradient</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">f</span><span class="p">),</span> <span class="n">retain_graph</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1">#             # WE NEED TO RETAIN_GRAD ON NON-LEAF NODES </span>
+<span class="c1">#             f.retain_grad()</span>
+<span class="c1">#             f.backward(gradient=torch.ones_like(f), retain_graph=True)</span>
 
-            <span class="c1">#or f.backward(torch.ones_like(f) , retain, graph</span>
-            <span class="c1"># we cant do f.backward() here because backeard() can only be called for scalara</span>
-            <span class="c1"># and f here will be a tensor of shape torch.Size([1000, 1]</span>
-            <span class="c1">#e.g. see https://abishekbashyall.medium.com/playing-with-backward-method-in-pytorch-bd34b58745a0</span>
+<span class="c1">#             #or f.backward(torch.ones_like(f) , retain, graph</span>
+<span class="c1">#             # we cant do f.backward() here because backeard() can only be called for scalara</span>
+<span class="c1">#             # and f here will be a tensor of shape torch.Size([1000, 1]</span>
+<span class="c1">#             #e.g. see https://abishekbashyall.medium.com/playing-with-backward-method-in-pytorch-bd34b58745a0</span>
 
-            <span class="c1"># PyTorch accumulates the gradient in default, we need to clear the previous</span>
-            <span class="c1"># values</span>
-            <span class="c1"># df_dnu = nu.grad</span>
-            <span class="n">df_dx</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">grad</span>
-            <span class="c1"># print(&#39;df_dnu =&#39;, df_dnu)</span>
-            <span class="c1"># print(&#39;df_dx =&#39;, df_dx)</span>
-            <span class="c1"># print(&#39;df_dx shape :&#39;, df_dx.shape)</span>
-            <span class="c1">#clear the gradient after you take it</span>
-            <span class="n">df_dnu</span> <span class="o">=</span> <span class="n">df_dx</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span>
-            <span class="c1"># print(&#39;df_dnu shape: &#39;, df_dnu.shape)</span>
-            <span class="n">x</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">zero_</span><span class="p">()</span>
+<span class="c1">#             # PyTorch accumulates the gradient in default, we need to clear the previous</span>
+<span class="c1">#             # values</span>
+<span class="c1">#             # df_dnu = nu.grad</span>
+<span class="c1">#             df_dx = x.grad</span>
+<span class="c1">#             # print(&#39;df_dnu =&#39;, df_dnu)</span>
+<span class="c1">#             # print(&#39;df_dx =&#39;, df_dx)</span>
+<span class="c1">#             # print(&#39;df_dx shape :&#39;, df_dx.shape)</span>
+<span class="c1">#             #clear the gradient after you take it</span>
+<span class="c1">#             df_dnu = df_dx[:,1]</span>
+<span class="c1">#             # print(&#39;df_dnu shape: &#39;, df_dnu.shape)</span>
+<span class="c1">#             x.grad.zero_()</span>
         
-            <span class="c1">#self.optimizer.zero_grad()</span>
+<span class="c1">#             #self.optimizer.zero_grad()</span>
 
             
-            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
-            <span class="n">y</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">batch_t</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
-            <span class="n">outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-            <span class="n">loss</span> <span class="o">=</span><span class="n">average_quadratic_loss_pivot</span><span class="p">(</span><span class="n">f</span> <span class="o">=</span> <span class="n">outputs</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">df_dnu</span><span class="o">=</span><span class="n">df_dnu</span><span class="p">,</span> <span class="n">kappa</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">kappa</span><span class="p">)</span>
-            <span class="n">final_loss</span> <span class="o">+=</span> <span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">final_loss</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span>
+<span class="c1">#             self.model.eval()</span>
+<span class="c1">#             y=torch.from_numpy(batch_t).float()</span>
+<span class="c1">#             outputs = self.model(x)</span>
+<span class="c1">#             loss =average_quadratic_loss_pivot(f = outputs, t=y, x=x, df_dnu=df_dnu, kappa=self.kappa)</span>
+<span class="c1">#             final_loss += loss.item()</span>
+<span class="c1">#         return final_loss / self.batch_size</span>
 
 
 
-<span class="n">EPOCHS</span><span class="o">=</span><span class="mi">1</span>
-<span class="k">def</span> <span class="nf">run_train_pivot</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">save_model</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;For tuning the parameters&quot;&quot;&quot;</span>
+<span class="c1"># EPOCHS=1</span>
+<span class="c1"># def run_train_pivot(params, save_model=False):</span>
+<span class="c1">#     &quot;&quot;&quot;For tuning the parameters&quot;&quot;&quot;</span>
 
+<span class="c1"># #     model =  RegularizedRegressionModel(</span>
+<span class="c1"># #               nfeatures=train_x.shape[1], </span>
+<span class="c1"># #                 ntargets=1,</span>
+<span class="c1"># #                 nlayers=params[&quot;nlayers&quot;], </span>
+<span class="c1"># #                 hidden_size=params[&quot;hidden_size&quot;],</span>
+<span class="c1"># #                 dropout=params[&quot;dropout&quot;]</span>
+<span class="c1"># #                 )</span>
+
+    
 <span class="c1">#     model =  RegularizedRegressionModel(</span>
-<span class="c1">#               nfeatures=train_x.shape[1], </span>
+<span class="c1">#               nfeatures=sample_x.shape[1], </span>
 <span class="c1">#                 ntargets=1,</span>
-<span class="c1">#                 nlayers=params[&quot;nlayers&quot;], </span>
-<span class="c1">#                 hidden_size=params[&quot;hidden_size&quot;],</span>
-<span class="c1">#                 dropout=params[&quot;dropout&quot;]</span>
+<span class="c1">#                 nlayers=params[&quot;n_layers&quot;], </span>
+<span class="c1">#                 hidden_size=2,</span>
+<span class="c1">#                 dropout=0.2</span>
 <span class="c1">#                 )</span>
-
-    
-    <span class="n">model</span> <span class="o">=</span>  <span class="n">RegularizedRegressionModel</span><span class="p">(</span>
-              <span class="n">nfeatures</span><span class="o">=</span><span class="n">sample_x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> 
-                <span class="n">ntargets</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                <span class="n">nlayers</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;n_layers&quot;</span><span class="p">],</span> 
-                <span class="n">hidden_size</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-                <span class="n">dropout</span><span class="o">=</span><span class="mf">0.2</span>
-                <span class="p">)</span>
-    <span class="c1"># print(model)</span>
+<span class="c1">#     # print(model)</span>
     
 
-    <span class="n">learning_rate</span><span class="o">=</span> <span class="n">learning_rate</span>
+<span class="c1">#     learning_rate= learning_rate</span>
     
     
-    <span class="c1"># optimizer_name = params[&quot;optimizer_name&quot;]</span>
-    <span class="c1"># # optimizer = torch.optim.Adam(model.parameters(), lr=params[&quot;learning_rate&quot;]) </span>
-    <span class="c1"># optimizer = getattr(torch.optim, optimizer_name)(model.parameters(), lr=learning_rate)</span>
+<span class="c1">#     # optimizer_name = params[&quot;optimizer_name&quot;]</span>
+<span class="c1">#     # # optimizer = torch.optim.Adam(model.parameters(), lr=params[&quot;learning_rate&quot;]) </span>
+<span class="c1">#     # optimizer = getattr(torch.optim, optimizer_name)(model.parameters(), lr=learning_rate)</span>
     
-    <span class="n">optimizer</span> <span class="o">=</span> <span class="n">optimizer_nonMLE_pivot</span>
+<span class="c1">#     optimizer = optimizer_nonMLE_pivot</span>
     
-    <span class="n">eng</span><span class="o">=</span><span class="n">Engine_kappa</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">kappa</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s2">&quot;kappa&quot;</span><span class="p">])</span>
-    <span class="n">best_loss</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span>
-    <span class="n">early_stopping_iter</span><span class="o">=</span><span class="mi">10</span>
-    <span class="n">early_stopping_coutner</span><span class="o">=</span><span class="mi">0</span>
+<span class="c1">#     eng=Engine_kappa(model, optimizer, batch_size=batch_size, kappa = params[&quot;kappa&quot;])</span>
+<span class="c1">#     best_loss = np.inf</span>
+<span class="c1">#     early_stopping_iter=10</span>
+<span class="c1">#     early_stopping_coutner=0</span>
 
-    <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">EPOCHS</span><span class="p">):</span>
-        <span class="n">train_loss</span> <span class="o">=</span> <span class="n">eng</span><span class="o">.</span><span class="n">train_pivot</span><span class="p">(</span><span class="n">train_x</span><span class="p">,</span> <span class="n">train_t</span><span class="p">)</span>
-        <span class="n">valid_loss</span><span class="o">=</span><span class="n">eng</span><span class="o">.</span><span class="n">evaluate_pivot</span><span class="p">(</span><span class="n">test_x</span><span class="p">,</span> <span class="n">test_t</span><span class="p">)</span>
+<span class="c1">#     for epoch in range(EPOCHS):</span>
+<span class="c1">#         train_loss = eng.train_pivot(train_x, train_t)</span>
+<span class="c1">#         valid_loss=eng.evaluate_pivot(test_x, test_t)</span>
 
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">epoch</span><span class="si">}</span><span class="s2"> </span><span class="se">\t</span><span class="s2"> </span><span class="si">{</span><span class="n">train_loss</span><span class="si">}</span><span class="s2"> </span><span class="se">\t</span><span class="s2"> </span><span class="si">{</span><span class="n">valid_loss</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">valid_loss</span><span class="o">&lt;</span><span class="n">best_loss</span><span class="p">:</span>
-            <span class="n">best_loss</span><span class="o">=</span><span class="n">valid_loss</span>
-            <span class="k">if</span> <span class="n">save_model</span><span class="p">:</span>
-                <span class="n">model</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">state_dict</span><span class="p">(),</span> <span class="s2">&quot;model_m.bin&quot;</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">early_stopping_coutner</span><span class="o">+=</span><span class="mi">1</span>
-        <span class="k">if</span> <span class="n">early_stopping_coutner</span> <span class="o">&gt;</span> <span class="n">early_stopping_iter</span><span class="p">:</span>
-            <span class="k">break</span>
-    <span class="k">return</span> <span class="n">best_loss</span>
+<span class="c1">#         print(f&quot;{epoch} \t {train_loss} \t {valid_loss}&quot;)</span>
+<span class="c1">#         if valid_loss&lt;best_loss:</span>
+<span class="c1">#             best_loss=valid_loss</span>
+<span class="c1">#             if save_model:</span>
+<span class="c1">#                 model.save(model.state_dict(), &quot;model_m.bin&quot;)</span>
+<span class="c1">#         else:</span>
+<span class="c1">#             early_stopping_coutner+=1</span>
+<span class="c1">#         if early_stopping_coutner &gt; early_stopping_iter:</span>
+<span class="c1">#             break</span>
+<span class="c1">#     return best_loss</span>
 
-<span class="c1"># run_train()</span>
+<span class="c1"># # run_train()</span>
 
-<span class="k">def</span> <span class="nf">objective_pivot</span><span class="p">(</span><span class="n">trial</span><span class="p">):</span>
-    <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
-      <span class="s2">&quot;kappa&quot;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_float</span><span class="p">(</span><span class="s2">&quot;kappa&quot;</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span>
-        <span class="s2">&quot;n_layers&quot;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_int</span><span class="p">(</span><span class="s2">&quot;n_layers&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-    <span class="p">}</span>
-    <span class="c1"># all_losses=[]</span>
+<span class="c1"># def objective_pivot(trial):</span>
+<span class="c1">#     params = {</span>
+<span class="c1">#       &quot;kappa&quot;: trial.suggest_float(&quot;kappa&quot;,1,2),</span>
+<span class="c1">#         &quot;n_layers&quot;: trial.suggest_int(&quot;n_layers&quot;, 1, 3)</span>
+<span class="c1">#     }</span>
+<span class="c1">#     # all_losses=[]</span>
 
-    <span class="n">temp_loss</span> <span class="o">=</span> <span class="n">run_train_pivot</span><span class="p">(</span><span class="n">params</span><span class="p">,</span><span class="n">save_model</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="c1"># all_losses.append(temp_loss)</span>
-    <span class="k">return</span> <span class="n">temp_loss</span>
+<span class="c1">#     temp_loss = run_train_pivot(params,save_model=False)</span>
+<span class="c1">#     # all_losses.append(temp_loss)</span>
+<span class="c1">#     return temp_loss</span>
 
-<span class="k">def</span> <span class="nf">tune_hyperparameters_pivot</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Getting best hyperparameters&#39;</span><span class="p">)</span>
-    <span class="n">study</span><span class="o">=</span><span class="n">optuna</span><span class="o">.</span><span class="n">create_study</span><span class="p">(</span><span class="n">direction</span><span class="o">=</span><span class="s2">&quot;minimize&quot;</span><span class="p">)</span>
-    <span class="n">study</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="n">objective</span><span class="p">,</span> <span class="n">n_trials</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-    <span class="n">best_trial</span> <span class="o">=</span> <span class="n">study</span><span class="o">.</span><span class="n">best_trial</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;best model parameters&#39;</span><span class="p">,</span> <span class="n">best_trial</span><span class="o">.</span><span class="n">params</span><span class="p">)</span>
+<span class="c1"># def tune_hyperparameters_pivot():</span>
+<span class="c1">#     print(&#39;Getting best hyperparameters&#39;)</span>
+<span class="c1">#     study=optuna.create_study(direction=&quot;minimize&quot;)</span>
+<span class="c1">#     study.optimize(objective, n_trials=100)</span>
+<span class="c1">#     best_trial = study.best_trial</span>
+<span class="c1">#     print(&#39;best model parameters&#39;, best_trial.params)</span>
 
-    <span class="n">best_params</span><span class="o">=</span><span class="n">best_trial</span><span class="o">.</span><span class="n">params</span><span class="c1">#this is a dictionary</span>
-    <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;best_params/kappa_tuned.csv&#39;</span>
-    <span class="c1"># param_df=pd.DataFrame({</span>
-    <span class="c1">#                         &#39;n_layers&#39;:best_params[&quot;nlayers&quot;], </span>
-    <span class="c1">#                         &#39;hidden_size&#39;:best_params[&quot;hidden_size&quot;], </span>
-    <span class="c1">#                         &#39;dropout&#39;:best_params[&quot;dropout&quot;],</span>
-    <span class="c1">#                         &#39;optimizer_name&#39;:best_params[&quot;optimizer_name&quot;],</span>
-    <span class="c1">#                         &#39;learning_rate&#39;: best_params[&quot;learning_rate&quot;], </span>
-    <span class="c1">#                         &#39;batch_size&#39;:best_params[&quot;batch_size&quot;] },</span>
-                                    <span class="c1"># index=[0]</span>
-    <span class="c1"># )</span>
-    <span class="n">param_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;kappa&#39;</span><span class="p">:</span> <span class="n">best_params</span><span class="p">[</span><span class="s2">&quot;kappa&quot;</span><span class="p">],</span> <span class="s1">&#39;n_layers&#39;</span><span class="p">:</span> <span class="n">best_params</span><span class="p">[</span><span class="s2">&quot;n_layers&quot;</span><span class="p">]},</span>  <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="p">)</span>
+<span class="c1">#     best_params=best_trial.params#this is a dictionary</span>
+<span class="c1">#     filename=&#39;best_params/kappa_tuned.csv&#39;</span>
+<span class="c1">#     # param_df=pd.DataFrame({</span>
+<span class="c1">#     #                         &#39;n_layers&#39;:best_params[&quot;nlayers&quot;], </span>
+<span class="c1">#     #                         &#39;hidden_size&#39;:best_params[&quot;hidden_size&quot;], </span>
+<span class="c1">#     #                         &#39;dropout&#39;:best_params[&quot;dropout&quot;],</span>
+<span class="c1">#     #                         &#39;optimizer_name&#39;:best_params[&quot;optimizer_name&quot;],</span>
+<span class="c1">#     #                         &#39;learning_rate&#39;: best_params[&quot;learning_rate&quot;], </span>
+<span class="c1">#     #                         &#39;batch_size&#39;:best_params[&quot;batch_size&quot;] },</span>
+<span class="c1">#                                     # index=[0]</span>
+<span class="c1">#     # )</span>
+<span class="c1">#     param_df = pd.DataFrame({&#39;kappa&#39;: best_params[&quot;kappa&quot;], &#39;n_layers&#39;: best_params[&quot;n_layers&quot;]},  index=[0]  )</span>
 
-    <span class="n">param_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>   
+<span class="c1">#     param_df.to_csv(filename)   </span>
 </pre></div>
 </div>
 </div>
@@ -4979,31 +4956,6 @@ Iteration vs average loss
 </div>
 </div>
 </div>
-<hr class="docutils" />
-</section>
-<hr class="docutils" />
-<section class="tex2jax_ignore mathjax_ignore" id="more-discussions">
-<h1>More Discussions<a class="headerlink" href="#more-discussions" title="Permalink to this headline">#</a></h1>
-<p>One simple example which is paradoxical is the following: suppose we have our usual likelihood
-$<span class="math notranslate nohighlight">\(L(\theta, \nu)= \frac{e^{-(\theta+\nu)} (\theta+\nu)^N }{N !} \ \frac{e^{-\nu} \nu^M}{M !} \tag{20} \)</span><span class="math notranslate nohighlight">\( and we observe \)</span>N=M=0<span class="math notranslate nohighlight">\( so that the likelihood becomes \)</span> L(\theta, \nu)= e^{-(\theta+\nu)} e^{-\nu} <span class="math notranslate nohighlight">\(. Suppose that now we wish to make an inference on \)</span>\theta<span class="math notranslate nohighlight">\(. It should make sense that if we know for a fact that there is no background events (since \)</span>M=0$), that the likelihood should not depend on the mean background (since there is no backround to begin with). <a class="reference external" href="https://arxiv.org/pdf/physics/9711021v2.pdf">Feldman and Cousins</a> were aware of this issue and assigned the problem to be the incorrect interpretation of the intervals as Bayesian intervals.</p>
-<p>A very closely related problem is the existence of a signal and background densities, say both depending on POI <span class="math notranslate nohighlight">\(\theta\)</span>, and the likelihood will be given by</p>
-<div class="math notranslate nohighlight">
-\[ L(\theta) = \prod_{i=1}^{N_{obs}} \theta S(x_i) + (1-\theta) B(x_i)\]</div>
-<p>where the likelihood <span class="math notranslate nohighlight">\(L(\theta)\)</span> is the probability for obtaining the observation <span class="math notranslate nohighlight">\(x\)</span> from either a signal or background distribution, where <span class="math notranslate nohighlight">\(\theta\)</span> is an unknown proportion of signal (since real events come as a mixture of signal and background), and we would like to infer about the value of this parameter of interest. In the presense of nuissance parameter <span class="math notranslate nohighlight">\(\nu\)</span> the likelihood becomes</p>
-<div class="math notranslate nohighlight">
-\[ L(\theta,\nu) = \prod_{i=1}^{N_{obs}} \theta S(x_i|\nu) + (1-\theta) B(x_i|\nu)\]</div>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="more-ideas">
-<h1>More ideas<a class="headerlink" href="#more-ideas" title="Permalink to this headline">#</a></h1>
-<ol class="simple">
-<li><p>More real world physics scenrios</p>
-<ul class="simple">
-<li><p>We can test this technique in a real case physics LFI scenario by generating pythia data on the fly for signal and background with unknown nuissance parameter and making inferences on the POI</p></li>
-</ul>
-</li>
-<li><p>Likelihood regions and confidence intervals from confidence sets of two or more parameters</p></li>
-<li><p>Using more test statistics, motivated by <a class="reference external" href="https://arxiv.org/pdf/1007.1727.pdf">Asymptotic formulae for likelihood-based tests of new physics</a></p></li>
-</ol>
 </section>
 
     <script type="text/x-thebe-config">

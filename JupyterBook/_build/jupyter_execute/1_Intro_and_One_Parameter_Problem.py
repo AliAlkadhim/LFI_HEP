@@ -11,7 +11,7 @@
 
 # ### External imports
 
-# In[37]:
+# In[2]:
 
 
 import numpy as np; import pandas as pd
@@ -42,6 +42,26 @@ except Exception:
 import ipywidgets as wid; wid.HTMLMath('$\LaTeX$')
 
 
+# In[3]:
+
+
+# update fonts
+FONTSIZE = 14
+font = {'family' : 'serif',
+        'weight' : 'normal',
+        'size'   : FONTSIZE}
+mp.rc('font', **font)
+
+# set usetex = False if LaTex is not 
+# available on your system or if the 
+# rendering is too slow
+mp.rc('text', usetex=True)
+
+# set a seed to ensure reproducibility
+seed = 128
+rnd  = np.random.RandomState(seed)
+
+
 # ### Import utils
 
 # In[38]:
@@ -60,6 +80,146 @@ except Exception:
     print("""BASE directory not properly set. Read repo README.\
     If you need a function from utils, use the decorator below, or add utils to sys.path""")
     pass
+
+
+# # Background on Confidence Intervals
+# 
+# Suppose we have a random variable $x$, which is distributed according to some PDF $f(x)$. Then the probability of finding $x$ between $[x^{low}. x^{up}]$ is given by
+# 
+# $$ 
+# \text{Prob} \left( x \in [x^{low}, x^{up}] \right) =\text{Prob} \left( x^{low} \le x \le x^{up} \right) = \int_{x^{low}}^{x^{up}} dx f(x) 
+# $$
+# 
+# We can express this in terms of comulative distribution functions (CDFS) where for a random variable $X$  the CDF is defined as 
+# 
+# $$
+# F_X(x)=\text{Prob}(X \leq x), \text { for all } x \in \mathbb{R}
+# $$
+# 
+# And since $x \in \mathbb{R}$, we have
+# 
+# $$
+# \int_{-\infty}^{x^{low}} f(x) dx + \int_{x^{low}}^{x^{up} } f(x) dx+ \int_{x^{up}}^{\infty} f(x)dx = 1
+# $$
+# 
+# which, by definition of CDF above, gives
+# 
+# $$
+# F(x^{low}) + \int_{x^{low}}^{x^{up} } f(x) dx+ (1-F(x^{up}) =1,
+# $$
+# 
+# which gives
+# 
+# $$
+# \int_{x^{low}}^{x^{up} } f(x) dx =F(x^{up}) - F(x^{low}) \tag{1}.
+# $$
+# 
+# 
+# Sometimes we report upper and lower limits, e.g.
+# 
+# $$
+# p=\int_a^{\infty} \mathrm{d} x f(x) \quad \text { for } \quad a>A; \quad \text{lower limit} \quad \text{(with prob. $p$ we are confident that $a$ is larger than $A$ )} 
+# $$
+# 
+# $$
+# p=\int_{-\infty}^{a} \mathrm{d} x f(x) \quad \text { for } \quad a<A \quad \text{upper limit} \quad \text{(with prob. $p$ we are confident that $a$ smaller larger than $A$ )} 
+# $$
+# 
+# Suppose we have a PDF (or PMF) $p(x|\theta)$ (Sometimes called the posterior. Also, of course $x$ could be a vector of data $\vec{x}$). We calculate the confidence interval $[\theta^{low},\theta^{up}]$ *at a particular chosen confidence level (CL)*, which lets us say the statement "we are CL $\times 100$ % confident that the true value of the parameter $\theta$, $\theta_{\text{true}}$ lies within in the range $[\theta^{low}, \theta^{up}]$". Since confidence interval calculation usually follows the Neyman construction, which follows the frequentist philosophy, the statement really should be "if we were to repeat the experiment (which yields an interval $[\theta^{low}_i, \theta^{up}]$ each time), in CL$\times 100$ % of the time, the true value of the parameter will be in that range". For example, if CL is chosen to be 0.68 (a common choice since it's one standard deviation in the Gaussian case, and most things in nature are Gaussian), we would obtain 68% confidence intervals.
+# 
+# If we were to write down a formula for this, the interval $[\theta^{low}, \theta^{up}]$ would be attained by solving for $\theta^{low}, \theta^{up}$ in the equation
+# 
+# $$ CL = \int_{\theta^{low} }^{\theta^{up}} p(\vec{x} | \theta) d \theta \tag{2} $$
+# 
+# Sometime Eq (2), when solved by calculating the intergral analytically, is referred to a Bayesian (or "Credible") interval. The frequentist approach calculates the Confidence interval by the use of a test statistic (more on this later) and using hypothesis testing (and hence attaining the interval by Neyman construction).
+# 
+# ## Hypothesis Testing
+# 
+# Test statistics play a paramount role in the theory of hypothesis testing. Given observed data $x$, a test statistic $\lambda$ evaluated for the observed data $\lambda_{\text{observed}}$ is the only way to decide which of two hypothesis; the null hypothesis $H_{0}$ (parameterized by parameters $\theta_0$) and the alternative hypothesis $H_1$ (parameterized by parameters $\theta_1$). 
+# 
+# Everything from now on in hypothesis testing assumes that $H_0$ is true. You then divide your sample space into two regions: a "critical region", $\omega$ and the complement to the critical region, $\Omega \setminus \omega$. The regions are chosen basede on the following:
+# - If an observation (or set of observations) $\vec{x}$ falls in $\omega$, we reject $H_0$ (in favor of $H_1$), and
+# - If an observation (or set of observations) $\vec{x}$ falls in $\Omega \setminus \omega$ we accept $H_0$, which in our case also means rejecting $H_1$).
+# 
+# You start the procedure of hypothesis testing by making the obvious but powerful statement:
+# > "We want to restrict reject the null $H_0$ in the case that $H_0$ is true."
+# 
+# Mathematicall, the statement above means that "we want to restrict $\text{Prob} (\text{reject} H_0 \mid H_0) $". We then define an upper limit for how often we can let such an error of rejecting $H_0$ when it is in fact true as a small number $\alpha$, so 
+# 
+# > > $\alpha >> \text{Prob} (\text{reject} H_0 \mid H_0) .$
+# 
+# Since by our hypothesis test construction, we have $\vec{x}$ lieing in $\omega$ to be requivalent to rejecting $H_0$, we attain the following restriction
+# 
+# >>> $\text{Prob}(\vec{x} \in \omega \mid H_0 ) \le \alpha$.
+# 
+# # Test statistics
+# One can construct an infinite number of test statistics, by choosing different functions of the data $x$, but most functions of the data are useless! The Neyman-Pearson (NP) Lemma states that the most powerful test statistic \footnote{By powerful we mean that it has the greatest power $1-\beta$ where $\beta$ is the probability of rejecting $H_1$ when it is in fact true, commonly referred to as "Type II Error".} between simple hypothesis $H_0$ and $H_1$ is $\lambda_{NP}=\frac{L(H_1)}{L(H_0)} = \frac{L(x |\theta_1)}{L(x|\theta_0)}$, which rejects $H_0$ in favor of $H_1$. For convenience, it is used as $\lambda_{NP}=-2 \log \frac{L(x|\theta_0)}{L(x|\theta_1)}$.
+# 
+# Conceptually, in statistical evidence analyses one uses the test statistic that minimizes $\alpha$ while maximizing $1-\beta$. Where $\alpha$ is Type I error
+# 
+# $$
+#     \alpha = \text{Prob}(\text{Reject } H_0 \mid H_0)
+# $$
+# 
+# 
+# $$
+# 1-\beta = \text{Prob}(\text{Reject } H_0 | H_1)
+# $$
+# 
+# (Birnbaum (1962, 1977) suggested that $\frac{\alpha}{1-\beta}$ should be used as a measure of the strength of a statistical test, rather than $\alpha$ alone.)
+
+# # Single Parameter Poisson Problem
+# 
+# We propose in this study that even though LFI methods are used to make inderences when we do not have access to the likelihood function, we still want to use these methods in the case where we do know the likelihood explicitly, in order to arrive at frequentist guarantees.
+# 
+# Before we go on to demonstrate our methods, we review the relevant statistics 
+
+# 
+# Suppose we have the Poisson distribution
+# 
+# $$
+# P(N | \theta)  =L(\theta) =   \frac{e^{-\theta} \theta^N}{N!}, 
+# $$
+# 
+# where $N$ is the observed count (in e.g. single bin/channel) and $\theta$ is the expected mean count (the only parameter in the Poisson distribution).
+# 
+# If you don't know what this looks like, for a set value $N$, it's simply
+# 
+# 
+# 
+
+# In[10]:
+
+
+N=4; theta=np.arange(0,10,0.01)
+L =st.poisson.pmf(N, mu=theta)
+plt.scatter(theta, L, label='N={4}'); 
+plt.xlabel(r'$\theta$'); plt.ylabel(r'$L(\theta)$'); 
+plt.legend(); plt.show()
+
+
+# We can calculate the CDF $F(N, \theta)$
+# 
+# $$
+# F(N, \theta) = \sum_{k=0}^N \textrm{Poisson}(k, \theta) = \sum_{k=0}^N \frac{e^{-\theta} \theta^N}{N!}
+# $$
+# 
+# Let us plot it and simplify it with the help of scipy
+
+# In[23]:
+
+
+N_range=np.linspace(0,10,40)[:, np.newaxis]
+theta_range = np.linspace(0,20,40)
+PCDF = sp.stats.poisson.cdf(k=N_range, mu=theta_range)
+theta_N_grid=np.meshgrid(theta_range, N_range)
+#remember meshgrid returns TWo arrays
+print(theta_N_grid[0].shape, '\t\t', theta_N_grid[1].shape) 
+plt.pcolor(theta_N_grid[0], theta_N_grid[1], PCDF, shading='auto')
+plt.colorbar(label='Poisson CDF')
+plt.xlabel(r'$\theta$'); plt.ylabel(r'$N$')
+
+plt.show()
 
 
 # 
@@ -111,9 +271,16 @@ except Exception:
 #       D_R(N, \theta) & = \sum_{k=N}^\infty \textrm{Poisson}(k, \theta) = P(N, \theta),\\
 #       \textrm{and   } D_L(N, \theta) & = \sum_{k=0}^N \textrm{Poisson}(k, \theta) = 1 - P(N+1, \theta) ,
 #  \end{align}
-# where $P(s, \theta)$ is the *normalized* lower incomplete gamma function[3].
+# where $P(s, \theta)$ is the *normalized* lower incomplete gamma function[3] (in scipy it's s`scipy.special.gammainc(s, mu)`.
 # 
-# In this notebook, we use the method of Ref.[1] to approximate $E(Z | \theta, N)$, that is, $D_L(N, \theta)$ using a simple deep neural network trained, that is, fitted, to data comprising the triplets $(Z_i, \theta_i, N_i)$. (See notebook __LFI_generate_data.ipynb__ for details.) 
+# #### Neyman Construction in two lines
+# 
+# Neyman construction in this simple case boils down to:
+# - Solve $(1-CL)/2 = D_R \rightarrow$ get $\theta_R$
+# - Solve $(1-CL)/2 = D_L \rightarrow$ get $\theta_R$
+# 
+# 
+# In this notebook, we use the LFI method of Ref.[1] to approximate $E(Z | \theta, N)$, that is, $D_L(N, \theta)$ using a simple deep neural network trained, that is, fitted, to data comprising the triplets $(Z_i, \theta_i, N_i)$. (See notebook __LFI_generate_data.ipynb__ for details.) 
 # 
 # 
 # 
@@ -123,148 +290,6 @@ except Exception:
 #   3. https://en.wikipedia.org/wiki/Incomplete_gamma_function. The normalized function is the unnormalized function divided by $\Gamma(s)$ and can be computed using scipy.special.gammainc($s$, $\theta$).
 # 
 # 
-
-# We propose in this study that even though LFI methods are used to make inderences when we do not have access to the likelihood function, we still want to use these methods in the case where we do know the likelihood explicitly, in order to arrive at frequentist guarantees.
-# 
-# Before we go on to demonstrate our methods, we review the relevant statistics 
-
-# 
-# Suppose we have the Poisson distribution
-# 
-# $$
-# P(N | \theta)  =  \frac{e^{-\theta} \theta^N}{N!}, 
-# $$
-# 
-# We can calculate the CDF $F(N, \theta)$
-# 
-# $$
-# F(N, \theta) = \sum_{k=0}^N \textrm{Poisson}(k, \theta) = \sum_{k=0}^N \frac{e^{-\theta} \theta^N}{N!}
-# $$
-# 
-# Let us plot it and simplify it with the help of scipy
-
-# # Background on Confidence Intervals
-# 
-# Suppose we have a random variable $x$, which is distributed according to some PDF $f(x)$. Then the probability of finding $x$ between $[x^{low}. x^{up}]$ is given by
-# 
-# $$ 
-# \text{Prob} \left( x \in [x^{low}, x^{up}] \right) =\text{Prob} \left( x^{low} \le x \le x^{up} \right) = \int_{x^{low}}^{x^{up}} dx f(x) 
-# $$
-# 
-# We can express this in terms of comulative distribution functions (CDFS) where for a random variable $X$  the CDF is defined as 
-# 
-# $$
-# F_X(x)=\text{Prob}(X \leq x), \text { for all } x \in \mathbb{R}
-# $$
-# 
-# And since $x \in \mathbb{R}$, we have
-# 
-# $$
-# \int_{-\infty}^{x^{low}} f(x) dx + \int_{x^{low}}^{x^{up} } f(x) dx+ \int_{x^{up}}^{\infty} f(x)dx = 1
-# $$
-# 
-# which, by definition of CDF above, gives
-# 
-# $$
-# F(x^{low}) + \int_{x^{low}}^{x^{up} } f(x) dx+ (1-F(x^{up}) =1,
-# $$
-# 
-# which gives
-# 
-# $$
-# \int_{x^{low}}^{x^{up} } f(x) dx =F(x^{up}) - F(x^{low}).
-# $$
-# 
-# 
-# Sometimes we report upper and lower limits, e.g.
-# 
-# $$
-# p=\int_a^{\infty} \mathrm{d} x f(x) \quad \text { for } \quad a>A; \quad \text{lower limit} \quad \text{(with prob. $p$ we are confident that $a$ is larger than $A$ )} 
-# $$
-# 
-# $$
-# p=\int_{-\infty}^{a} \mathrm{d} x f(x) \quad \text { for } \quad a<A \quad \text{upper limit} \quad \text{(with prob. $p$ we are confident that $a$ smaller larger than $A$ )} 
-# $$
-# 
-# ##
-
-# In[1]:
-
-
-# standard system modules
-import os, sys
-
-# standard module for tabular data
-import pandas as pd
-
-# standard module for array manipulation
-import numpy as np
-
-# standard modules for high-quality plots
-import matplotlib as mp
-import matplotlib.pyplot as plt
-
-# standard scientific computing module
-import scipy as sp
-import scipy.stats as st
-import scipy.optimize as op
-
-# standard symbolic algebra module
-#import sympy as sm
-#sm.init_printing()
-
-# standard module serialize, that is, save, objects
-import joblib as jb
-
-# pytorch
-import torch
-import torch.nn as nn
-#from torch.utils.data import Dataset
-
-#  split data into a training set and a test set
-from sklearn.model_selection import train_test_split
-
-# to reload modules
-import importlib
-
-get_ipython().run_line_magic('matplotlib', 'inline')
-
-
-# In[2]:
-
-
-# update fonts
-FONTSIZE = 14
-font = {'family' : 'serif',
-        'weight' : 'normal',
-        'size'   : FONTSIZE}
-mp.rc('font', **font)
-
-# set usetex = False if LaTex is not 
-# available on your system or if the 
-# rendering is too slow
-mp.rc('text', usetex=True)
-
-# set a seed to ensure reproducibility
-seed = 128
-rnd  = np.random.RandomState(seed)
-
-
-# In[23]:
-
-
-N_range=np.linspace(0,10,40)[:, np.newaxis]
-theta_range = np.linspace(0,20,40)
-PCDF = sp.stats.poisson.cdf(k=N_range, mu=theta_range)
-theta_N_grid=np.meshgrid(theta_range, N_range)
-#remember meshgrid returns TWo arrays
-print(theta_N_grid[0].shape, '\t\t', theta_N_grid[1].shape) 
-plt.pcolor(theta_N_grid[0], theta_N_grid[1], PCDF, shading='auto')
-plt.colorbar(label='Poisson CDF')
-plt.xlabel(r'$\theta$'); plt.ylabel(r'$N$')
-
-plt.show()
-
 
 # ### Load data
 
@@ -733,7 +758,7 @@ def usemodel(data, N,
 plot_data(data, usemodel, Nmin, Nmax, gfile='fig_model_vs_DL.png') 
 
 
-# ### Computing 90% upper limits
+# ### Computing 90% upper limits exactly, and compare to LFI method
 # 
 # Let's now compute some upper limits using our trained model and compare with the exact calculation.
 

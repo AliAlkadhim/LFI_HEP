@@ -10,6 +10,8 @@
 # Department of Physics, Florida State University <br>
 # 
 
+# Please make sure to have read the content of [the previous notebook](1_Intro_and_One_Parameter_Problem.ipynb) as we will use the concepts and theory used there.
+
 # ### External imports
 
 # In[1]:
@@ -69,7 +71,7 @@ except Exception:
 # 
 # $$ \prod_{k=1}^{N} \frac{e^{-(\epsilon_k \sigma + b_k)} (\epsilon_k \sigma + b_k)^{n_k}}{n_k !} $$
 # 
-# Where $\sigma$, the cross section (the parameter of interest), $b_k$ is expected background for the $k$th channel (the nuissance parameter). $\epsilon_k$ is the "acceptance parameter", for the $k$th channel, which is typically a product of the detector efficiency, branching fraction, and luminosity.
+# Where $\sigma$, the cross section (**the parameter of interest**), $b_k$ is expected background for the $k$th channel (in this context, it is **the nuissance parameter**, which is a parameter that is not unkown precisely, typically constrained in a control measurement). $\epsilon_k$ is the "acceptance parameter", for the $k$th channel, which is typically a product of the detector efficiency, branching fraction, and luminosity.
 # 
 # 
 # This is the prototype of many statistical models in astronomy and particle physics in which data are binned and the count in each bin consist a priori of the sum of counts from signal and background. Written in terms of the simplified 2-parameter model, the expected count in each bin $k$ takes the form
@@ -93,7 +95,7 @@ algorithm2 = Image('images/Algorithm2.jpg'); display(algorithm2)
 
 # # The two-parameter problem
 # 
-# the conditional probability of observing $n$ signal counts and $m$ background counts in a *single channel or bin* is given by
+# the conditional probability of observing $n$ signal counts and $m$ background counts (in a control measurement which is a single Poisson value) in a *single channel or bin* is given by
 # 
 # $$
 #     \text{Prob}(n, m \mid \theta, v)= L(\theta, \nu) = \frac{e^{-(\theta+v)}(\theta+v)^{n}}{n !} \frac{e^{-v} v^{m}}{m !},
@@ -103,8 +105,9 @@ algorithm2 = Image('images/Algorithm2.jpg'); display(algorithm2)
 # 
 # where, once the counts $n$ and $m$ have been observed becomes the likelihood $L(\theta,\nu)$. $L(\theta,\nu)$ could be viewed as a product of the main measurement where signal events ($s$) could be present, and a control measurement where only background events ($b$) exist, which helps us constrain the nuissance parameters. 
 # 
-# $$L(\theta,\nu) = L_{s+b}(\theta,\nu) L_b(\nu)$$
+# $$L(\theta,\nu) = L_{s+b}(\theta,\nu) L_b(\nu)]. \tag{4}$$
 # 
+# If you're familiar with using "strength parameter" $\mu$, then $s+b$ corresponds to having $\mu=1$ and $b$ corresponds to $\mu=0$.
 # The likelihood function contains all the information from the experiment that is relevent to inference for the parameters (also known as the *likelihood principle*). The likelihood function is defined only upto an arbitrary constant, and so only ratios of likelihoods containing different values of the parameters are meaningful.
 # 
 # The objective now is to derive confidence intervals or limits for the parameter of interest $\theta$. What makes this challenging is the presence of the *nuissance parameter* $\nu$, which is a parameter whose value is not known precisely, and can be related to the physics or the experimental aparatus/detector. In the Bayesian approach, nuissance parameters are assigned prior probabilities $\pi(\nu) d \nu$ and are integrated out in order to arrive at the posterior for $\theta$ in a process called marginalization: $L(\theta) = \int L(\theta,\nu) \pi (\nu) d \nu$. However, this introduces a fair bit of subjectivity into the problem through the choice of the prior. Frequentist methods deal with nuissance parameters by profiling them the likelihood in order to arrive at their MLEs.
@@ -193,18 +196,7 @@ algorithm2 = Image('images/Algorithm2.jpg'); display(algorithm2)
 # $$
 # 
 # 
-# Test statistics play a paramount role in the theory of hypothesis testing. Given observed data $x$, a test statistic $\lambda$ evaluated for the observed data $\lambda_{observed}$ is the only way to decide which of two hypothesis; the null hypothesis $H_{0}$ (parameterized by parameters $\theta_0$) and the alternative hypothesis $H_1$ (parameterized by parameters $\theta_1$). One can construct an infinite number of test statistics, by choosing different functions of the data $x$, but most functions of the data are useless! The Neyman-Pearson (NP) Lemma states that the most powerful test statistic \footnote{By powerful we mean that it has the greatest power $1-\beta$ where $\beta$ is the probability of rejecting $H_1$ when it is in fact true, commonly referred to as "Type II Error".} between simple hypothesis $H_0$ and $H_1$ is $\lambda_{NP}=\frac{L(H_1)}{L(H_0)} = \frac{L(x |\theta_1)}{L(x|\theta_0)}$, which rejects $H_0$ in favor of $H_1$. For convenience, it is used as $\lambda_{NP}=-2 \log \frac{L(x|\theta_0)}{L(x|\theta_1)}$.
 # 
-# Conceptually, in statistical evidence analyses one uses the test statistic that minimizes $\alpha$ while maximizing $1-\beta$. Where $\alpha$ is Type I error
-# 
-# $$
-#     \alpha = \text{Prob}(\text{Reject } H_0 \mid H_0)
-# $$
-# 
-# 
-# $$
-# 1-\beta = \text{Prob}(\text{Reject } H_0 | H_1)
-# $$
 # 
 # \footnote{Birnbaum (1962, 1977) suggested that $\frac{\alpha}{1-\beta}$ should be used as a measure of the strength of a statistical test, rather than $\alpha$ alone.} 
 # 
@@ -2704,297 +2696,297 @@ print(model_nonMLE_pivot)
 
 # # Try to automatically tune $\kappa$ (under construction)
 
-# In[355]:
+# In[3]:
 
 
-# Modify the tuning workflow to tune $\kappa$ in our pivotal loss function
+# # Modify the tuning workflow to tune $\kappa$ in our pivotal loss function
 
-### Retune ALL parameters of our model for the pivotal case - they might not converge o the same values as earlier!
+# ### Retune ALL parameters of our model for the pivotal case - they might not converge o the same values as earlier!
 
-def average_quadratic_loss_pivot(f, t, x, df_dnu, kappa):
-    # f and t must be of the same shape
-    return  torch.mean((f - t)**2) - kappa/2 * torch.mean(df_dnu)
+# def average_quadratic_loss_pivot(f, t, x, df_dnu, kappa):
+#     # f and t must be of the same shape
+#     return  torch.mean((f - t)**2) - kappa/2 * torch.mean(df_dnu)
 
-def validate_pivot(model, avloss, inputs, targets, df_dnu):
-    # make sure we set evaluation mode so that any training specific
-    # operations are disabled.
-    model.eval() # evaluation mode
+# def validate_pivot(model, avloss, inputs, targets, df_dnu):
+#     # make sure we set evaluation mode so that any training specific
+#     # operations are disabled.
+#     model.eval() # evaluation mode
     
-    with torch.no_grad(): # no need to compute gradients wrt. x and t
-        x = torch.from_numpy(inputs).float()
-        t = torch.from_numpy(targets).float()
-        # remember to reshape!
-        o = model(x).reshape(t.shape)
-    return avloss(o, t, x, df_dnu, kappa)
+#     with torch.no_grad(): # no need to compute gradients wrt. x and t
+#         x = torch.from_numpy(inputs).float()
+#         t = torch.from_numpy(targets).float()
+#         # remember to reshape!
+#         o = model(x).reshape(t.shape)
+#     return avloss(o, t, x, df_dnu, kappa)
 
-# we dont want to tune the old parameters so just load them
-n_layers = int(BEST_PARAMS["n_layers"]) 
-hidden_size = int(BEST_PARAMS["hidden_size"])
-dropout = float(BEST_PARAMS["dropout"])
-optimizer_name = BEST_PARAMS["optimizer_name"].to_string().split()[1]
-learning_rate =  float(BEST_PARAMS["learning_rate"])
-# batch_size = int(BEST_PARAMS["batch_size"])
-batch_size=32
+# # we dont want to tune the old parameters so just load them
+# n_layers = int(BEST_PARAMS["n_layers"]) 
+# hidden_size = int(BEST_PARAMS["hidden_size"])
+# dropout = float(BEST_PARAMS["dropout"])
+# optimizer_name = BEST_PARAMS["optimizer_name"].to_string().split()[1]
+# learning_rate =  float(BEST_PARAMS["learning_rate"])
+# # batch_size = int(BEST_PARAMS["batch_size"])
+# batch_size=32
     
-class Engine_kappa:
-    """loss, training and evaluation"""
-    def __init__(self, model, optimizer, batch_size, kappa):
-                 #, device):
-        self.model = model
-        #self.device= device
-        self.optimizer = optimizer
-        self.batch_size=batch_size
-        self.kappa=kappa
+# class Engine_kappa:
+#     """loss, training and evaluation"""
+#     def __init__(self, model, optimizer, batch_size, kappa):
+#                  #, device):
+#         self.model = model
+#         #self.device= device
+#         self.optimizer = optimizer
+#         self.batch_size=batch_size
+#         self.kappa=kappa
         
-    #the loss function returns the loss function. It is a static method so it doesn't need self
-    # @staticmethod
-    # def loss_fun(targets, outputs):
-    #   tau = torch.rand(outputs.shape)
-    #   return torch.mean(torch.where(targets >= outputs, 
-    #                                   tau * (targets - outputs), 
-    #                                   (1 - tau)*(outputs - targets)))
+#     #the loss function returns the loss function. It is a static method so it doesn't need self
+#     # @staticmethod
+#     # def loss_fun(targets, outputs):
+#     #   tau = torch.rand(outputs.shape)
+#     #   return torch.mean(torch.where(targets >= outputs, 
+#     #                                   tau * (targets - outputs), 
+#     #                                   (1 - tau)*(outputs - targets)))
 
-#     This loss combines a Sigmoid layer and the BCELoss in one single class. This version is more numerically stable than using a plain Sigmoid followed by a BCELoss as, 
-#     by combining the operations into one layer
+# #     This loss combines a Sigmoid layer and the BCELoss in one single class. This version is more numerically stable than using a plain Sigmoid followed by a BCELoss as, 
+# #     by combining the operations into one layer
 
-    def train_pivot(self, x, t):
-        """the training function: takes the training dataloader"""
+#     def train_pivot(self, x, t):
+#         """the training function: takes the training dataloader"""
         
-        final_loss = 0
-        for iteration in range(n_iterations):
+#         final_loss = 0
+#         for iteration in range(n_iterations):
 
-            batch_x, batch_t = get_features_training_batch(x, t,  self.batch_size)#x and t are train_x and train_t
+#             batch_x, batch_t = get_features_training_batch(x, t,  self.batch_size)#x and t are train_x and train_t
             
 
             
-            x = torch.from_numpy(batch_x).float()
-            # print('x is leaf: ', x.is_leaf)
-            x.requires_grad_(True)
-            # x.retain_grad()
-            # print('x is leaf after retain: ', x.is_leaf)
-            # x.requires_grad_(True)
-            # x.retain_grad()
-            f = self.model(x)
-            f = f.view(-1)
-            #multiply the model by its ransverse, remember we can only take gradients of scalars
-            #and f will be a vector before this
-            f = f @ f.t()
-            # f = torch.tensor(f, requires_grad=True)
-            # print('f shape: ', f.shape)
-            # print('f is leaf: ', f.is_leaf)
+#             x = torch.from_numpy(batch_x).float()
+#             # print('x is leaf: ', x.is_leaf)
+#             x.requires_grad_(True)
+#             # x.retain_grad()
+#             # print('x is leaf after retain: ', x.is_leaf)
+#             # x.requires_grad_(True)
+#             # x.retain_grad()
+#             f = self.model(x)
+#             f = f.view(-1)
+#             #multiply the model by its ransverse, remember we can only take gradients of scalars
+#             #and f will be a vector before this
+#             f = f @ f.t()
+#             # f = torch.tensor(f, requires_grad=True)
+#             # print('f shape: ', f.shape)
+#             # print('f is leaf: ', f.is_leaf)
 
-            # f_2 = f**2
-            # print('f2 shape', f_2.shape)
-            # nu = torch.autograd.Variable( x[:,1], requires_grad=True)
+#             # f_2 = f**2
+#             # print('f2 shape', f_2.shape)
+#             # nu = torch.autograd.Variable( x[:,1], requires_grad=True)
 
-            # nu=torch.autograd.Variable(x[:,1], requires_grad=True)
-            nu=torch.tensor(x[:,1], requires_grad=True)
-            # print(type(nu))
+#             # nu=torch.autograd.Variable(x[:,1], requires_grad=True)
+#             nu=torch.tensor(x[:,1], requires_grad=True)
+#             # print(type(nu))
 
-            # nu.retain_grad()
+#             # nu.retain_grad()
 
-            # print('nu shape: ', nu.shape)
-            # print('nu is leaf: ', nu.is_leaf)
-            # print('nu type', type(nu))
+#             # print('nu shape: ', nu.shape)
+#             # print('nu is leaf: ', nu.is_leaf)
+#             # print('nu type', type(nu))
 
 
-            # WE NEED TO RETAIN_GRAD ON NON-LEAF NODES 
-            f.retain_grad()
-            f.backward(gradient=torch.ones_like(f), retain_graph=True)
+#             # WE NEED TO RETAIN_GRAD ON NON-LEAF NODES 
+#             f.retain_grad()
+#             f.backward(gradient=torch.ones_like(f), retain_graph=True)
 
-            #or f.backward(torch.ones_like(f) , retain, graph
-            # we cant do f.backward() here because backeard() can only be called for scalara
-            # and f here will be a tensor of shape torch.Size([1000, 1]
-            #e.g. see https://abishekbashyall.medium.com/playing-with-backward-method-in-pytorch-bd34b58745a0
+#             #or f.backward(torch.ones_like(f) , retain, graph
+#             # we cant do f.backward() here because backeard() can only be called for scalara
+#             # and f here will be a tensor of shape torch.Size([1000, 1]
+#             #e.g. see https://abishekbashyall.medium.com/playing-with-backward-method-in-pytorch-bd34b58745a0
 
-            # PyTorch accumulates the gradient in default, we need to clear the previous
-            # values
-            # df_dnu = nu.grad
-            df_dx = x.grad
-            # print('df_dnu =', df_dnu)
-            # print('df_dx =', df_dx)
-            # print('df_dx shape :', df_dx.shape)
-            #clear the gradient after you take it
-            df_dnu = df_dx[:,1]
-            # print('df_dnu shape: ', df_dnu.shape)
-            x.grad.zero_()
+#             # PyTorch accumulates the gradient in default, we need to clear the previous
+#             # values
+#             # df_dnu = nu.grad
+#             df_dx = x.grad
+#             # print('df_dnu =', df_dnu)
+#             # print('df_dx =', df_dx)
+#             # print('df_dx shape :', df_dx.shape)
+#             #clear the gradient after you take it
+#             df_dnu = df_dx[:,1]
+#             # print('df_dnu shape: ', df_dnu.shape)
+#             x.grad.zero_()
         
             
-            #now we can zero grads
-            self.optimizer.zero_grad()
-            self.model.train()
-            # with torch.no_grad():
+#             #now we can zero grads
+#             self.optimizer.zero_grad()
+#             self.model.train()
+#             # with torch.no_grad():
 
-            y=torch.from_numpy(batch_t).float()
+#             y=torch.from_numpy(batch_t).float()
             
-            outputs = self.model(x)
-            loss = average_quadratic_loss_pivot(f = outputs, t=y, x=x, df_dnu=df_dnu, kappa=self.kappa)
-            loss.backward()
-            self.optimizer.step()
-            final_loss += loss.item()
+#             outputs = self.model(x)
+#             loss = average_quadratic_loss_pivot(f = outputs, t=y, x=x, df_dnu=df_dnu, kappa=self.kappa)
+#             loss.backward()
+#             self.optimizer.step()
+#             final_loss += loss.item()
 
-        return final_loss / self.batch_size
+#         return final_loss / self.batch_size
     
-    def evaluate_pivot(self, x, t):
-        """the training function: takes the training dataloader"""
+#     def evaluate_pivot(self, x, t):
+#         """the training function: takes the training dataloader"""
         
-        final_loss = 0
-        for iteration in range(n_iterations):
-            batch_x, batch_t = get_features_training_batch(x, t,  self.batch_size)#x and t are train_x and train_t
+#         final_loss = 0
+#         for iteration in range(n_iterations):
+#             batch_x, batch_t = get_features_training_batch(x, t,  self.batch_size)#x and t are train_x and train_t
 
-            # with torch.no_grad():            
+#             # with torch.no_grad():            
             
             
-            x = torch.from_numpy(batch_x).float()
-            # print('x is leaf: ', x.is_leaf)
-            x.requires_grad_(True)
-            # x.retain_grad()
-            # print('x is leaf after retain: ', x.is_leaf)
-            # x.requires_grad_(True)
-            # x.retain_grad()
-            f = self.model(x)
-            f = f.view(-1)
-            #multiply the model by its ransverse, remember we can only take gradients of scalars
-            #and f will be a vector before this
-            f = f @ f.t()
-            # f = torch.tensor(f, requires_grad=True)
-            # print('f shape: ', f.shape)
-            # print('f is leaf: ', f.is_leaf)
+#             x = torch.from_numpy(batch_x).float()
+#             # print('x is leaf: ', x.is_leaf)
+#             x.requires_grad_(True)
+#             # x.retain_grad()
+#             # print('x is leaf after retain: ', x.is_leaf)
+#             # x.requires_grad_(True)
+#             # x.retain_grad()
+#             f = self.model(x)
+#             f = f.view(-1)
+#             #multiply the model by its ransverse, remember we can only take gradients of scalars
+#             #and f will be a vector before this
+#             f = f @ f.t()
+#             # f = torch.tensor(f, requires_grad=True)
+#             # print('f shape: ', f.shape)
+#             # print('f is leaf: ', f.is_leaf)
 
-            # f_2 = f**2
-            # print('f2 shape', f_2.shape)
-            # nu = torch.autograd.Variable( x[:,1], requires_grad=True)
+#             # f_2 = f**2
+#             # print('f2 shape', f_2.shape)
+#             # nu = torch.autograd.Variable( x[:,1], requires_grad=True)
 
-            # nu=torch.autograd.Variable(x[:,1], requires_grad=True)
-            nu=torch.tensor(x[:,1], requires_grad=True)
-            # print(type(nu))
+#             # nu=torch.autograd.Variable(x[:,1], requires_grad=True)
+#             nu=torch.tensor(x[:,1], requires_grad=True)
+#             # print(type(nu))
 
-            # nu.retain_grad()
+#             # nu.retain_grad()
 
-            # print('nu shape: ', nu.shape)
-            # print('nu is leaf: ', nu.is_leaf)
-            # print('nu type', type(nu))
+#             # print('nu shape: ', nu.shape)
+#             # print('nu is leaf: ', nu.is_leaf)
+#             # print('nu type', type(nu))
 
 
-            # WE NEED TO RETAIN_GRAD ON NON-LEAF NODES 
-            f.retain_grad()
-            f.backward(gradient=torch.ones_like(f), retain_graph=True)
+#             # WE NEED TO RETAIN_GRAD ON NON-LEAF NODES 
+#             f.retain_grad()
+#             f.backward(gradient=torch.ones_like(f), retain_graph=True)
 
-            #or f.backward(torch.ones_like(f) , retain, graph
-            # we cant do f.backward() here because backeard() can only be called for scalara
-            # and f here will be a tensor of shape torch.Size([1000, 1]
-            #e.g. see https://abishekbashyall.medium.com/playing-with-backward-method-in-pytorch-bd34b58745a0
+#             #or f.backward(torch.ones_like(f) , retain, graph
+#             # we cant do f.backward() here because backeard() can only be called for scalara
+#             # and f here will be a tensor of shape torch.Size([1000, 1]
+#             #e.g. see https://abishekbashyall.medium.com/playing-with-backward-method-in-pytorch-bd34b58745a0
 
-            # PyTorch accumulates the gradient in default, we need to clear the previous
-            # values
-            # df_dnu = nu.grad
-            df_dx = x.grad
-            # print('df_dnu =', df_dnu)
-            # print('df_dx =', df_dx)
-            # print('df_dx shape :', df_dx.shape)
-            #clear the gradient after you take it
-            df_dnu = df_dx[:,1]
-            # print('df_dnu shape: ', df_dnu.shape)
-            x.grad.zero_()
+#             # PyTorch accumulates the gradient in default, we need to clear the previous
+#             # values
+#             # df_dnu = nu.grad
+#             df_dx = x.grad
+#             # print('df_dnu =', df_dnu)
+#             # print('df_dx =', df_dx)
+#             # print('df_dx shape :', df_dx.shape)
+#             #clear the gradient after you take it
+#             df_dnu = df_dx[:,1]
+#             # print('df_dnu shape: ', df_dnu.shape)
+#             x.grad.zero_()
         
-            #self.optimizer.zero_grad()
+#             #self.optimizer.zero_grad()
 
             
-            self.model.eval()
-            y=torch.from_numpy(batch_t).float()
-            outputs = self.model(x)
-            loss =average_quadratic_loss_pivot(f = outputs, t=y, x=x, df_dnu=df_dnu, kappa=self.kappa)
-            final_loss += loss.item()
-        return final_loss / self.batch_size
+#             self.model.eval()
+#             y=torch.from_numpy(batch_t).float()
+#             outputs = self.model(x)
+#             loss =average_quadratic_loss_pivot(f = outputs, t=y, x=x, df_dnu=df_dnu, kappa=self.kappa)
+#             final_loss += loss.item()
+#         return final_loss / self.batch_size
 
 
 
-EPOCHS=1
-def run_train_pivot(params, save_model=False):
-    """For tuning the parameters"""
+# EPOCHS=1
+# def run_train_pivot(params, save_model=False):
+#     """For tuning the parameters"""
 
+# #     model =  RegularizedRegressionModel(
+# #               nfeatures=train_x.shape[1], 
+# #                 ntargets=1,
+# #                 nlayers=params["nlayers"], 
+# #                 hidden_size=params["hidden_size"],
+# #                 dropout=params["dropout"]
+# #                 )
+
+    
 #     model =  RegularizedRegressionModel(
-#               nfeatures=train_x.shape[1], 
+#               nfeatures=sample_x.shape[1], 
 #                 ntargets=1,
-#                 nlayers=params["nlayers"], 
-#                 hidden_size=params["hidden_size"],
-#                 dropout=params["dropout"]
+#                 nlayers=params["n_layers"], 
+#                 hidden_size=2,
+#                 dropout=0.2
 #                 )
-
-    
-    model =  RegularizedRegressionModel(
-              nfeatures=sample_x.shape[1], 
-                ntargets=1,
-                nlayers=params["n_layers"], 
-                hidden_size=2,
-                dropout=0.2
-                )
-    # print(model)
+#     # print(model)
     
 
-    learning_rate= learning_rate
+#     learning_rate= learning_rate
     
     
-    # optimizer_name = params["optimizer_name"]
-    # # optimizer = torch.optim.Adam(model.parameters(), lr=params["learning_rate"]) 
-    # optimizer = getattr(torch.optim, optimizer_name)(model.parameters(), lr=learning_rate)
+#     # optimizer_name = params["optimizer_name"]
+#     # # optimizer = torch.optim.Adam(model.parameters(), lr=params["learning_rate"]) 
+#     # optimizer = getattr(torch.optim, optimizer_name)(model.parameters(), lr=learning_rate)
     
-    optimizer = optimizer_nonMLE_pivot
+#     optimizer = optimizer_nonMLE_pivot
     
-    eng=Engine_kappa(model, optimizer, batch_size=batch_size, kappa = params["kappa"])
-    best_loss = np.inf
-    early_stopping_iter=10
-    early_stopping_coutner=0
+#     eng=Engine_kappa(model, optimizer, batch_size=batch_size, kappa = params["kappa"])
+#     best_loss = np.inf
+#     early_stopping_iter=10
+#     early_stopping_coutner=0
 
-    for epoch in range(EPOCHS):
-        train_loss = eng.train_pivot(train_x, train_t)
-        valid_loss=eng.evaluate_pivot(test_x, test_t)
+#     for epoch in range(EPOCHS):
+#         train_loss = eng.train_pivot(train_x, train_t)
+#         valid_loss=eng.evaluate_pivot(test_x, test_t)
 
-        print(f"{epoch} \t {train_loss} \t {valid_loss}")
-        if valid_loss<best_loss:
-            best_loss=valid_loss
-            if save_model:
-                model.save(model.state_dict(), "model_m.bin")
-        else:
-            early_stopping_coutner+=1
-        if early_stopping_coutner > early_stopping_iter:
-            break
-    return best_loss
+#         print(f"{epoch} \t {train_loss} \t {valid_loss}")
+#         if valid_loss<best_loss:
+#             best_loss=valid_loss
+#             if save_model:
+#                 model.save(model.state_dict(), "model_m.bin")
+#         else:
+#             early_stopping_coutner+=1
+#         if early_stopping_coutner > early_stopping_iter:
+#             break
+#     return best_loss
 
-# run_train()
+# # run_train()
 
-def objective_pivot(trial):
-    params = {
-      "kappa": trial.suggest_float("kappa",1,2),
-        "n_layers": trial.suggest_int("n_layers", 1, 3)
-    }
-    # all_losses=[]
+# def objective_pivot(trial):
+#     params = {
+#       "kappa": trial.suggest_float("kappa",1,2),
+#         "n_layers": trial.suggest_int("n_layers", 1, 3)
+#     }
+#     # all_losses=[]
 
-    temp_loss = run_train_pivot(params,save_model=False)
-    # all_losses.append(temp_loss)
-    return temp_loss
+#     temp_loss = run_train_pivot(params,save_model=False)
+#     # all_losses.append(temp_loss)
+#     return temp_loss
 
-def tune_hyperparameters_pivot():
-    print('Getting best hyperparameters')
-    study=optuna.create_study(direction="minimize")
-    study.optimize(objective, n_trials=100)
-    best_trial = study.best_trial
-    print('best model parameters', best_trial.params)
+# def tune_hyperparameters_pivot():
+#     print('Getting best hyperparameters')
+#     study=optuna.create_study(direction="minimize")
+#     study.optimize(objective, n_trials=100)
+#     best_trial = study.best_trial
+#     print('best model parameters', best_trial.params)
 
-    best_params=best_trial.params#this is a dictionary
-    filename='best_params/kappa_tuned.csv'
-    # param_df=pd.DataFrame({
-    #                         'n_layers':best_params["nlayers"], 
-    #                         'hidden_size':best_params["hidden_size"], 
-    #                         'dropout':best_params["dropout"],
-    #                         'optimizer_name':best_params["optimizer_name"],
-    #                         'learning_rate': best_params["learning_rate"], 
-    #                         'batch_size':best_params["batch_size"] },
-                                    # index=[0]
-    # )
-    param_df = pd.DataFrame({'kappa': best_params["kappa"], 'n_layers': best_params["n_layers"]},  index=[0]  )
+#     best_params=best_trial.params#this is a dictionary
+#     filename='best_params/kappa_tuned.csv'
+#     # param_df=pd.DataFrame({
+#     #                         'n_layers':best_params["nlayers"], 
+#     #                         'hidden_size':best_params["hidden_size"], 
+#     #                         'dropout':best_params["dropout"],
+#     #                         'optimizer_name':best_params["optimizer_name"],
+#     #                         'learning_rate': best_params["learning_rate"], 
+#     #                         'batch_size':best_params["batch_size"] },
+#                                     # index=[0]
+#     # )
+#     param_df = pd.DataFrame({'kappa': best_params["kappa"], 'n_layers': best_params["n_layers"]},  index=[0]  )
 
-    param_df.to_csv(filename)   
+#     param_df.to_csv(filename)   
 
 
 # In[1]:
@@ -3002,27 +2994,3 @@ def tune_hyperparameters_pivot():
 
 # tune_hyperparameters_pivot()
 
-
-# ------------------
-# -----------------
-# # More Discussions
-# 
-# One simple example which is paradoxical is the following: suppose we have our usual likelihood 
-# $$L(\theta, \nu)= \frac{e^{-(\theta+\nu)} (\theta+\nu)^N }{N !} \ \frac{e^{-\nu} \nu^M}{M !} \tag{20} $$ and we observe $N=M=0$ so that the likelihood becomes $ L(\theta, \nu)= e^{-(\theta+\nu)} e^{-\nu} $. Suppose that now we wish to make an inference on $\theta$. It should make sense that if we know for a fact that there is no background events (since $M=0$), that the likelihood should not depend on the mean background (since there is no backround to begin with). [Feldman and Cousins](https://arxiv.org/pdf/physics/9711021v2.pdf) were aware of this issue and assigned the problem to be the incorrect interpretation of the intervals as Bayesian intervals.
-# 
-# A very closely related problem is the existence of a signal and background densities, say both depending on POI $\theta$, and the likelihood will be given by
-# 
-# $$ L(\theta) = \prod_{i=1}^{N_{obs}} \theta S(x_i) + (1-\theta) B(x_i)$$
-# where the likelihood $L(\theta)$ is the probability for obtaining the observation $x$ from either a signal or background distribution, where $\theta$ is an unknown proportion of signal (since real events come as a mixture of signal and background), and we would like to infer about the value of this parameter of interest. In the presense of nuissance parameter $\nu$ the likelihood becomes
-# 
-# $$ L(\theta,\nu) = \prod_{i=1}^{N_{obs}} \theta S(x_i|\nu) + (1-\theta) B(x_i|\nu)$$
-# 
-# 
-# # More ideas
-# 
-# 1. More real world physics scenrios
-#     * We can test this technique in a real case physics LFI scenario by generating pythia data on the fly for signal and background with unknown nuissance parameter and making inferences on the POI
-# 
-# 2. Likelihood regions and confidence intervals from confidence sets of two or more parameters
-# 
-# 3. Using more test statistics, motivated by [Asymptotic formulae for likelihood-based tests of new physics](https://arxiv.org/pdf/1007.1727.pdf)

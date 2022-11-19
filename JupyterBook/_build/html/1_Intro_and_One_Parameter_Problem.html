@@ -140,6 +140,11 @@ const thebe_selector_output = ".output, .cell_output"
    5 - Mapping Confidence Sets to Confidence Intervals
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="6_More_Ideas.html">
+   More Discussions
+  </a>
+ </li>
 </ul>
 
     </div>
@@ -316,6 +321,30 @@ title="Print to PDF"
      Import utils
     </a>
    </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#background-on-confidence-intervals">
+   Background on Confidence Intervals
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#hypothesis-testing">
+     Hypothesis Testing
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#test-statistics">
+   Test statistics
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#single-parameter-poisson-problem">
+   Single Parameter Poisson Problem
+  </a>
+  <ul class="visible nav section-nav flex-column">
    <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#algorithm">
      Algorithm
@@ -325,77 +354,71 @@ title="Print to PDF"
     <a class="reference internal nav-link" href="#application-to-the-poisson-distribution">
      Application to the Poisson distribution
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#neyman-construction-in-two-lines">
+       Neyman Construction in two lines
+      </a>
+     </li>
+    </ul>
    </li>
    <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#initial-references">
      Initial References
     </a>
    </li>
-  </ul>
- </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#background-on-confidence-intervals">
-   Background on Confidence Intervals
-  </a>
-  <ul class="visible nav section-nav flex-column">
    <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id1">
+    <a class="reference internal nav-link" href="#load-data">
+     Load data
     </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#load-data">
-       Load data
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#define-functions">
-       Define functions
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#plot-data">
-       Plot data
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#train-validation-and-test-sets">
-       Train, validation, and test sets
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#return-a-random-batch-of-data-from-the-training-set">
-       Return a (random) batch of data from the training set
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#empirical-risk-that-is-average-loss">
-       Empirical risk (that is, average loss)
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#function-to-execute-training-loop">
-       Function to execute training loop
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#define-model-f-mathbf-x-theta">
-       Define model
-       <span class="math notranslate nohighlight">
-        \(f(\mathbf{x}, \theta)\)
-       </span>
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#train">
-       Train!
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#computing-90-upper-limits">
-       Computing 90% upper limits
-      </a>
-     </li>
-    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#define-functions">
+     Define functions
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#plot-data">
+     Plot data
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#train-validation-and-test-sets">
+     Train, validation, and test sets
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#return-a-random-batch-of-data-from-the-training-set">
+     Return a (random) batch of data from the training set
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#empirical-risk-that-is-average-loss">
+     Empirical risk (that is, average loss)
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#function-to-execute-training-loop">
+     Function to execute training loop
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#define-model-f-mathbf-x-theta">
+     Define model
+     <span class="math notranslate nohighlight">
+      \(f(\mathbf{x}, \theta)\)
+     </span>
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#train">
+     Train!
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#computing-90-upper-limits-exactly-and-compare-to-lfi-method">
+     Computing 90% upper limits exactly, and compare to LFI method
+    </a>
    </li>
   </ul>
  </li>
@@ -442,6 +465,30 @@ title="Print to PDF"
      Import utils
     </a>
    </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#background-on-confidence-intervals">
+   Background on Confidence Intervals
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#hypothesis-testing">
+     Hypothesis Testing
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#test-statistics">
+   Test statistics
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#single-parameter-poisson-problem">
+   Single Parameter Poisson Problem
+  </a>
+  <ul class="visible nav section-nav flex-column">
    <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#algorithm">
      Algorithm
@@ -451,77 +498,71 @@ title="Print to PDF"
     <a class="reference internal nav-link" href="#application-to-the-poisson-distribution">
      Application to the Poisson distribution
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#neyman-construction-in-two-lines">
+       Neyman Construction in two lines
+      </a>
+     </li>
+    </ul>
    </li>
    <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#initial-references">
      Initial References
     </a>
    </li>
-  </ul>
- </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#background-on-confidence-intervals">
-   Background on Confidence Intervals
-  </a>
-  <ul class="visible nav section-nav flex-column">
    <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id1">
+    <a class="reference internal nav-link" href="#load-data">
+     Load data
     </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#load-data">
-       Load data
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#define-functions">
-       Define functions
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#plot-data">
-       Plot data
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#train-validation-and-test-sets">
-       Train, validation, and test sets
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#return-a-random-batch-of-data-from-the-training-set">
-       Return a (random) batch of data from the training set
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#empirical-risk-that-is-average-loss">
-       Empirical risk (that is, average loss)
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#function-to-execute-training-loop">
-       Function to execute training loop
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#define-model-f-mathbf-x-theta">
-       Define model
-       <span class="math notranslate nohighlight">
-        \(f(\mathbf{x}, \theta)\)
-       </span>
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#train">
-       Train!
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#computing-90-upper-limits">
-       Computing 90% upper limits
-      </a>
-     </li>
-    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#define-functions">
+     Define functions
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#plot-data">
+     Plot data
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#train-validation-and-test-sets">
+     Train, validation, and test sets
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#return-a-random-batch-of-data-from-the-training-set">
+     Return a (random) batch of data from the training set
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#empirical-risk-that-is-average-loss">
+     Empirical risk (that is, average loss)
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#function-to-execute-training-loop">
+     Function to execute training loop
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#define-model-f-mathbf-x-theta">
+     Define model
+     <span class="math notranslate nohighlight">
+      \(f(\mathbf{x}, \theta)\)
+     </span>
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#train">
+     Train!
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#computing-90-upper-limits-exactly-and-compare-to-lfi-method">
+     Computing 90% upper limits exactly, and compare to LFI method
+    </a>
    </li>
   </ul>
  </li>
@@ -584,8 +625,29 @@ Department of Physics, Florida State University<br></p>
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "7d71d4c10a454ca6ab661be417f92c6c", "version_major": 2, "version_minor": 0}
+{"model_id": "9c32344675c14080be164e9047dbb9a2", "version_major": 2, "version_minor": 0}
 </script></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># update fonts</span>
+<span class="n">FONTSIZE</span> <span class="o">=</span> <span class="mi">14</span>
+<span class="n">font</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;family&#39;</span> <span class="p">:</span> <span class="s1">&#39;serif&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;weight&#39;</span> <span class="p">:</span> <span class="s1">&#39;normal&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;size&#39;</span>   <span class="p">:</span> <span class="n">FONTSIZE</span><span class="p">}</span>
+<span class="n">mp</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;font&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">font</span><span class="p">)</span>
+
+<span class="c1"># set usetex = False if LaTex is not </span>
+<span class="c1"># available on your system or if the </span>
+<span class="c1"># rendering is too slow</span>
+<span class="n">mp</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;text&#39;</span><span class="p">,</span> <span class="n">usetex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># set a seed to ensure reproducibility</span>
+<span class="n">seed</span> <span class="o">=</span> <span class="mi">128</span>
+<span class="n">rnd</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
 </div>
 </section>
 <section id="import-utils">
@@ -614,73 +676,6 @@ Department of Physics, Florida State University<br></p>
 </div>
 </div>
 </div>
-<p>The single count Poisson Model is a classic problem in statistics. Exact coverage means that the following is true</p>
-<div class="amsmath math notranslate nohighlight" id="equation-004a62e4-e814-48b0-be0b-8ec4e789850c">
-<span class="eqno">(1)<a class="headerlink" href="#equation-004a62e4-e814-48b0-be0b-8ec4e789850c" title="Permalink to this equation">#</a></span>\[\begin{align}
-    P\{ \theta \in [ \, \underline{\theta}(n), \, \overline{\theta}(n) \, ] \, \} \geq 1 - \alpha, \forall \textrm{ fixed values of } \theta , 
-\end{align}\]</div>
-<p>where <span class="math notranslate nohighlight">\(P\)</span> is called the <strong>coverage probability</strong>, <span class="math notranslate nohighlight">\(1 - \alpha\)</span> the confidence level (CL), and <span class="math notranslate nohighlight">\(\alpha\)</span> the size of the associated hypothesis test. For a given experiment, the parameter <span class="math notranslate nohighlight">\(\theta\)</span>, the mean count, is presumed <em>fixed</em>. But the quantity <span class="math notranslate nohighlight">\([ \, \underline{\theta}(n), \, \overline{\theta}(n) \, ]\)</span> is a <em>random</em> interval which, in general, differs from one experiment to another.</p>
-<p>Jerzy Neyman[2], the inventor of <strong>confidence intervals</strong>, required these random intervals to have the following property.
-In an infinite ensemble of experiments, each of which may be associated with a different <em>fixed</em> values of the parameters of the statistocal model, including <span class="math notranslate nohighlight">\(\theta\)</span>, the fraction of intervals that include <span class="math notranslate nohighlight">\(\theta\)</span>, that is, that <em>cover</em> <span class="math notranslate nohighlight">\(\theta\)</span>, is bounded below by the desired confidence level (CL). Moreover, this must hold true irrespective of the distribution of values of the parameters over the ensemble of experiments.</p>
-<p>In general, for multi-parameter problems, it is difficult to create random intervals with this property.  But for 1-parameter problems confidence intervals with exact coverage can be constructed.</p>
-<p>For 1-parameter problems, Neyman provided a simple algorithm to compute such intervals, which in this tutorial we illustrate by applying it to the Poisson distribution. The algorithm can be applied to any 1-parameter problem given the sampling distribution of a statistic that depends on the observations, in this example the Poisson count <span class="math notranslate nohighlight">\(n\)</span>.
-As the name implies, the <strong>sampling distribution</strong> of <span class="math notranslate nohighlight">\(t\)</span> is the distribution of <span class="math notranslate nohighlight">\(t\)</span> induced by the underlying distribution of the potential observations. In this notebook, the statistic <span class="math notranslate nohighlight">\(t\)</span> is simply <span class="math notranslate nohighlight">\(t(n) = \hat{\theta} = n\)</span>.</p>
-<p>A <strong>statistic</strong> <span class="math notranslate nohighlight">\(t\)</span> is a function of the data that compresses the data in such as way that, ideally, all relevant information in the data about the parameter <span class="math notranslate nohighlight">\(\theta\)</span> is preserved.</p>
-<p>What this means in practice is that the accuracy (suitably defined) with which <span class="math notranslate nohighlight">\(\theta\)</span> can be estimated from <span class="math notranslate nohighlight">\(t\)</span> is equal to the accuracy with which <span class="math notranslate nohighlight">\(\theta\)</span> can be estimated directly from the data without compression. A statistic with this property, for a given parameter, is called a <strong>sufficient statistic</strong> for that parameter. Obviously, the uncompressed data are sufficient statistics! The challenge is finding sufficient statistics that substantially compress the data.</p>
-</section>
-<section id="algorithm">
-<h2>Algorithm<a class="headerlink" href="#algorithm" title="Permalink to this headline">#</a></h2>
-<p>Define the <em>right</em> and <em>left</em> cumulative distribution functions of the
-sampling distribution, <span class="math notranslate nohighlight">\(f_\theta(t)\)</span>, by</p>
-<div class="amsmath math notranslate nohighlight" id="equation-b5ebe9cf-5db3-4ba8-8ec6-e41e3b30b06a">
-<span class="eqno">(2)<a class="headerlink" href="#equation-b5ebe9cf-5db3-4ba8-8ec6-e41e3b30b06a" title="Permalink to this equation">#</a></span>\[\begin{align}
-      D_R(x, \theta) &amp; = \int_{t \geq x} f_\theta(t) \, dt \textrm{ and } \\ 
-      D_L(x, \theta) &amp; = \int_{t \leq x} f_\theta(t) \, dt.
- \end{align}\]</div>
-<p>By solving the equations</p>
-<div class="amsmath math notranslate nohighlight" id="equation-ff9d9f5a-4870-4a0e-9150-e778be7eb2a1">
-<span class="eqno">(3)<a class="headerlink" href="#equation-ff9d9f5a-4870-4a0e-9150-e778be7eb2a1" title="Permalink to this equation">#</a></span>\[\begin{align}
-    D_R(x, \underline{\theta}) &amp; = \alpha_R,\\
-    D_L(x, \overline{\theta}) &amp; =  \alpha_L,
-\end{align}\]</div>
-<p>with <span class="math notranslate nohighlight">\(x\)</span> replaced by the observed values of the statistic <span class="math notranslate nohighlight">\(t\)</span>, say <span class="math notranslate nohighlight">\(t_0\)</span>,
-one obtains the lower and upper limits <span class="math notranslate nohighlight">\(\underline{\theta}(t_0)\)</span> and
-<span class="math notranslate nohighlight">\(\overline{\theta}(t_0)\)</span>, respectively, at confidence level CL
-where <span class="math notranslate nohighlight">\(\text{CL} + \alpha_R + \alpha_L = 1\)</span>. For multi-parameter problems one can always create <strong>confidence regions</strong>, or sets, with exact coverage. The difficulty arises when one wishes to compute confidence regions, including intervals with exact coverage for a subset of the parameters irrespective of the values of the remaining parameters. Again, by exact coverage we mean coverage probabilities that never fall below the desired confidence level over any infinite ensemble of experiments.</p>
-<p>Clearly for a given confidence level there are infinitely many ensembles of confidence intervals or regions that can be computed. Which interval or region is reported is a matter of convention. For a 1-parameter sampling distribution the following convention is often used: one sets <span class="math notranslate nohighlight">\(\alpha_R = \alpha_L = (1 - \text{CL})/2\)</span> to arrive at <strong>central intervals</strong>.</p>
-</section>
-<section id="application-to-the-poisson-distribution">
-<h2>Application to the Poisson distribution<a class="headerlink" href="#application-to-the-poisson-distribution" title="Permalink to this headline">#</a></h2>
-<p>The Neyman algorithm, applied to the test statistic <span class="math notranslate nohighlight">\(t(n) = n\)</span> for the
-Poisson distribution, requires the functions</p>
-<div class="amsmath math notranslate nohighlight" id="equation-14177e3c-aca6-4418-8e52-0dce51c83570">
-<span class="eqno">(4)<a class="headerlink" href="#equation-14177e3c-aca6-4418-8e52-0dce51c83570" title="Permalink to this equation">#</a></span>\[\begin{align}
-      D_R(N, \theta) &amp; = \sum_{k=N}^\infty \textrm{Poisson}(k, \theta) = P(N, \theta),\\
-      \textrm{and   } D_L(N, \theta) &amp; = \sum_{k=0}^N \textrm{Poisson}(k, \theta) = 1 - P(N+1, \theta) ,
- \end{align}\]</div>
-<p>where <span class="math notranslate nohighlight">\(P(s, \theta)\)</span> is the <em>normalized</em> lower incomplete gamma function[3].</p>
-<p>In this notebook, we use the method of Ref.[1] to approximate <span class="math notranslate nohighlight">\(E(Z | \theta, N)\)</span>, that is, <span class="math notranslate nohighlight">\(D_L(N, \theta)\)</span> using a simple deep neural network trained, that is, fitted, to data comprising the triplets <span class="math notranslate nohighlight">\((Z_i, \theta_i, N_i)\)</span>. (See notebook <strong>LFI_generate_data.ipynb</strong> for details.)</p>
-</section>
-<section id="initial-references">
-<h2>Initial References<a class="headerlink" href="#initial-references" title="Permalink to this headline">#</a></h2>
-<ol class="simple">
-<li><p>Anne Lee et al., <a class="reference external" href="https://arxiv.org/abs/2107.03920">https://arxiv.org/abs/2107.03920</a></p></li>
-<li><p>Neyman, Jerzy (1937). “Outline of a Theory of Statistical Estimation Based on the Classical Theory of Probability”. Philosophical Transactions of the Royal Society of London. Series A, Mathematical and Physical Sciences. 236 (767): 333–380. doi:10.1098/rsta.1937.0005.</p></li>
-<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Incomplete_gamma_function">https://en.wikipedia.org/wiki/Incomplete_gamma_function</a>. The normalized function is the unnormalized function divided by <span class="math notranslate nohighlight">\(\Gamma(s)\)</span> and can be computed using scipy.special.gammainc(<span class="math notranslate nohighlight">\(s\)</span>, <span class="math notranslate nohighlight">\(\theta\)</span>).</p></li>
-</ol>
-<p>We propose in this study that even though LFI methods are used to make inderences when we do not have access to the likelihood function, we still want to use these methods in the case where we do know the likelihood explicitly, in order to arrive at frequentist guarantees.</p>
-<p>Before we go on to demonstrate our methods, we review the relevant statistics</p>
-<p>Suppose we have the Poisson distribution</p>
-<div class="math notranslate nohighlight">
-\[
-P(N | \theta)  =  \frac{e^{-\theta} \theta^N}{N!}, 
-\]</div>
-<p>We can calculate the CDF <span class="math notranslate nohighlight">\(F(N, \theta)\)</span></p>
-<div class="math notranslate nohighlight">
-\[
-F(N, \theta) = \sum_{k=0}^N \textrm{Poisson}(k, \theta) = \sum_{k=0}^N \frac{e^{-\theta} \theta^N}{N!}
-\]</div>
-<p>Let us plot it and simplify it with the help of scipy</p>
 </section>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="background-on-confidence-intervals">
@@ -708,7 +703,7 @@ F(x^{low}) + \int_{x^{low}}^{x^{up} } f(x) dx+ (1-F(x^{up}) =1,
 <p>which gives</p>
 <div class="math notranslate nohighlight">
 \[
-\int_{x^{low}}^{x^{up} } f(x) dx =F(x^{up}) - F(x^{low}).
+\int_{x^{low}}^{x^{up} } f(x) dx =F(x^{up}) - F(x^{low}) \tag{1}.
 \]</div>
 <p>Sometimes we report upper and lower limits, e.g.</p>
 <div class="math notranslate nohighlight">
@@ -719,72 +714,84 @@ p=\int_a^{\infty} \mathrm{d} x f(x) \quad \text { for } \quad a&gt;A; \quad \tex
 \[
 p=\int_{-\infty}^{a} \mathrm{d} x f(x) \quad \text { for } \quad a&lt;A \quad \text{upper limit} \quad \text{(with prob. $p$ we are confident that $a$ smaller larger than $A$ )} 
 \]</div>
-<section id="id1">
-<h2><a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h2>
+<p>Suppose we have a PDF (or PMF) <span class="math notranslate nohighlight">\(p(x|\theta)\)</span> (Sometimes called the posterior. Also, of course <span class="math notranslate nohighlight">\(x\)</span> could be a vector of data <span class="math notranslate nohighlight">\(\vec{x}\)</span>). We calculate the confidence interval <span class="math notranslate nohighlight">\([\theta^{low},\theta^{up}]\)</span> <em>at a particular chosen confidence level (CL)</em>, which lets us say the statement “we are CL <span class="math notranslate nohighlight">\(\times 100\)</span> % confident that the true value of the parameter <span class="math notranslate nohighlight">\(\theta\)</span>, <span class="math notranslate nohighlight">\(\theta_{\text{true}}\)</span> lies within in the range <span class="math notranslate nohighlight">\([\theta^{low}, \theta^{up}]\)</span>”. Since confidence interval calculation usually follows the Neyman construction, which follows the frequentist philosophy, the statement really should be “if we were to repeat the experiment (which yields an interval <span class="math notranslate nohighlight">\([\theta^{low}_i, \theta^{up}]\)</span> each time), in CL<span class="math notranslate nohighlight">\(\times 100\)</span> % of the time, the true value of the parameter will be in that range”. For example, if CL is chosen to be 0.68 (a common choice since it’s one standard deviation in the Gaussian case, and most things in nature are Gaussian), we would obtain 68% confidence intervals.</p>
+<p>If we were to write down a formula for this, the interval <span class="math notranslate nohighlight">\([\theta^{low}, \theta^{up}]\)</span> would be attained by solving for <span class="math notranslate nohighlight">\(\theta^{low}, \theta^{up}\)</span> in the equation</p>
+<div class="math notranslate nohighlight">
+\[ CL = \int_{\theta^{low} }^{\theta^{up}} p(\vec{x} | \theta) d \theta \tag{2} \]</div>
+<p>Sometime Eq (2), when solved by calculating the intergral analytically, is referred to a Bayesian (or “Credible”) interval. The frequentist approach calculates the Confidence interval by the use of a test statistic (more on this later) and using hypothesis testing (and hence attaining the interval by Neyman construction).</p>
+<section id="hypothesis-testing">
+<h2>Hypothesis Testing<a class="headerlink" href="#hypothesis-testing" title="Permalink to this headline">#</a></h2>
+<p>Test statistics play a paramount role in the theory of hypothesis testing. Given observed data <span class="math notranslate nohighlight">\(x\)</span>, a test statistic <span class="math notranslate nohighlight">\(\lambda\)</span> evaluated for the observed data <span class="math notranslate nohighlight">\(\lambda_{\text{observed}}\)</span> is the only way to decide which of two hypothesis; the null hypothesis <span class="math notranslate nohighlight">\(H_{0}\)</span> (parameterized by parameters <span class="math notranslate nohighlight">\(\theta_0\)</span>) and the alternative hypothesis <span class="math notranslate nohighlight">\(H_1\)</span> (parameterized by parameters <span class="math notranslate nohighlight">\(\theta_1\)</span>).</p>
+<p>Everything from now on in hypothesis testing assumes that <span class="math notranslate nohighlight">\(H_0\)</span> is true. You then divide your sample space into two regions: a “critical region”, <span class="math notranslate nohighlight">\(\omega\)</span> and the complement to the critical region, <span class="math notranslate nohighlight">\(\Omega \setminus \omega\)</span>. The regions are chosen basede on the following:</p>
+<ul class="simple">
+<li><p>If an observation (or set of observations) <span class="math notranslate nohighlight">\(\vec{x}\)</span> falls in <span class="math notranslate nohighlight">\(\omega\)</span>, we reject <span class="math notranslate nohighlight">\(H_0\)</span> (in favor of <span class="math notranslate nohighlight">\(H_1\)</span>), and</p></li>
+<li><p>If an observation (or set of observations) <span class="math notranslate nohighlight">\(\vec{x}\)</span> falls in <span class="math notranslate nohighlight">\(\Omega \setminus \omega\)</span> we accept <span class="math notranslate nohighlight">\(H_0\)</span>, which in our case also means rejecting <span class="math notranslate nohighlight">\(H_1\)</span>).</p></li>
+</ul>
+<p>You start the procedure of hypothesis testing by making the obvious but powerful statement:</p>
+<blockquote>
+<div><p>“We want to restrict reject the null <span class="math notranslate nohighlight">\(H_0\)</span> in the case that <span class="math notranslate nohighlight">\(H_0\)</span> is true.”</p>
+</div></blockquote>
+<p>Mathematicall, the statement above means that “we want to restrict <span class="math notranslate nohighlight">\(\text{Prob} (\text{reject} H_0 \mid H_0) \)</span>“. We then define an upper limit for how often we can let such an error of rejecting <span class="math notranslate nohighlight">\(H_0\)</span> when it is in fact true as a small number <span class="math notranslate nohighlight">\(\alpha\)</span>, so</p>
+<blockquote>
+<div><blockquote>
+<div><p><span class="math notranslate nohighlight">\(\alpha &gt;&gt; \text{Prob} (\text{reject} H_0 \mid H_0) .\)</span></p>
+</div></blockquote>
+</div></blockquote>
+<p>Since by our hypothesis test construction, we have <span class="math notranslate nohighlight">\(\vec{x}\)</span> lieing in <span class="math notranslate nohighlight">\(\omega\)</span> to be requivalent to rejecting <span class="math notranslate nohighlight">\(H_0\)</span>, we attain the following restriction</p>
+<blockquote>
+<div><blockquote>
+<div><blockquote>
+<div><p><span class="math notranslate nohighlight">\(\text{Prob}(\vec{x} \in \omega \mid H_0 ) \le \alpha\)</span>.</p>
+</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="test-statistics">
+<h1>Test statistics<a class="headerlink" href="#test-statistics" title="Permalink to this headline">#</a></h1>
+<p>One can construct an infinite number of test statistics, by choosing different functions of the data <span class="math notranslate nohighlight">\(x\)</span>, but most functions of the data are useless! The Neyman-Pearson (NP) Lemma states that the most powerful test statistic \footnote{By powerful we mean that it has the greatest power <span class="math notranslate nohighlight">\(1-\beta\)</span> where <span class="math notranslate nohighlight">\(\beta\)</span> is the probability of rejecting <span class="math notranslate nohighlight">\(H_1\)</span> when it is in fact true, commonly referred to as “Type II Error”.} between simple hypothesis <span class="math notranslate nohighlight">\(H_0\)</span> and <span class="math notranslate nohighlight">\(H_1\)</span> is <span class="math notranslate nohighlight">\(\lambda_{NP}=\frac{L(H_1)}{L(H_0)} = \frac{L(x |\theta_1)}{L(x|\theta_0)}\)</span>, which rejects <span class="math notranslate nohighlight">\(H_0\)</span> in favor of <span class="math notranslate nohighlight">\(H_1\)</span>. For convenience, it is used as <span class="math notranslate nohighlight">\(\lambda_{NP}=-2 \log \frac{L(x|\theta_0)}{L(x|\theta_1)}\)</span>.</p>
+<p>Conceptually, in statistical evidence analyses one uses the test statistic that minimizes <span class="math notranslate nohighlight">\(\alpha\)</span> while maximizing <span class="math notranslate nohighlight">\(1-\beta\)</span>. Where <span class="math notranslate nohighlight">\(\alpha\)</span> is Type I error</p>
+<div class="math notranslate nohighlight">
+\[
+    \alpha = \text{Prob}(\text{Reject } H_0 \mid H_0)
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+1-\beta = \text{Prob}(\text{Reject } H_0 | H_1)
+\]</div>
+<p>(Birnbaum (1962, 1977) suggested that <span class="math notranslate nohighlight">\(\frac{\alpha}{1-\beta}\)</span> should be used as a measure of the strength of a statistical test, rather than <span class="math notranslate nohighlight">\(\alpha\)</span> alone.)</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="single-parameter-poisson-problem">
+<h1>Single Parameter Poisson Problem<a class="headerlink" href="#single-parameter-poisson-problem" title="Permalink to this headline">#</a></h1>
+<p>We propose in this study that even though LFI methods are used to make inderences when we do not have access to the likelihood function, we still want to use these methods in the case where we do know the likelihood explicitly, in order to arrive at frequentist guarantees.</p>
+<p>Before we go on to demonstrate our methods, we review the relevant statistics</p>
+<p>Suppose we have the Poisson distribution</p>
+<div class="math notranslate nohighlight">
+\[
+P(N | \theta)  =L(\theta) =   \frac{e^{-\theta} \theta^N}{N!}, 
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(N\)</span> is the observed count (in e.g. single bin/channel) and <span class="math notranslate nohighlight">\(\theta\)</span> is the expected mean count (the only parameter in the Poisson distribution).</p>
+<p>If you don’t know what this looks like, for a set value <span class="math notranslate nohighlight">\(N\)</span>, it’s simply</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># standard system modules</span>
-<span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">sys</span>
-
-<span class="c1"># standard module for tabular data</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-
-<span class="c1"># standard module for array manipulation</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-
-<span class="c1"># standard modules for high-quality plots</span>
-<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mp</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-
-<span class="c1"># standard scientific computing module</span>
-<span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
-<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">st</span>
-<span class="kn">import</span> <span class="nn">scipy.optimize</span> <span class="k">as</span> <span class="nn">op</span>
-
-<span class="c1"># standard symbolic algebra module</span>
-<span class="c1">#import sympy as sm</span>
-<span class="c1">#sm.init_printing()</span>
-
-<span class="c1"># standard module serialize, that is, save, objects</span>
-<span class="kn">import</span> <span class="nn">joblib</span> <span class="k">as</span> <span class="nn">jb</span>
-
-<span class="c1"># pytorch</span>
-<span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
-<span class="c1">#from torch.utils.data import Dataset</span>
-
-<span class="c1">#  split data into a training set and a test set</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
-
-<span class="c1"># to reload modules</span>
-<span class="kn">import</span> <span class="nn">importlib</span>
-
-<span class="o">%</span><span class="k">matplotlib</span> inline
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N</span><span class="o">=</span><span class="mi">4</span><span class="p">;</span> <span class="n">theta</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="n">L</span> <span class="o">=</span><span class="n">st</span><span class="o">.</span><span class="n">poisson</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="n">theta</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;N=</span><span class="si">{4}</span><span class="s1">&#39;</span><span class="p">);</span> 
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\theta$&#39;</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$L(\theta)$&#39;</span><span class="p">);</span> 
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># update fonts</span>
-<span class="n">FONTSIZE</span> <span class="o">=</span> <span class="mi">14</span>
-<span class="n">font</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;family&#39;</span> <span class="p">:</span> <span class="s1">&#39;serif&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;weight&#39;</span> <span class="p">:</span> <span class="s1">&#39;normal&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;size&#39;</span>   <span class="p">:</span> <span class="n">FONTSIZE</span><span class="p">}</span>
-<span class="n">mp</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;font&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">font</span><span class="p">)</span>
-
-<span class="c1"># set usetex = False if LaTex is not </span>
-<span class="c1"># available on your system or if the </span>
-<span class="c1"># rendering is too slow</span>
-<span class="n">mp</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;text&#39;</span><span class="p">,</span> <span class="n">usetex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="c1"># set a seed to ensure reproducibility</span>
-<span class="n">seed</span> <span class="o">=</span> <span class="mi">128</span>
-<span class="n">rnd</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
-</pre></div>
+<div class="cell_output docutils container">
+<img alt="_images/1_Intro_and_One_Parameter_Problem_9_0.png" src="_images/1_Intro_and_One_Parameter_Problem_9_0.png" />
 </div>
 </div>
-</div>
+<p>We can calculate the CDF <span class="math notranslate nohighlight">\(F(N, \theta)\)</span></p>
+<div class="math notranslate nohighlight">
+\[
+F(N, \theta) = \sum_{k=0}^N \textrm{Poisson}(k, \theta) = \sum_{k=0}^N \frac{e^{-\theta} \theta^N}{N!}
+\]</div>
+<p>Let us plot it and simplify it with the help of scipy</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N_range</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">40</span><span class="p">)[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
@@ -808,8 +815,70 @@ p=\int_{-\infty}^{a} \mathrm{d} x f(x) \quad \text { for } \quad a&lt;A \quad \t
 <img alt="_images/1_Intro_and_One_Parameter_Problem_11_1.png" src="_images/1_Intro_and_One_Parameter_Problem_11_1.png" />
 </div>
 </div>
+<p>The single count Poisson Model is a classic problem in statistics. Exact coverage means that the following is true</p>
+<div class="amsmath math notranslate nohighlight" id="equation-b6e1298a-ec57-47fd-b09f-7f1a931755a0">
+<span class="eqno">(1)<a class="headerlink" href="#equation-b6e1298a-ec57-47fd-b09f-7f1a931755a0" title="Permalink to this equation">#</a></span>\[\begin{align}
+    P\{ \theta \in [ \, \underline{\theta}(n), \, \overline{\theta}(n) \, ] \, \} \geq 1 - \alpha, \forall \textrm{ fixed values of } \theta , 
+\end{align}\]</div>
+<p>where <span class="math notranslate nohighlight">\(P\)</span> is called the <strong>coverage probability</strong>, <span class="math notranslate nohighlight">\(1 - \alpha\)</span> the confidence level (CL), and <span class="math notranslate nohighlight">\(\alpha\)</span> the size of the associated hypothesis test. For a given experiment, the parameter <span class="math notranslate nohighlight">\(\theta\)</span>, the mean count, is presumed <em>fixed</em>. But the quantity <span class="math notranslate nohighlight">\([ \, \underline{\theta}(n), \, \overline{\theta}(n) \, ]\)</span> is a <em>random</em> interval which, in general, differs from one experiment to another.</p>
+<p>Jerzy Neyman[2], the inventor of <strong>confidence intervals</strong>, required these random intervals to have the following property.
+In an infinite ensemble of experiments, each of which may be associated with a different <em>fixed</em> values of the parameters of the statistocal model, including <span class="math notranslate nohighlight">\(\theta\)</span>, the fraction of intervals that include <span class="math notranslate nohighlight">\(\theta\)</span>, that is, that <em>cover</em> <span class="math notranslate nohighlight">\(\theta\)</span>, is bounded below by the desired confidence level (CL). Moreover, this must hold true irrespective of the distribution of values of the parameters over the ensemble of experiments.</p>
+<p>In general, for multi-parameter problems, it is difficult to create random intervals with this property.  But for 1-parameter problems confidence intervals with exact coverage can be constructed.</p>
+<p>For 1-parameter problems, Neyman provided a simple algorithm to compute such intervals, which in this tutorial we illustrate by applying it to the Poisson distribution. The algorithm can be applied to any 1-parameter problem given the sampling distribution of a statistic that depends on the observations, in this example the Poisson count <span class="math notranslate nohighlight">\(n\)</span>.
+As the name implies, the <strong>sampling distribution</strong> of <span class="math notranslate nohighlight">\(t\)</span> is the distribution of <span class="math notranslate nohighlight">\(t\)</span> induced by the underlying distribution of the potential observations. In this notebook, the statistic <span class="math notranslate nohighlight">\(t\)</span> is simply <span class="math notranslate nohighlight">\(t(n) = \hat{\theta} = n\)</span>.</p>
+<p>A <strong>statistic</strong> <span class="math notranslate nohighlight">\(t\)</span> is a function of the data that compresses the data in such as way that, ideally, all relevant information in the data about the parameter <span class="math notranslate nohighlight">\(\theta\)</span> is preserved.</p>
+<p>What this means in practice is that the accuracy (suitably defined) with which <span class="math notranslate nohighlight">\(\theta\)</span> can be estimated from <span class="math notranslate nohighlight">\(t\)</span> is equal to the accuracy with which <span class="math notranslate nohighlight">\(\theta\)</span> can be estimated directly from the data without compression. A statistic with this property, for a given parameter, is called a <strong>sufficient statistic</strong> for that parameter. Obviously, the uncompressed data are sufficient statistics! The challenge is finding sufficient statistics that substantially compress the data.</p>
+<section id="algorithm">
+<h2>Algorithm<a class="headerlink" href="#algorithm" title="Permalink to this headline">#</a></h2>
+<p>Define the <em>right</em> and <em>left</em> cumulative distribution functions of the
+sampling distribution, <span class="math notranslate nohighlight">\(f_\theta(t)\)</span>, by</p>
+<div class="amsmath math notranslate nohighlight" id="equation-5f320c49-ff18-434c-ab14-49f55959d2e0">
+<span class="eqno">(2)<a class="headerlink" href="#equation-5f320c49-ff18-434c-ab14-49f55959d2e0" title="Permalink to this equation">#</a></span>\[\begin{align}
+      D_R(x, \theta) &amp; = \int_{t \geq x} f_\theta(t) \, dt \textrm{ and } \\ 
+      D_L(x, \theta) &amp; = \int_{t \leq x} f_\theta(t) \, dt.
+ \end{align}\]</div>
+<p>By solving the equations</p>
+<div class="amsmath math notranslate nohighlight" id="equation-c5565151-25ad-44ee-a456-94c1319814a9">
+<span class="eqno">(3)<a class="headerlink" href="#equation-c5565151-25ad-44ee-a456-94c1319814a9" title="Permalink to this equation">#</a></span>\[\begin{align}
+    D_R(x, \underline{\theta}) &amp; = \alpha_R,\\
+    D_L(x, \overline{\theta}) &amp; =  \alpha_L,
+\end{align}\]</div>
+<p>with <span class="math notranslate nohighlight">\(x\)</span> replaced by the observed values of the statistic <span class="math notranslate nohighlight">\(t\)</span>, say <span class="math notranslate nohighlight">\(t_0\)</span>,
+one obtains the lower and upper limits <span class="math notranslate nohighlight">\(\underline{\theta}(t_0)\)</span> and
+<span class="math notranslate nohighlight">\(\overline{\theta}(t_0)\)</span>, respectively, at confidence level CL
+where <span class="math notranslate nohighlight">\(\text{CL} + \alpha_R + \alpha_L = 1\)</span>. For multi-parameter problems one can always create <strong>confidence regions</strong>, or sets, with exact coverage. The difficulty arises when one wishes to compute confidence regions, including intervals with exact coverage for a subset of the parameters irrespective of the values of the remaining parameters. Again, by exact coverage we mean coverage probabilities that never fall below the desired confidence level over any infinite ensemble of experiments.</p>
+<p>Clearly for a given confidence level there are infinitely many ensembles of confidence intervals or regions that can be computed. Which interval or region is reported is a matter of convention. For a 1-parameter sampling distribution the following convention is often used: one sets <span class="math notranslate nohighlight">\(\alpha_R = \alpha_L = (1 - \text{CL})/2\)</span> to arrive at <strong>central intervals</strong>.</p>
+</section>
+<section id="application-to-the-poisson-distribution">
+<h2>Application to the Poisson distribution<a class="headerlink" href="#application-to-the-poisson-distribution" title="Permalink to this headline">#</a></h2>
+<p>The Neyman algorithm, applied to the test statistic <span class="math notranslate nohighlight">\(t(n) = n\)</span> for the
+Poisson distribution, requires the functions</p>
+<div class="amsmath math notranslate nohighlight" id="equation-400ded9b-16b8-4d21-9817-505379b1eff3">
+<span class="eqno">(4)<a class="headerlink" href="#equation-400ded9b-16b8-4d21-9817-505379b1eff3" title="Permalink to this equation">#</a></span>\[\begin{align}
+      D_R(N, \theta) &amp; = \sum_{k=N}^\infty \textrm{Poisson}(k, \theta) = P(N, \theta),\\
+      \textrm{and   } D_L(N, \theta) &amp; = \sum_{k=0}^N \textrm{Poisson}(k, \theta) = 1 - P(N+1, \theta) ,
+ \end{align}\]</div>
+<p>where <span class="math notranslate nohighlight">\(P(s, \theta)\)</span> is the <em>normalized</em> lower incomplete gamma function[3] (in scipy it’s s<code class="docutils literal notranslate"><span class="pre">scipy.special.gammainc(s,</span> <span class="pre">mu)</span></code>.</p>
+<section id="neyman-construction-in-two-lines">
+<h3>Neyman Construction in two lines<a class="headerlink" href="#neyman-construction-in-two-lines" title="Permalink to this headline">#</a></h3>
+<p>Neyman construction in this simple case boils down to:</p>
+<ul class="simple">
+<li><p>Solve <span class="math notranslate nohighlight">\((1-CL)/2 = D_R \rightarrow\)</span> get <span class="math notranslate nohighlight">\(\theta_R\)</span></p></li>
+<li><p>Solve <span class="math notranslate nohighlight">\((1-CL)/2 = D_L \rightarrow\)</span> get <span class="math notranslate nohighlight">\(\theta_R\)</span></p></li>
+</ul>
+<p>In this notebook, we use the LFI method of Ref.[1] to approximate <span class="math notranslate nohighlight">\(E(Z | \theta, N)\)</span>, that is, <span class="math notranslate nohighlight">\(D_L(N, \theta)\)</span> using a simple deep neural network trained, that is, fitted, to data comprising the triplets <span class="math notranslate nohighlight">\((Z_i, \theta_i, N_i)\)</span>. (See notebook <strong>LFI_generate_data.ipynb</strong> for details.)</p>
+</section>
+</section>
+<section id="initial-references">
+<h2>Initial References<a class="headerlink" href="#initial-references" title="Permalink to this headline">#</a></h2>
+<ol class="simple">
+<li><p>Anne Lee et al., <a class="reference external" href="https://arxiv.org/abs/2107.03920">https://arxiv.org/abs/2107.03920</a></p></li>
+<li><p>Neyman, Jerzy (1937). “Outline of a Theory of Statistical Estimation Based on the Classical Theory of Probability”. Philosophical Transactions of the Royal Society of London. Series A, Mathematical and Physical Sciences. 236 (767): 333–380. doi:10.1098/rsta.1937.0005.</p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Incomplete_gamma_function">https://en.wikipedia.org/wiki/Incomplete_gamma_function</a>. The normalized function is the unnormalized function divided by <span class="math notranslate nohighlight">\(\Gamma(s)\)</span> and can be computed using scipy.special.gammainc(<span class="math notranslate nohighlight">\(s\)</span>, <span class="math notranslate nohighlight">\(\theta\)</span>).</p></li>
+</ol>
+</section>
 <section id="load-data">
-<h3>Load data<a class="headerlink" href="#load-data" title="Permalink to this headline">#</a></h3>
+<h2>Load data<a class="headerlink" href="#load-data" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">datafile</span> <span class="o">=</span> <span class="s1">&#39;data1.db&#39;</span>
@@ -892,10 +961,10 @@ p=\int_{-\infty}^{a} \mathrm{d} x f(x) \quad \text { for } \quad a&lt;A \quad \t
 </div>
 </section>
 <section id="define-functions">
-<h3>Define functions<a class="headerlink" href="#define-functions" title="Permalink to this headline">#</a></h3>
+<h2>Define functions<a class="headerlink" href="#define-functions" title="Permalink to this headline">#</a></h2>
 <p>$</p>
-<div class="amsmath math notranslate nohighlight" id="equation-99cb44ce-6fde-476d-a736-9cf59b8d4953">
-<span class="eqno">(5)<a class="headerlink" href="#equation-99cb44ce-6fde-476d-a736-9cf59b8d4953" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-62bd7294-0cd0-4d52-8f27-8c17ad01c52f">
+<span class="eqno">(5)<a class="headerlink" href="#equation-62bd7294-0cd0-4d52-8f27-8c17ad01c52f" title="Permalink to this equation">#</a></span>\[\begin{align}
       D_R(N, \theta) &amp; = \sum_{k=N}^\infty \textrm{Poisson}(k, \theta) = P(N, \theta),\\
       \textrm{and   } D_L(N, \theta) &amp; = \sum_{k=0}^N \textrm{Poisson}(k, \theta) = 1 - P(N+1, \theta).
 \end{align}\]</div>
@@ -913,7 +982,7 @@ p=\int_{-\infty}^{a} \mathrm{d} x f(x) \quad \text { for } \quad a&lt;A \quad \t
 </div>
 </section>
 <section id="plot-data">
-<h3>Plot data<a class="headerlink" href="#plot-data" title="Permalink to this headline">#</a></h3>
+<h2>Plot data<a class="headerlink" href="#plot-data" title="Permalink to this headline">#</a></h2>
 <p>Check that data make sense. Compute <span class="math notranslate nohighlight">\(D_L\)</span> by histogramming the data and compare it to <span class="math notranslate nohighlight">\(D_L\)</span> computed exactly.</p>
 <p>Note: <strong>matplotlib</strong> has two graphics systems: 1) function-based and 2) object-based. The function below illustrates the object-based system.</p>
 <div class="cell docutils container">
@@ -1024,12 +1093,12 @@ p=\int_{-\infty}^{a} \mathrm{d} x f(x) \quad \text { for } \quad a&lt;A \quad \t
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/1_Intro_and_One_Parameter_Problem_20_0.png" src="_images/1_Intro_and_One_Parameter_Problem_20_0.png" />
+<img alt="_images/1_Intro_and_One_Parameter_Problem_21_0.png" src="_images/1_Intro_and_One_Parameter_Problem_21_0.png" />
 </div>
 </div>
 </section>
 <section id="train-validation-and-test-sets">
-<h3>Train, validation, and test sets<a class="headerlink" href="#train-validation-and-test-sets" title="Permalink to this headline">#</a></h3>
+<h2>Train, validation, and test sets<a class="headerlink" href="#train-validation-and-test-sets" title="Permalink to this headline">#</a></h2>
 <p>There is some confusion in terminology regarding validation and test samples (or sets). We shall adhere to the defintions given here <a class="reference external" href="https://machinelearningmastery.com/difference-test-validation-datasets/">https://machinelearningmastery.com/difference-test-validation-datasets/</a>):</p>
 <ul class="simple">
 <li><p><strong>Training Dataset</strong>: The sample of data used to fit the model.</p></li>
@@ -1141,7 +1210,7 @@ test set size:           5000
 </div>
 </section>
 <section id="return-a-random-batch-of-data-from-the-training-set">
-<h3>Return a (random) batch of data from the training set<a class="headerlink" href="#return-a-random-batch-of-data-from-the-training-set" title="Permalink to this headline">#</a></h3>
+<h2>Return a (random) batch of data from the training set<a class="headerlink" href="#return-a-random-batch-of-data-from-the-training-set" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_batch</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">):</span>
@@ -1159,10 +1228,10 @@ test set size:           5000
 </div>
 </section>
 <section id="empirical-risk-that-is-average-loss">
-<h3>Empirical risk (that is, average loss)<a class="headerlink" href="#empirical-risk-that-is-average-loss" title="Permalink to this headline">#</a></h3>
+<h2>Empirical risk (that is, average loss)<a class="headerlink" href="#empirical-risk-that-is-average-loss" title="Permalink to this headline">#</a></h2>
 <p>The empirical risk, which is the <strong>objective function</strong> we shall minimize, is defined as</p>
-<div class="amsmath math notranslate nohighlight" id="equation-91d23c0c-ccdd-4047-a222-9ec0a0ead91c">
-<span class="eqno">(6)<a class="headerlink" href="#equation-91d23c0c-ccdd-4047-a222-9ec0a0ead91c" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-986226cd-da3e-4783-8116-dbc6ff5cca79">
+<span class="eqno">(6)<a class="headerlink" href="#equation-986226cd-da3e-4783-8116-dbc6ff5cca79" title="Permalink to this equation">#</a></span>\[\begin{align}
 R_M(\theta) &amp; = \frac{1}{M}\sum_{m=1}^M L(t_m, f_m),
 \end{align}\]</div>
 <p>where</p>
@@ -1172,8 +1241,8 @@ R_M(\theta) &amp; = \frac{1}{M}\sum_{m=1}^M L(t_m, f_m),
     L(t, f) &amp;= (t - f)^2
 \end{align*}\]</div>
 <p>The empirical risk <span class="math notranslate nohighlight">\(R_M\)</span> approximates the <strong>risk</strong></p>
-<div class="amsmath math notranslate nohighlight" id="equation-1b3c60d8-d7a5-49f8-aabf-704e0f99f8ee">
-<span class="eqno">(7)<a class="headerlink" href="#equation-1b3c60d8-d7a5-49f8-aabf-704e0f99f8ee" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-efce1585-a0a2-4b7e-849f-9a2f12af5b70">
+<span class="eqno">(7)<a class="headerlink" href="#equation-efce1585-a0a2-4b7e-849f-9a2f12af5b70" title="Permalink to this equation">#</a></span>\[\begin{align}
 R[f] &amp; = \int \cdots \int \, p(t, \mathbf{x}) \, L(t, f(\mathbf{x}, \theta)) \, dt \, d\mathbf{x},
 \end{align}\]</div>
 <p>which is a <strong>functional</strong> of the model <span class="math notranslate nohighlight">\(f\)</span>. The quantity <span class="math notranslate nohighlight">\(p(t, \mathbf{x}) \, dt\, d\mathbf{x}\)</span> is the probability distribution from which the sample <span class="math notranslate nohighlight">\(\{ (t_m, \mathbf{x}_m), m = 1,\cdots, M \}\)</span> is presumed to have been drawn.</p>
@@ -1208,7 +1277,7 @@ R[f] &amp; = \int \cdots \int \, p(t, \mathbf{x}) \, L(t, f(\mathbf{x}, \theta))
 </div>
 </section>
 <section id="function-to-execute-training-loop">
-<h3>Function to execute training loop<a class="headerlink" href="#function-to-execute-training-loop" title="Permalink to this headline">#</a></h3>
+<h2>Function to execute training loop<a class="headerlink" href="#function-to-execute-training-loop" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">avloss</span><span class="p">,</span> <span class="n">getbatch</span><span class="p">,</span>
@@ -1322,7 +1391,7 @@ R[f] &amp; = \int \cdots \int \, p(t, \mathbf{x}) \, L(t, f(\mathbf{x}, \theta))
 </div>
 </section>
 <section id="define-model-f-mathbf-x-theta">
-<h3>Define model <span class="math notranslate nohighlight">\(f(\mathbf{x}, \theta)\)</span><a class="headerlink" href="#define-model-f-mathbf-x-theta" title="Permalink to this headline">#</a></h3>
+<h2>Define model <span class="math notranslate nohighlight">\(f(\mathbf{x}, \theta)\)</span><a class="headerlink" href="#define-model-f-mathbf-x-theta" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%writefile</span> dnnmodel.py
@@ -1399,7 +1468,7 @@ R[f] &amp; = \int \cdots \int \, p(t, \mathbf{x}) \, L(t, f(\mathbf{x}, \theta))
 </div>
 </section>
 <section id="train">
-<h3>Train!<a class="headerlink" href="#train" title="Permalink to this headline">#</a></h3>
+<h2>Train!<a class="headerlink" href="#train" title="Permalink to this headline">#</a></h2>
 <p>Instantiate an optimizer, then train</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1453,7 +1522,7 @@ Iteration vs average loss
      29990	  0.061578	  0.061278
 </pre></div>
 </div>
-<img alt="_images/1_Intro_and_One_Parameter_Problem_40_1.png" src="_images/1_Intro_and_One_Parameter_Problem_40_1.png" />
+<img alt="_images/1_Intro_and_One_Parameter_Problem_41_1.png" src="_images/1_Intro_and_One_Parameter_Problem_41_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1488,12 +1557,12 @@ Iteration vs average loss
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/1_Intro_and_One_Parameter_Problem_42_0.png" src="_images/1_Intro_and_One_Parameter_Problem_42_0.png" />
+<img alt="_images/1_Intro_and_One_Parameter_Problem_43_0.png" src="_images/1_Intro_and_One_Parameter_Problem_43_0.png" />
 </div>
 </div>
 </section>
-<section id="computing-90-upper-limits">
-<h3>Computing 90% upper limits<a class="headerlink" href="#computing-90-upper-limits" title="Permalink to this headline">#</a></h3>
+<section id="computing-90-upper-limits-exactly-and-compare-to-lfi-method">
+<h2>Computing 90% upper limits exactly, and compare to LFI method<a class="headerlink" href="#computing-90-upper-limits-exactly-and-compare-to-lfi-method" title="Permalink to this headline">#</a></h2>
 <p>Let’s now compute some upper limits using our trained model and compare with the exact calculation.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1541,7 +1610,6 @@ Iteration vs average loss
 </div>
 </div>
 </div>
-</section>
 </section>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="plot-upper-lower-and-central-intervals-for-one-parameter-problem-given-a-cl-n-and-the-cdf-and-compare-to-model-output-under-construction-might-be-overkill-especially-since-we-re-interested-in-the-2-parameter-problem">

@@ -306,8 +306,8 @@ def plot_one(lambda_, theta, nu, ax):
     x_range = (xmin, xmax)
     y_range = (ymin, ymax)
     ax.set_xlim(x_range); ax.set_ylim(y_range)
-    ax.set_xlabel(r'$\lambda \left(\theta,\hat{\nu}(\theta) \mid n, m \right)$',fontsize=ftsize)
-    ax.set_ylabel(r'cdf$(\lambda)$', fontsize=ftsize)
+    ax.set_xlabel(r'$\lambda_{NP} \left(\theta,\hat{\nu}(\theta) \mid n, m \right)$',fontsize=ftsize)
+    ax.set_ylabel(r'cdf$(\lambda_{NP})$', fontsize=ftsize)
     ##########HISTOGRAM CDF OF LAMBDA####################
     ax.hist(lambda_, bins=5*xmax, range=x_range,
     color=(0.8,0.8,0.9),
@@ -360,6 +360,8 @@ SAVE=False
 if SAVE:
     plt.savefig('images/Wilk_agreement_MLE_%s_N_%s.png' % (str(MLE), str(chi2_exp_size) ))
 
+
+# Also, higher values of $\lambda$ 
 
 # In[9]:
 
@@ -461,10 +463,13 @@ def observe_test_statistic_pivotality(points, lambda_size, savefig=False):
 observe_test_statistic_pivotality(points=[(2,1), (2,10), (2,100) ], lambda_size=int(1e5), savefig=True)
 
 
+# We clearly see that $\lambda_{NP}$ is not pivotal, i.e. its distribution is dependent on the nuissance parameter $\nu$, which reflects loss of information about $\theta$. We also see that $\chi^2_1$ is in fact a pivotal quantity, since it takes the exact same distribution for any given value of $\nu$.
+# 
+# 
 # As shall be discussed later in this notebook, one way of calculating $p$-value for $\theta$ corresponding to an observed $\{N,M\}$ pair (which will still be dependent on $\nu$) is by calculating the test statistic at the $\{N,M\}$ pair and calculating
 # $$
 # \begin{align}
-# p_\theta (\nu) &=\int_{\lambda_D}^\infty f \big(\lambda_{gen}(n,m \mid \theta,\nu) \mid H_{null} \big) \ d \lambda_{gen} \\
+# p_\theta (\nu) &=\int_{\lambda_D}^\infty f \big(\lambda_{gen}(n,m \mid \theta,\nu) \mid H_{null} = \{\theta,\nu \} \big) \ d \lambda_{gen} \\
 #  &= 1- \text{Prob} \big(\lambda_{gen}(n,m;\theta,\nu) \le \lambda_D(N,M;\theta,\nu) \big), \tag{2}
 # \end{align}
 # $$
@@ -477,6 +482,11 @@ observe_test_statistic_pivotality(points=[(2,1), (2,10), (2,100) ], lambda_size=
 # $$p_\theta (\nu)=\int_{\chi^2}^\infty f(z; k) dz$$
 # 
 # where $k$ is the number of degrees of freedom (free parameters) which is 1 in the 2-parameter problem , and $f(z;k)$ is the $\chi^2$ PDF. This p-value can then easily be computed (e.g. yielding $p=1-\alpha ( 1- F_{\chi^2} [\theta, \nu])$, where $ F_{\chi^2}$ is the comulative $\chi^2$ distribution function (as a function of $\theta$ and $\nu$).
+# 
+# 
+# Please note that the test statistic, even for count data in particle physics, can take a different form, depending on what hypothesis one is trying to test. For more on this see [Asymptotic formulae for likelihood-based tests of new physics](https://arxiv.org/pdf/1007.1727.pdf).
+
+# 
 # 
 # We will be esitmaing this $p$-value with our LFI framework. If $\lambda=\lambda_{MLE}$, then according to Eq (2) the p-value is given by:
 # 

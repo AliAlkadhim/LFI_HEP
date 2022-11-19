@@ -140,6 +140,11 @@ const thebe_selector_output = ".output, .cell_output"
    5 - Mapping Confidence Sets to Confidence Intervals
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="6_More_Ideas.html">
+   More Discussions
+  </a>
+ </li>
 </ul>
 
     </div>
@@ -1230,8 +1235,8 @@ and <span class="math notranslate nohighlight">\(\lambda_{\text{NP}}\)</span> is
     <span class="n">x_range</span> <span class="o">=</span> <span class="p">(</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">)</span>
     <span class="n">y_range</span> <span class="o">=</span> <span class="p">(</span><span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">x_range</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">y_range</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\lambda \left(\theta,\hat{\nu}(\theta) \mid n, m \right)$&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="n">ftsize</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;cdf$(\lambda)$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">ftsize</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\lambda_</span><span class="si">{NP}</span><span class="s1"> \left(\theta,\hat{\nu}(\theta) \mid n, m \right)$&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="n">ftsize</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;cdf$(\lambda_</span><span class="si">{NP}</span><span class="s1">)$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">ftsize</span><span class="p">)</span>
     <span class="c1">##########HISTOGRAM CDF OF LAMBDA####################</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">lambda_</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">5</span><span class="o">*</span><span class="n">xmax</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="n">x_range</span><span class="p">,</span>
     <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span><span class="mf">0.8</span><span class="p">,</span><span class="mf">0.9</span><span class="p">),</span>
@@ -1291,6 +1296,7 @@ and <span class="math notranslate nohighlight">\(\lambda_{\text{NP}}\)</span> is
 <img alt="_images/4_Imposing_Pivotal_Conditions_on_Lambda_17_0.png" src="_images/4_Imposing_Pivotal_Conditions_on_Lambda_17_0.png" />
 </div>
 </div>
+<p>Also, higher values of <span class="math notranslate nohighlight">\(\lambda\)</span></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">observe_test_statistic_pivotality</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">lambda_size</span><span class="p">,</span> <span class="n">savefig</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
@@ -1396,20 +1402,22 @@ and <span class="math notranslate nohighlight">\(\lambda_{\text{NP}}\)</span> is
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 640x480 with 0 Axes&gt;
 </pre></div>
 </div>
-<img alt="_images/4_Imposing_Pivotal_Conditions_on_Lambda_19_1.png" src="_images/4_Imposing_Pivotal_Conditions_on_Lambda_19_1.png" />
+<img alt="_images/4_Imposing_Pivotal_Conditions_on_Lambda_20_1.png" src="_images/4_Imposing_Pivotal_Conditions_on_Lambda_20_1.png" />
 </div>
 </div>
+<p>We clearly see that <span class="math notranslate nohighlight">\(\lambda_{NP}\)</span> is not pivotal, i.e. its distribution is dependent on the nuissance parameter <span class="math notranslate nohighlight">\(\nu\)</span>, which reflects loss of information about <span class="math notranslate nohighlight">\(\theta\)</span>. We also see that <span class="math notranslate nohighlight">\(\chi^2_1\)</span> is in fact a pivotal quantity, since it takes the exact same distribution for any given value of <span class="math notranslate nohighlight">\(\nu\)</span>.</p>
 <p>As shall be discussed later in this notebook, one way of calculating <span class="math notranslate nohighlight">\(p\)</span>-value for <span class="math notranslate nohighlight">\(\theta\)</span> corresponding to an observed <span class="math notranslate nohighlight">\(\{N,M\}\)</span> pair (which will still be dependent on <span class="math notranslate nohighlight">\(\nu\)</span>) is by calculating the test statistic at the <span class="math notranslate nohighlight">\(\{N,M\}\)</span> pair and calculating
 $$</p>
-<div class="amsmath math notranslate nohighlight" id="equation-faddb36b-bcb2-4aab-b40a-e84709c9f10e">
-<span class="eqno">(10)<a class="headerlink" href="#equation-faddb36b-bcb2-4aab-b40a-e84709c9f10e" title="Permalink to this equation">#</a></span>\[\begin{align}
-p_\theta (\nu) &amp;=\int_{\lambda_D}^\infty f \big(\lambda_{gen}(n,m \mid \theta,\nu) \mid H_{null} \big) \ d \lambda_{gen} \\
+<div class="amsmath math notranslate nohighlight" id="equation-0c2090fb-3622-4540-bef2-175ed91bb89d">
+<span class="eqno">(10)<a class="headerlink" href="#equation-0c2090fb-3622-4540-bef2-175ed91bb89d" title="Permalink to this equation">#</a></span>\[\begin{align}
+p_\theta (\nu) &amp;=\int_{\lambda_D}^\infty f \big(\lambda_{gen}(n,m \mid \theta,\nu) \mid H_{null} = \{\theta,\nu \} \big) \ d \lambda_{gen} \\
  &amp;= 1- \text{Prob} \big(\lambda_{gen}(n,m;\theta,\nu) \le \lambda_D(N,M;\theta,\nu) \big), \tag{2}
 \end{align}\]</div>
 <div class="math notranslate nohighlight">
 \[ \begin{align}\begin{aligned}where $f$ is the PDF of $\lambda$. We see from above that the statistic $\lambda$ is an approximate sampling distribution of the $\chi^2$ PDF, proving [Wilk's theorem](https://www.jstor.org/stable/2957648?seq=1#metadata_info_tab_contents), and hence the $p$-value could also be caluclated by\\
 $$p_\theta (\nu)=\int_{\chi^2}^\infty f(z; k) dz\end{aligned}\end{align} \]</div>
 <p>where <span class="math notranslate nohighlight">\(k\)</span> is the number of degrees of freedom (free parameters) which is 1 in the 2-parameter problem , and <span class="math notranslate nohighlight">\(f(z;k)\)</span> is the <span class="math notranslate nohighlight">\(\chi^2\)</span> PDF. This p-value can then easily be computed (e.g. yielding <span class="math notranslate nohighlight">\(p=1-\alpha ( 1- F_{\chi^2} [\theta, \nu])\)</span>, where <span class="math notranslate nohighlight">\( F_{\chi^2}\)</span> is the comulative <span class="math notranslate nohighlight">\(\chi^2\)</span> distribution function (as a function of <span class="math notranslate nohighlight">\(\theta\)</span> and <span class="math notranslate nohighlight">\(\nu\)</span>).</p>
+<p>Please note that the test statistic, even for count data in particle physics, can take a different form, depending on what hypothesis one is trying to test. For more on this see <a class="reference external" href="https://arxiv.org/pdf/1007.1727.pdf">Asymptotic formulae for likelihood-based tests of new physics</a>.</p>
 <p>We will be esitmaing this <span class="math notranslate nohighlight">\(p\)</span>-value with our LFI framework. If <span class="math notranslate nohighlight">\(\lambda=\lambda_{MLE}\)</span>, then according to Eq (2) the p-value is given by:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -1438,7 +1446,7 @@ p^{\text{MLE}}_\theta (\nu) \rightarrow 1-\alpha \left( 1- F_{\chi^2} [\theta, \
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/4_Imposing_Pivotal_Conditions_on_Lambda_24_0.jpg" src="_images/4_Imposing_Pivotal_Conditions_on_Lambda_24_0.jpg" />
+<img alt="_images/4_Imposing_Pivotal_Conditions_on_Lambda_26_0.jpg" src="_images/4_Imposing_Pivotal_Conditions_on_Lambda_26_0.jpg" />
 </div>
 </div>
 <p>As we know, the p-value is the probability under the null hypothesis <span class="math notranslate nohighlight">\(H_{null}\)</span> (which is in this case parameterized by <span class="math notranslate nohighlight">\(\theta\)</span>) of finding data of equal or greater <em>incompatibility</em> with the predictions of <span class="math notranslate nohighlight">\(H_{null}\)</span>. Therefore, in our case, the p-value under the null hypothesis (defined by <span class="math notranslate nohighlight">\(\theta\)</span>) is given by</p>
@@ -1587,7 +1595,7 @@ p_\theta (\nu) &amp;=\int_{\lambda_D}^\infty f \big(\lambda_{gen}(n,m \mid \thet
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/4_Imposing_Pivotal_Conditions_on_Lambda_27_0.png" src="_images/4_Imposing_Pivotal_Conditions_on_Lambda_27_0.png" />
+<img alt="_images/4_Imposing_Pivotal_Conditions_on_Lambda_29_0.png" src="_images/4_Imposing_Pivotal_Conditions_on_Lambda_29_0.png" />
 </div>
 </div>
 <section id="generate-theta-i-nu-i-n-i-m-i-z-i-data-according-to">
@@ -1992,7 +2000,7 @@ first features batch shape
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/4_Imposing_Pivotal_Conditions_on_Lambda_41_0.png" src="_images/4_Imposing_Pivotal_Conditions_on_Lambda_41_0.png" />
+<img alt="_images/4_Imposing_Pivotal_Conditions_on_Lambda_43_0.png" src="_images/4_Imposing_Pivotal_Conditions_on_Lambda_43_0.png" />
 </div>
 </div>
 </section>
@@ -2107,7 +2115,7 @@ first features batch shape
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/4_Imposing_Pivotal_Conditions_on_Lambda_46_1.png" src="_images/4_Imposing_Pivotal_Conditions_on_Lambda_46_1.png" />
+<img alt="_images/4_Imposing_Pivotal_Conditions_on_Lambda_48_1.png" src="_images/4_Imposing_Pivotal_Conditions_on_Lambda_48_1.png" />
 </div>
 </div>
 <section id="plot-the-histogrammed-approximations-for-the-mle-vs-non-mle-cases-for-a-single-value-of-mathbf-nu">
@@ -2194,7 +2202,7 @@ first features batch shape
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/4_Imposing_Pivotal_Conditions_on_Lambda_49_0.png" src="_images/4_Imposing_Pivotal_Conditions_on_Lambda_49_0.png" />
+<img alt="_images/4_Imposing_Pivotal_Conditions_on_Lambda_51_0.png" src="_images/4_Imposing_Pivotal_Conditions_on_Lambda_51_0.png" />
 </div>
 </div>
 </section>
@@ -2883,7 +2891,7 @@ Iteration vs average loss
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/4_Imposing_Pivotal_Conditions_on_Lambda_72_0.png" src="_images/4_Imposing_Pivotal_Conditions_on_Lambda_72_0.png" />
+<img alt="_images/4_Imposing_Pivotal_Conditions_on_Lambda_74_0.png" src="_images/4_Imposing_Pivotal_Conditions_on_Lambda_74_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -2950,7 +2958,7 @@ Iteration vs average loss
      99600	  0.063669	  0.063138	  0.063138
 </pre></div>
 </div>
-<img alt="_images/4_Imposing_Pivotal_Conditions_on_Lambda_76_1.png" src="_images/4_Imposing_Pivotal_Conditions_on_Lambda_76_1.png" />
+<img alt="_images/4_Imposing_Pivotal_Conditions_on_Lambda_78_1.png" src="_images/4_Imposing_Pivotal_Conditions_on_Lambda_78_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -3349,7 +3357,7 @@ Iteration vs average loss
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/4_Imposing_Pivotal_Conditions_on_Lambda_90_0.png" src="_images/4_Imposing_Pivotal_Conditions_on_Lambda_90_0.png" />
+<img alt="_images/4_Imposing_Pivotal_Conditions_on_Lambda_92_0.png" src="_images/4_Imposing_Pivotal_Conditions_on_Lambda_92_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -3386,7 +3394,7 @@ Iteration vs average loss
  [0.5165771 ]]
 </pre></div>
 </div>
-<img alt="_images/4_Imposing_Pivotal_Conditions_on_Lambda_91_1.png" src="_images/4_Imposing_Pivotal_Conditions_on_Lambda_91_1.png" />
+<img alt="_images/4_Imposing_Pivotal_Conditions_on_Lambda_93_1.png" src="_images/4_Imposing_Pivotal_Conditions_on_Lambda_93_1.png" />
 </div>
 </div>
 <section id="save-trained-model-if-they-re-good-and-if-you-havent-saved-by-now">
@@ -3603,7 +3611,7 @@ Iteration vs average loss
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/4_Imposing_Pivotal_Conditions_on_Lambda_102_0.png" src="_images/4_Imposing_Pivotal_Conditions_on_Lambda_102_0.png" />
+<img alt="_images/4_Imposing_Pivotal_Conditions_on_Lambda_104_0.png" src="_images/4_Imposing_Pivotal_Conditions_on_Lambda_104_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -3723,7 +3731,7 @@ Iteration vs average loss
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/4_Imposing_Pivotal_Conditions_on_Lambda_104_0.png" src="_images/4_Imposing_Pivotal_Conditions_on_Lambda_104_0.png" />
+<img alt="_images/4_Imposing_Pivotal_Conditions_on_Lambda_106_0.png" src="_images/4_Imposing_Pivotal_Conditions_on_Lambda_106_0.png" />
 </div>
 </div>
 <hr class="docutils" />
@@ -3966,12 +3974,12 @@ train_x shape =  (800000, 5)
 \lambda_{NP} \equiv -2 \log \frac{L_{prof}(\theta)}{L_{prof}(\hat{\theta})}
 \]</div>
 <p>NP for “Neyman-Pearson”, or “New Physics”, or “Not Pivotal”</p>
-<div class="amsmath math notranslate nohighlight" id="equation-84f3ac69-74c3-456d-9e06-3fc44dfaff16">
-<span class="eqno">(11)<a class="headerlink" href="#equation-84f3ac69-74c3-456d-9e06-3fc44dfaff16" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-5e264939-2a83-457b-bc89-66f0e596a223">
+<span class="eqno">(11)<a class="headerlink" href="#equation-5e264939-2a83-457b-bc89-66f0e596a223" title="Permalink to this equation">#</a></span>\[\begin{equation}
     L_{\tilde{\lambda}_{pivot}} = (\lambda_D - \tilde{\lambda}_{pivot})^2 - \frac{\psi}{2} \left\| \frac{\partial \tilde{\lambda}_{pivot} }{\partial \nu} \right\|^2
 \end{equation}\]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-3f47ee7b-f082-49d6-b381-c2a0dd13fd6c">
-<span class="eqno">(12)<a class="headerlink" href="#equation-3f47ee7b-f082-49d6-b381-c2a0dd13fd6c" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-7d0b6738-b251-4f01-bf7e-5f3e6826d608">
+<span class="eqno">(12)<a class="headerlink" href="#equation-7d0b6738-b251-4f01-bf7e-5f3e6826d608" title="Permalink to this equation">#</a></span>\[\begin{equation}
     L_{f_{pivot}} = (\tilde{Z} - f_{pivot})^2 - \frac{\kappa}{2} \left\| \frac{\partial f_{pivot} }{\partial \nu} \right\|^2
 \end{equation}\]</div>
 <div class="cell docutils container">
@@ -3981,7 +3989,7 @@ train_x shape =  (800000, 5)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/4_Imposing_Pivotal_Conditions_on_Lambda_117_0.png" src="_images/4_Imposing_Pivotal_Conditions_on_Lambda_117_0.png" />
+<img alt="_images/4_Imposing_Pivotal_Conditions_on_Lambda_119_0.png" src="_images/4_Imposing_Pivotal_Conditions_on_Lambda_119_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -4525,7 +4533,7 @@ theta shape (100,)
 lambda_tilde shape (100,)
 </pre></div>
 </div>
-<img alt="_images/4_Imposing_Pivotal_Conditions_on_Lambda_124_2.png" src="_images/4_Imposing_Pivotal_Conditions_on_Lambda_124_2.png" />
+<img alt="_images/4_Imposing_Pivotal_Conditions_on_Lambda_126_2.png" src="_images/4_Imposing_Pivotal_Conditions_on_Lambda_126_2.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -4612,7 +4620,7 @@ lambda_tilde shape (100,)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/4_Imposing_Pivotal_Conditions_on_Lambda_128_0.png" src="_images/4_Imposing_Pivotal_Conditions_on_Lambda_128_0.png" />
+<img alt="_images/4_Imposing_Pivotal_Conditions_on_Lambda_130_0.png" src="_images/4_Imposing_Pivotal_Conditions_on_Lambda_130_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -4635,7 +4643,7 @@ lambda_tilde shape (100,)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/4_Imposing_Pivotal_Conditions_on_Lambda_130_0.png" src="_images/4_Imposing_Pivotal_Conditions_on_Lambda_130_0.png" />
+<img alt="_images/4_Imposing_Pivotal_Conditions_on_Lambda_132_0.png" src="_images/4_Imposing_Pivotal_Conditions_on_Lambda_132_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -4847,7 +4855,7 @@ lambda_tilde shape (100,)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/4_Imposing_Pivotal_Conditions_on_Lambda_138_0.png" src="_images/4_Imposing_Pivotal_Conditions_on_Lambda_138_0.png" />
+<img alt="_images/4_Imposing_Pivotal_Conditions_on_Lambda_140_0.png" src="_images/4_Imposing_Pivotal_Conditions_on_Lambda_140_0.png" />
 </div>
 </div>
 </section>
@@ -4953,7 +4961,7 @@ lambda_tilde shape (100,)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/4_Imposing_Pivotal_Conditions_on_Lambda_141_0.png" src="_images/4_Imposing_Pivotal_Conditions_on_Lambda_141_0.png" />
+<img alt="_images/4_Imposing_Pivotal_Conditions_on_Lambda_143_0.png" src="_images/4_Imposing_Pivotal_Conditions_on_Lambda_143_0.png" />
 </div>
 </div>
 </section>
