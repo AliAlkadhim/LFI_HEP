@@ -1,0 +1,1707 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>1 - Pivotal LFI for Count Data in Particle Physics: Background and one-parameter Problem &#8212; Pivotal Likelihood-Free Inference for Particle Physics</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="2 - Two-Parameter Problem and Pivotal Likelihood-Free p-Values" href="2_Two_Parameter_Problem_and_Pivotal_p_Value.html" />
+    <link rel="prev" title="Welcome to the Likelihood-Free Inference for Particle Physics Jupyter book" href="intro.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Pivotal Likelihood-Free Inference for Particle Physics</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome to the Likelihood-Free Inference for Particle Physics Jupyter book
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   1 - Pivotal LFI for Count Data in Particle Physics: Background and one-parameter Problem
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2_Two_Parameter_Problem_and_Pivotal_p_Value.html">
+   2 - Two-Parameter Problem and Pivotal Likelihood-Free p-Values
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="3_Replacing_Data_with_Lambda_and_2D_Inference.html">
+   3 -  2-Dimensional Inference in
+   <span class="math notranslate nohighlight">
+    \(\theta - \nu\)
+   </span>
+   Space and Replacing Observed Data with Test Statistics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="4_Mapping_Confidence_Sets_to_Confidence_Intervals.html">
+   4 - Inference on POI in presence of a nuissance parameter: Pivots, and Mapping Confidence Sets to Confidence Intervals
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="5_Imposing_Pivotal_Conditions_on_Lambda.html">
+   5. Imposing Pivotal Conditions on
+   <span class="math notranslate nohighlight">
+    \(\lambda\)
+   </span>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="6_More_Ideas.html">
+   More Discussions
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/AliAlkadhim/LFI_HEP/master?urlpath=tree/JupyterBook/1_Intro_and_One_Parameter_Problem.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="_sources/1_Intro_and_One_Parameter_Problem.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   1 - Pivotal LFI for Count Data in Particle Physics: Background and one-parameter Problem
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#external-imports">
+     External imports
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#import-utils">
+     Import utils
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#background-on-confidence-intervals">
+   Background on Confidence Intervals
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#hypothesis-testing">
+     Hypothesis Testing
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#test-statistics">
+   Test statistics
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#single-parameter-poisson-problem">
+   Single Parameter Poisson Problem
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#algorithm">
+     Algorithm
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#application-to-the-poisson-distribution">
+     Application to the Poisson distribution
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#neyman-construction-in-two-lines">
+       Neyman Construction in two lines
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#initial-references">
+     Initial References
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#load-data">
+     Load data
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#define-functions">
+     Define functions
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#plot-data">
+     Plot data
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#train-validation-and-test-sets">
+     Train, validation, and test sets
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#return-a-random-batch-of-data-from-the-training-set">
+     Return a (random) batch of data from the training set
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#empirical-risk-that-is-average-loss">
+     Empirical risk (that is, average loss)
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#function-to-execute-training-loop">
+     Function to execute training loop
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#define-model-f-mathbf-x-theta">
+     Define model
+     <span class="math notranslate nohighlight">
+      \(f(\mathbf{x}, \theta)\)
+     </span>
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#train">
+     Train!
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#computing-90-upper-limits-exactly-and-compare-to-lfi-method">
+     Computing 90% upper limits exactly, and compare to LFI method
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#plot-upper-lower-and-central-intervals-for-one-parameter-problem-given-a-cl-n-and-the-cdf-and-compare-to-model-output-under-construction-might-be-overkill-especially-since-we-re-interested-in-the-2-parameter-problem">
+   plot upper, lower and central intervals for one-parameter problem given a CL,
+   <span class="math notranslate nohighlight">
+    \(N\)
+   </span>
+   , and the CDF, and compare to model output (under construction, might be overkill, especially since we’re interested in the 2-parameter problem)
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>1 - Pivotal LFI for Count Data in Particle Physics: Background and one-parameter Problem</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   1 - Pivotal LFI for Count Data in Particle Physics: Background and one-parameter Problem
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#external-imports">
+     External imports
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#import-utils">
+     Import utils
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#background-on-confidence-intervals">
+   Background on Confidence Intervals
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#hypothesis-testing">
+     Hypothesis Testing
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#test-statistics">
+   Test statistics
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#single-parameter-poisson-problem">
+   Single Parameter Poisson Problem
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#algorithm">
+     Algorithm
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#application-to-the-poisson-distribution">
+     Application to the Poisson distribution
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#neyman-construction-in-two-lines">
+       Neyman Construction in two lines
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#initial-references">
+     Initial References
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#load-data">
+     Load data
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#define-functions">
+     Define functions
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#plot-data">
+     Plot data
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#train-validation-and-test-sets">
+     Train, validation, and test sets
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#return-a-random-batch-of-data-from-the-training-set">
+     Return a (random) batch of data from the training set
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#empirical-risk-that-is-average-loss">
+     Empirical risk (that is, average loss)
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#function-to-execute-training-loop">
+     Function to execute training loop
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#define-model-f-mathbf-x-theta">
+     Define model
+     <span class="math notranslate nohighlight">
+      \(f(\mathbf{x}, \theta)\)
+     </span>
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#train">
+     Train!
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#computing-90-upper-limits-exactly-and-compare-to-lfi-method">
+     Computing 90% upper limits exactly, and compare to LFI method
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#plot-upper-lower-and-central-intervals-for-one-parameter-problem-given-a-cl-n-and-the-cdf-and-compare-to-model-output-under-construction-might-be-overkill-especially-since-we-re-interested-in-the-2-parameter-problem">
+   plot upper, lower and central intervals for one-parameter problem given a CL,
+   <span class="math notranslate nohighlight">
+    \(N\)
+   </span>
+   , and the CDF, and compare to model output (under construction, might be overkill, especially since we’re interested in the 2-parameter problem)
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <p><a name="notebook_1"></a></p>
+<section class="tex2jax_ignore mathjax_ignore" id="pivotal-lfi-for-count-data-in-particle-physics-background-and-one-parameter-problem">
+<h1>1 - Pivotal LFI for Count Data in Particle Physics: Background and one-parameter Problem<a class="headerlink" href="#pivotal-lfi-for-count-data-in-particle-physics-background-and-one-parameter-problem" title="Permalink to this headline">#</a></h1>
+<p>Ali Al Kadhim and Harrison B. Prosper<br>
+Department of Physics, Florida State University<br></p>
+<p>November, 2022</p>
+<section id="external-imports">
+<h2>External imports<a class="headerlink" href="#external-imports" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span><span class="p">;</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span><span class="p">;</span> <span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">st</span>
+<span class="kn">import</span> <span class="nn">torch</span><span class="p">;</span> <span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="c1">#use numba&#39;s just-in-time compiler to speed things up</span>
+<span class="kn">from</span> <span class="nn">numba</span> <span class="kn">import</span> <span class="n">njit</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span><span class="p">;</span> <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mp</span><span class="p">;</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span><span class="p">;</span> 
+<span class="c1">#reset matplotlib stle/parameters</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">mpl</span><span class="o">.</span><span class="n">rcParamsDefault</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-deep&#39;</span><span class="p">)</span>
+<span class="n">mp</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;agg.path.chunksize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10000</span>
+<span class="n">font_legend</span> <span class="o">=</span> <span class="mi">15</span><span class="p">;</span> <span class="n">font_axes</span><span class="o">=</span><span class="mi">15</span>
+<span class="c1"># %matplotlib inline</span>
+<span class="kn">import</span> <span class="nn">copy</span><span class="p">;</span> <span class="kn">import</span> <span class="nn">sys</span><span class="p">;</span> <span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">display</span>
+<span class="kn">from</span> <span class="nn">importlib</span> <span class="kn">import</span> <span class="n">import_module</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">optuna</span>
+<span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;optuna is only used for hyperparameter tuning, not critical!&#39;</span><span class="p">)</span>
+    <span class="k">pass</span>
+<span class="c1"># import sympy as sy</span>
+<span class="c1">#sometimes jupyter doesnt initialize MathJax automatically for latex, so do this</span>
+<span class="kn">import</span> <span class="nn">ipywidgets</span> <span class="k">as</span> <span class="nn">wid</span><span class="p">;</span> <span class="n">wid</span><span class="o">.</span><span class="n">HTMLMath</span><span class="p">(</span><span class="s1">&#39;$\LaTeX$&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "2ca439aa55ba467dac101cb5b946c5aa", "version_major": 2, "version_minor": 0}
+</script></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># update fonts</span>
+<span class="n">FONTSIZE</span> <span class="o">=</span> <span class="mi">14</span>
+<span class="n">LABELSIZE</span><span class="o">=</span><span class="mi">18</span>
+<span class="n">font</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;family&#39;</span> <span class="p">:</span> <span class="s1">&#39;serif&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;weight&#39;</span> <span class="p">:</span> <span class="s1">&#39;normal&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;size&#39;</span>   <span class="p">:</span> <span class="n">FONTSIZE</span><span class="p">}</span>
+<span class="n">mp</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;font&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">font</span><span class="p">)</span>
+
+<span class="c1"># set usetex = False if LaTex is not </span>
+<span class="c1"># available on your system or if the </span>
+<span class="c1"># rendering is too slow</span>
+<span class="n">mp</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;text&#39;</span><span class="p">,</span> <span class="n">usetex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># set a seed to ensure reproducibility</span>
+<span class="n">seed</span> <span class="o">=</span> <span class="mi">128</span>
+<span class="n">rnd</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="import-utils">
+<h2>Import utils<a class="headerlink" href="#import-utils" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="n">LFI_PIVOT_BASE</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;LFI_PIVOT_BASE&#39;</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;BASE directoy properly set = &#39;</span><span class="p">,</span> <span class="n">LFI_PIVOT_BASE</span><span class="p">)</span>
+    <span class="n">utils_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">LFI_PIVOT_BASE</span><span class="p">,</span> <span class="s1">&#39;utils&#39;</span><span class="p">)</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">utils_dir</span><span class="p">)</span>
+    <span class="kn">import</span> <span class="nn">utils</span>
+    <span class="c1">#usually its not recommended to import everything from a module, but we know</span>
+    <span class="c1">#whats in it so its fine</span>
+    <span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;BASE directory not properly set. Read repo README.</span><span class="se">\</span>
+<span class="s2">    If you need a function from utils, use the decorator below, or add utils to sys.path&quot;&quot;&quot;</span><span class="p">)</span>
+    <span class="k">pass</span>
+
+<span class="n">PAPER_IMAGE_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;LFI_PIVOT_BASE&#39;</span><span class="p">],</span><span class="s1">&#39;PAPER&#39;</span><span class="p">,</span> <span class="s1">&#39;images&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>BASE directoy properly set =  /home/ali/Desktop/Pulled_Github_Repositories/LFI_HEP
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="background-on-confidence-intervals">
+<h1>Background on Confidence Intervals<a class="headerlink" href="#background-on-confidence-intervals" title="Permalink to this headline">#</a></h1>
+<p>Suppose we have a random variable <span class="math notranslate nohighlight">\(x\)</span>, which is distributed according to some PDF <span class="math notranslate nohighlight">\(f(x)\)</span>. Then the probability of finding <span class="math notranslate nohighlight">\(x\)</span> between <span class="math notranslate nohighlight">\([x^{low}. x^{up}]\)</span> is given by</p>
+<div class="math notranslate nohighlight">
+\[ 
+\text{Prob} \left( x \in [x^{low}, x^{up}] \right) =\text{Prob} \left( x^{low} \le x \le x^{up} \right) = \int_{x^{low}}^{x^{up}} dx f(x) 
+\]</div>
+<p>We can express this in terms of comulative distribution functions (CDFS) where for a random variable <span class="math notranslate nohighlight">\(X\)</span>  the CDF is defined as</p>
+<div class="math notranslate nohighlight">
+\[
+F_X(x)=\text{Prob}(X \leq x), \text { for all } x \in \mathbb{R}
+\]</div>
+<p>And since <span class="math notranslate nohighlight">\(x \in \mathbb{R}\)</span>, we have</p>
+<div class="math notranslate nohighlight">
+\[
+\int_{-\infty}^{x^{low}} f(x) dx + \int_{x^{low}}^{x^{up} } f(x) dx+ \int_{x^{up}}^{\infty} f(x)dx = 1
+\]</div>
+<p>which, by definition of CDF above, gives</p>
+<div class="math notranslate nohighlight">
+\[
+F(x^{low}) + \int_{x^{low}}^{x^{up} } f(x) dx+ (1-F(x^{up}) =1,
+\]</div>
+<p>which gives</p>
+<div class="math notranslate nohighlight">
+\[
+\int_{x^{low}}^{x^{up} } f(x) dx =F(x^{up}) - F(x^{low}) \tag{1}.
+\]</div>
+<p>Sometimes we report upper and lower limits, e.g.</p>
+<div class="math notranslate nohighlight">
+\[
+p=\int_a^{\infty} \mathrm{d} x f(x) \quad \text { for } \quad a&gt;A; \quad \text{lower limit} \quad \text{(with prob. $p$ we are confident that $a$ is larger than $A$ )} 
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+p=\int_{-\infty}^{a} \mathrm{d} x f(x) \quad \text { for } \quad a&lt;A \quad \text{upper limit} \quad \text{(with prob. $p$ we are confident that $a$ smaller larger than $A$ )} 
+\]</div>
+<p>Suppose we have a PDF (or PMF) <span class="math notranslate nohighlight">\(p(x|\theta)\)</span> (Sometimes called the posterior. Also, of course <span class="math notranslate nohighlight">\(x\)</span> could be a vector of data <span class="math notranslate nohighlight">\(\vec{x}\)</span>). We calculate the confidence interval <span class="math notranslate nohighlight">\([\theta^{low},\theta^{up}]\)</span> <em>at a particular chosen confidence level (CL)</em>, which lets us say the statement “we are CL <span class="math notranslate nohighlight">\(\times 100\)</span> % confident that the true value of the parameter <span class="math notranslate nohighlight">\(\theta\)</span>, <span class="math notranslate nohighlight">\(\theta_{\text{true}}\)</span> lies within in the range <span class="math notranslate nohighlight">\([\theta^{low}, \theta^{up}]\)</span>”. Since confidence interval calculation usually follows the Neyman construction, which follows the frequentist philosophy, the statement really should be “if we were to repeat the experiment (which yields an interval <span class="math notranslate nohighlight">\([\theta^{low}_i, \theta^{up}]\)</span> each time), in CL<span class="math notranslate nohighlight">\(\times 100\)</span> % of the time, the true value of the parameter will be in that range”. For example, if CL is chosen to be 0.68 (a common choice since it’s one standard deviation in the Gaussian case, and most things in nature are Gaussian), we would obtain 68% confidence intervals.</p>
+<p>If we were to write down a formula for this, the interval <span class="math notranslate nohighlight">\([\theta^{low}, \theta^{up}]\)</span> would be attained by solving for <span class="math notranslate nohighlight">\(\theta^{low}, \theta^{up}\)</span> in the equation</p>
+<div class="math notranslate nohighlight">
+\[ CL = \int_{\theta^{low} }^{\theta^{up}} p(\vec{x} | \theta) d \theta \tag{2} \]</div>
+<p>Sometime Eq (2), when solved by calculating the intergral analytically, is referred to a Bayesian (or “Credible”) interval. The frequentist approach calculates the Confidence interval by the use of a test statistic (more on this later) and using hypothesis testing (and hence attaining the interval by Neyman construction).</p>
+<section id="hypothesis-testing">
+<h2>Hypothesis Testing<a class="headerlink" href="#hypothesis-testing" title="Permalink to this headline">#</a></h2>
+<p>Test statistics play a paramount role in the theory of hypothesis testing. Given observed data <span class="math notranslate nohighlight">\(x\)</span>, a test statistic <span class="math notranslate nohighlight">\(\lambda\)</span> evaluated for the observed data <span class="math notranslate nohighlight">\(\lambda_{\text{observed}}\)</span> is the only way to decide which of two hypothesis; the null hypothesis <span class="math notranslate nohighlight">\(H_{0}\)</span> (parameterized by parameters <span class="math notranslate nohighlight">\(\theta_0\)</span>) and the alternative hypothesis <span class="math notranslate nohighlight">\(H_1\)</span> (parameterized by parameters <span class="math notranslate nohighlight">\(\theta_1\)</span>).</p>
+<p>Everything from now on in hypothesis testing assumes that <span class="math notranslate nohighlight">\(H_0\)</span> is true. You then divide your sample space into two regions: a “critical region”, <span class="math notranslate nohighlight">\(\omega\)</span> and the complement to the critical region, <span class="math notranslate nohighlight">\(\Omega \setminus \omega\)</span>. The regions are chosen basede on the following:</p>
+<ul class="simple">
+<li><p>If an observation (or set of observations) <span class="math notranslate nohighlight">\(\vec{x}\)</span> falls in <span class="math notranslate nohighlight">\(\omega\)</span>, we reject <span class="math notranslate nohighlight">\(H_0\)</span> (in favor of <span class="math notranslate nohighlight">\(H_1\)</span>), and</p></li>
+<li><p>If an observation (or set of observations) <span class="math notranslate nohighlight">\(\vec{x}\)</span> falls in <span class="math notranslate nohighlight">\(\Omega \setminus \omega\)</span> we accept <span class="math notranslate nohighlight">\(H_0\)</span>, which in our case also means rejecting <span class="math notranslate nohighlight">\(H_1\)</span>).</p></li>
+</ul>
+<p>You start the procedure of hypothesis testing by making the obvious but powerful statement:</p>
+<blockquote>
+<div><p>“We want to restrict the probability of rejecting the null <span class="math notranslate nohighlight">\(H_0\)</span> in the case that <span class="math notranslate nohighlight">\(H_0\)</span> is true (since, by rejecting <span class="math notranslate nohighlight">\(H_0\)</span> when it is in fact true, we would be making a mistake)”</p>
+</div></blockquote>
+<p>Mathematicall, the statement above means that “we want to restrict <span class="math notranslate nohighlight">\(\text{Prob} (\text{reject} H_0 \mid H_0) \)</span>“. We then define an upper limit for how often we can let such an error of rejecting <span class="math notranslate nohighlight">\(H_0\)</span> when it is in fact true as a small number <span class="math notranslate nohighlight">\(\alpha\)</span>, so</p>
+<blockquote>
+<div><blockquote>
+<div><p><span class="math notranslate nohighlight">\(\alpha &gt;&gt; \text{Prob} (\text{reject} H_0 \mid H_0) .\)</span></p>
+</div></blockquote>
+</div></blockquote>
+<p>(Footnote: Birnbaum (1962, 1977) suggested that <span class="math notranslate nohighlight">\(\frac{\alpha}{1-\beta}\)</span> should be used as a measure of the strength of a statistical test, rather than <span class="math notranslate nohighlight">\(\alpha\)</span> alone.). Since by our hypothesis test construction, we have <span class="math notranslate nohighlight">\(\vec{x}\)</span> lieing in <span class="math notranslate nohighlight">\(\omega\)</span> to be requivalent to rejecting <span class="math notranslate nohighlight">\(H_0\)</span>, we attain the following restriction</p>
+<blockquote>
+<div><blockquote>
+<div><blockquote>
+<div><p><span class="math notranslate nohighlight">\(\text{Prob}(\vec{x} \in \omega \mid H_0 ) \le \alpha\)</span>.</p>
+</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="test-statistics">
+<h1>Test statistics<a class="headerlink" href="#test-statistics" title="Permalink to this headline">#</a></h1>
+<p>A test statistic <span class="math notranslate nohighlight">\(\lambda\)</span> is a function of the data that compresses the data in such as way that, ideally, all relevant information in the data about the parameter <span class="math notranslate nohighlight">\(\theta\)</span> is preserved.</p>
+<p>One can construct an infinite number of test statistics, by choosing different functions of the data <span class="math notranslate nohighlight">\(x\)</span>, but most functions of the data are useless! The Neyman-Pearson (NP) Lemma states that the most powerful test statistic. (footnote: By powerful we mean that it has the greatest Power <span class="math notranslate nohighlight">\(\equiv 1-\beta\)</span> where <span class="math notranslate nohighlight">\(\beta\)</span> is the probability of rejecting <span class="math notranslate nohighlight">\(H_1\)</span> when it is in fact true, commonly referred to as “Type II Error”.) between simple hypothesis <span class="math notranslate nohighlight">\(H_0\)</span> and <span class="math notranslate nohighlight">\(H_1\)</span> is <span class="math notranslate nohighlight">\(\lambda_{NP}=\frac{L(H_1)}{L(H_0)} = \frac{L(x |\theta_1)}{L(x|\theta_0)}\)</span>, which rejects <span class="math notranslate nohighlight">\(H_0\)</span> in favor of <span class="math notranslate nohighlight">\(H_1\)</span>. For convenience, it is used as <span class="math notranslate nohighlight">\(\lambda_{NP}=-2 \log \frac{L(x|\theta_0)}{L(x|\theta_1)}\)</span>.</p>
+<p>Conceptually, in statistical evidence analyses one uses the test statistic that minimizes <span class="math notranslate nohighlight">\(\alpha\)</span> while maximizing <span class="math notranslate nohighlight">\(1-\beta\)</span>. Where <span class="math notranslate nohighlight">\(\alpha\)</span> is Type I error</p>
+<div class="math notranslate nohighlight">
+\[
+    \alpha = \text{Prob}(\text{Reject } H_0 \mid H_0) \tag{3}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+1-\beta = \text{Prob}(\text{Reject } H_0 | H_1) \tag{4}
+\]</div>
+<p>(Birnbaum (1962, 1977) suggested that <span class="math notranslate nohighlight">\(\frac{\alpha}{1-\beta}\)</span> should be used as a measure of the strength of a statistical test, rather than <span class="math notranslate nohighlight">\(\alpha\)</span> alone.)</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="single-parameter-poisson-problem">
+<h1>Single Parameter Poisson Problem<a class="headerlink" href="#single-parameter-poisson-problem" title="Permalink to this headline">#</a></h1>
+<p>We propose in this study that even though LFI methods are used to make inderences when we do not have access to the likelihood function, we still want to use these methods in the case where we do know the likelihood explicitly, in order to arrive at frequentist guarantees.</p>
+<p>Before we go on to demonstrate our methods, we review the relevant statistics</p>
+<p>Suppose we have the Poisson distribution</p>
+<div class="math notranslate nohighlight">
+\[
+P(N | \theta)  =L(\theta) =   \frac{e^{-\theta} \theta^N}{N!} \tag{5} , 
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(N\)</span> is the observed count (in e.g. single bin/channel) and <span class="math notranslate nohighlight">\(\theta\)</span> is the expected mean count (the only parameter in the Poisson distribution).</p>
+<p>If you don’t know what this looks like, for a set value <span class="math notranslate nohighlight">\(N\)</span>, it’s simply</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N</span><span class="o">=</span><span class="mi">4</span><span class="p">;</span> <span class="n">theta</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="n">L</span> <span class="o">=</span><span class="n">st</span><span class="o">.</span><span class="n">poisson</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="n">theta</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;N=4&#39;</span><span class="p">,</span> <span class="n">linewidths</span><span class="o">=</span><span class="mf">0.1</span><span class="p">);</span> 
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\theta$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">LABELSIZE</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$L(\theta)$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">LABELSIZE</span><span class="p">);</span> 
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">4.2</span><span class="p">,</span> <span class="mf">0.06</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\hat{\theta}_</span><span class="si">{MLE}</span><span class="s1">=4$&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span> 
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">PAPER_IMAGE_DIR</span><span class="p">,</span> <span class="s1">&#39;L_one_param_4.eps&#39;</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/1_Intro_and_One_Parameter_Problem_9_1.png" src="_images/1_Intro_and_One_Parameter_Problem_9_1.png" />
+</div>
+</div>
+<p>We can calculate the CDF <span class="math notranslate nohighlight">\(F(\theta)\)</span></p>
+<div class="math notranslate nohighlight">
+\[
+F(\theta) = \sum_{k=0}^N \textrm{Poisson}(k, \theta) = \sum_{k=0}^N \frac{e^{-\theta} \theta^N}{N!}
+\]</div>
+<p>Let us plot it and simplify it with the help of scipy</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N_range</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">40</span><span class="p">)[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+<span class="n">theta_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">40</span><span class="p">)</span>
+<span class="n">PCDF</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">poisson</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="n">N_range</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="n">theta_range</span><span class="p">)</span>
+<span class="n">theta_N_grid</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">theta_range</span><span class="p">,</span> <span class="n">N_range</span><span class="p">)</span>
+<span class="c1">#remember meshgrid returns TWo arrays</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">theta_N_grid</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\t\t</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">theta_N_grid</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> 
+<span class="n">plt</span><span class="o">.</span><span class="n">pcolor</span><span class="p">(</span><span class="n">theta_N_grid</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">theta_N_grid</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">PCDF</span><span class="p">,</span> <span class="n">shading</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Poisson CDF $F(</span><span class="se">\t</span><span class="s1">heta)$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\theta$&#39;</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$N$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">PAPER_IMAGE_DIR</span><span class="p">,</span> <span class="s1">&#39;Poisson_OneParam_CDF.eps&#39;</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(40, 40) 		 (40, 40)
+</pre></div>
+</div>
+<img alt="_images/1_Intro_and_One_Parameter_Problem_11_1.png" src="_images/1_Intro_and_One_Parameter_Problem_11_1.png" />
+</div>
+</div>
+<p>The single count Poisson Model is a classic problem in statistics. Exact coverage means that the following is true</p>
+<div class="amsmath math notranslate nohighlight" id="equation-38310c3b-dd20-497e-abb6-d0e9e681b4f3">
+<span class="eqno">(1)<a class="headerlink" href="#equation-38310c3b-dd20-497e-abb6-d0e9e681b4f3" title="Permalink to this equation">#</a></span>\[\begin{align}
+    P\{ \theta \in [ \, \underline{\theta}(n), \, \overline{\theta}(n) \, ] \, \} \geq 1 - \alpha, \forall \textrm{ fixed values of } \theta , 
+\end{align}\]</div>
+<p>where <span class="math notranslate nohighlight">\(P\)</span> is called the <strong>coverage probability</strong>, <span class="math notranslate nohighlight">\(1 - \alpha\)</span> the confidence level (CL), and <span class="math notranslate nohighlight">\(\alpha\)</span> the size of the associated hypothesis test. For a given experiment, the parameter <span class="math notranslate nohighlight">\(\theta\)</span>, the mean count, is presumed <em>fixed</em>. But the quantity <span class="math notranslate nohighlight">\([ \, \underline{\theta}(n), \, \overline{\theta}(n) \, ]\)</span> is a <em>random</em> interval which, in general, differs from one experiment to another.</p>
+<p>Jerzy Neyman[2], the inventor of <strong>confidence intervals</strong>, required these random intervals to have the following property.
+In an infinite ensemble of experiments, each of which may be associated with a different <em>fixed</em> values of the parameters of the statistocal model, including <span class="math notranslate nohighlight">\(\theta\)</span>, the fraction of intervals that include <span class="math notranslate nohighlight">\(\theta\)</span>, that is, that <em>cover</em> <span class="math notranslate nohighlight">\(\theta\)</span>, is bounded below by the desired confidence level (CL). Moreover, this must hold true irrespective of the distribution of values of the parameters over the ensemble of experiments.</p>
+<p>In general, for multi-parameter problems, it is difficult to create random intervals with this property.  But for 1-parameter problems confidence intervals with exact coverage can be constructed.</p>
+<p>For 1-parameter problems, Neyman provided a simple algorithm to compute such intervals, which in this tutorial we illustrate by applying it to the Poisson distribution. The algorithm can be applied to any 1-parameter problem given the sampling distribution of a statistic that depends on the observations, in this example the Poisson count <span class="math notranslate nohighlight">\(n\)</span>.
+As the name implies, the <strong>sampling distribution</strong> of <span class="math notranslate nohighlight">\(t\)</span> is the distribution of <span class="math notranslate nohighlight">\(t\)</span> induced by the underlying distribution of the potential observations. In this notebook, the statistic <span class="math notranslate nohighlight">\(t\)</span> is simply <span class="math notranslate nohighlight">\(t(n) = \hat{\theta} = n\)</span>.</p>
+<p>What this means in practice is that the accuracy (suitably defined) with which <span class="math notranslate nohighlight">\(\theta\)</span> can be estimated from <span class="math notranslate nohighlight">\(t\)</span> is equal to the accuracy with which <span class="math notranslate nohighlight">\(\theta\)</span> can be estimated directly from the data without compression. A statistic with this property, for a given parameter, is called a <strong>sufficient statistic</strong> for that parameter. Obviously, the uncompressed data are sufficient statistics! The challenge is finding sufficient statistics that substantially compress the data.</p>
+<section id="algorithm">
+<h2>Algorithm<a class="headerlink" href="#algorithm" title="Permalink to this headline">#</a></h2>
+<p>Define the <em>right</em> and <em>left</em> cumulative distribution functions of the
+sampling distribution, <span class="math notranslate nohighlight">\(f_\theta(t)\)</span>, by</p>
+<div class="amsmath math notranslate nohighlight" id="equation-c4816b10-1503-4f76-96f0-3ed8963e2fdd">
+<span class="eqno">(2)<a class="headerlink" href="#equation-c4816b10-1503-4f76-96f0-3ed8963e2fdd" title="Permalink to this equation">#</a></span>\[\begin{align}
+      D_R(x, \theta) &amp; = \int_{t \geq x} f_\theta(t) \, dt \textrm{ and } \\ 
+      D_L(x, \theta) &amp; = \int_{t \leq x} f_\theta(t) \, dt.
+ \end{align}\]</div>
+<p>By solving the equations</p>
+<div class="amsmath math notranslate nohighlight" id="equation-8186dec4-95d1-44d0-a0f9-d5079774554a">
+<span class="eqno">(3)<a class="headerlink" href="#equation-8186dec4-95d1-44d0-a0f9-d5079774554a" title="Permalink to this equation">#</a></span>\[\begin{align}
+    D_R(x, \underline{\theta}) &amp; = \alpha_R,\\
+    D_L(x, \overline{\theta}) &amp; =  \alpha_L,
+\end{align}\]</div>
+<p>with <span class="math notranslate nohighlight">\(x\)</span> replaced by the observed values of the statistic <span class="math notranslate nohighlight">\(t\)</span>, say <span class="math notranslate nohighlight">\(t_0\)</span>,
+one obtains the lower and upper limits <span class="math notranslate nohighlight">\(\underline{\theta}(t_0)\)</span> and
+<span class="math notranslate nohighlight">\(\overline{\theta}(t_0)\)</span>, respectively, at confidence level CL
+where <span class="math notranslate nohighlight">\(\text{CL} + \alpha_R + \alpha_L = 1\)</span>. For multi-parameter problems one can always create <strong>confidence regions</strong>, or sets, with exact coverage. The difficulty arises when one wishes to compute confidence regions, including intervals with exact coverage for a subset of the parameters irrespective of the values of the remaining parameters. Again, by exact coverage we mean coverage probabilities that never fall below the desired confidence level over any infinite ensemble of experiments.</p>
+<p>Clearly for a given confidence level there are infinitely many ensembles of confidence intervals or regions that can be computed. Which interval or region is reported is a matter of convention. For a 1-parameter sampling distribution the following convention is often used: one sets <span class="math notranslate nohighlight">\(\alpha_R = \alpha_L = (1 - \text{CL})/2\)</span> to arrive at <strong>central intervals</strong>.</p>
+</section>
+<section id="application-to-the-poisson-distribution">
+<h2>Application to the Poisson distribution<a class="headerlink" href="#application-to-the-poisson-distribution" title="Permalink to this headline">#</a></h2>
+<p>The Neyman algorithm, applied to the test statistic <span class="math notranslate nohighlight">\(t(n) = n\)</span> for the
+Poisson distribution, requires the functions</p>
+<div class="amsmath math notranslate nohighlight" id="equation-cafef819-fc0a-4c88-b0ac-113bc0749222">
+<span class="eqno">(4)<a class="headerlink" href="#equation-cafef819-fc0a-4c88-b0ac-113bc0749222" title="Permalink to this equation">#</a></span>\[\begin{align}
+      D_R(N, \theta) &amp; = \sum_{k=N}^\infty \textrm{Poisson}(k, \theta) = P(N, \theta),\\
+      \textrm{and   } D_L(N, \theta) &amp; = \sum_{k=0}^N \textrm{Poisson}(k, \theta) = 1 - P(N+1, \theta) ,
+ \end{align}\]</div>
+<p>where <span class="math notranslate nohighlight">\(P(s, \theta)\)</span> is the <em>normalized</em> lower incomplete gamma function[3] (in scipy it’s s<code class="docutils literal notranslate"><span class="pre">scipy.special.gammainc(s,</span> <span class="pre">mu)</span></code>.</p>
+<section id="neyman-construction-in-two-lines">
+<h3>Neyman Construction in two lines<a class="headerlink" href="#neyman-construction-in-two-lines" title="Permalink to this headline">#</a></h3>
+<p>Neyman construction in this simple case boils down to:</p>
+<ul class="simple">
+<li><p>Solve <span class="math notranslate nohighlight">\((1-CL)/2 = D_R \rightarrow\)</span> get <span class="math notranslate nohighlight">\(\theta_R\)</span></p></li>
+<li><p>Solve <span class="math notranslate nohighlight">\((1-CL)/2 = D_L \rightarrow\)</span> get <span class="math notranslate nohighlight">\(\theta_L\)</span></p></li>
+</ul>
+<p>In this notebook, we use the LFI method of Ref.[1] to approximate <span class="math notranslate nohighlight">\(E(Z | \theta, N)\)</span>, that is, <span class="math notranslate nohighlight">\(D_L(N, \theta)\)</span> using a simple deep neural network trained, that is, fitted, to data comprising the triplets <span class="math notranslate nohighlight">\((Z_i, \theta_i, N_i)\)</span>. (See notebook <strong>LFI_generate_data.ipynb</strong> for details.)</p>
+</section>
+</section>
+<section id="initial-references">
+<h2>Initial References<a class="headerlink" href="#initial-references" title="Permalink to this headline">#</a></h2>
+<ol class="simple">
+<li><p>Anne Lee et al., <a class="reference external" href="https://arxiv.org/abs/2107.03920">https://arxiv.org/abs/2107.03920</a></p></li>
+<li><p>Neyman, Jerzy (1937). “Outline of a Theory of Statistical Estimation Based on the Classical Theory of Probability”. Philosophical Transactions of the Royal Society of London. Series A, Mathematical and Physical Sciences. 236 (767): 333–380. doi:10.1098/rsta.1937.0005.</p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Incomplete_gamma_function">https://en.wikipedia.org/wiki/Incomplete_gamma_function</a>. The normalized function is the unnormalized function divided by <span class="math notranslate nohighlight">\(\Gamma(s)\)</span> and can be computed using scipy.special.gammainc(<span class="math notranslate nohighlight">\(s\)</span>, <span class="math notranslate nohighlight">\(\theta\)</span>).</p></li>
+</ol>
+</section>
+<section id="load-data">
+<h2>Load data<a class="headerlink" href="#load-data" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">datafile</span> <span class="o">=</span> <span class="s1">&#39;data1.db&#39;</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;loading </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">datafile</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">jb</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">datafile</span><span class="p">)</span>
+
+<span class="n">target</span> <span class="o">=</span> <span class="s1">&#39;Z1&#39;</span>
+<span class="n">source</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;theta&#39;</span><span class="p">,</span> <span class="s1">&#39;N&#39;</span><span class="p">]</span>
+<span class="n">data</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>loading data1.db
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Z1</th>
+      <th>Z2</th>
+      <th>theta</th>
+      <th>N</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>1</td>
+      <td>9.363525</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0</td>
+      <td>0</td>
+      <td>10.274183</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0</td>
+      <td>0</td>
+      <td>6.764226</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1</td>
+      <td>1</td>
+      <td>0.804674</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0</td>
+      <td>1</td>
+      <td>4.275650</td>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="define-functions">
+<h2>Define functions<a class="headerlink" href="#define-functions" title="Permalink to this headline">#</a></h2>
+<p>$</p>
+<div class="amsmath math notranslate nohighlight" id="equation-fa9e9f0d-48ce-422d-9496-73d03416effc">
+<span class="eqno">(5)<a class="headerlink" href="#equation-fa9e9f0d-48ce-422d-9496-73d03416effc" title="Permalink to this equation">#</a></span>\[\begin{align}
+      D_R(N, \theta) &amp; = \sum_{k=N}^\infty \textrm{Poisson}(k, \theta) = P(N, \theta),\\
+      \textrm{and   } D_L(N, \theta) &amp; = \sum_{k=0}^N \textrm{Poisson}(k, \theta) = 1 - P(N+1, \theta).
+\end{align}\]</div>
+<p>$</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">DR</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">theta</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">sp</span><span class="o">.</span><span class="n">special</span><span class="o">.</span><span class="n">gammainc</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">theta</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">DL</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">theta</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">sp</span><span class="o">.</span><span class="n">special</span><span class="o">.</span><span class="n">gammainc</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">theta</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="plot-data">
+<h2>Plot data<a class="headerlink" href="#plot-data" title="Permalink to this headline">#</a></h2>
+<p>Check that data make sense. Compute <span class="math notranslate nohighlight">\(D_L\)</span> by histogramming the data and compare it to <span class="math notranslate nohighlight">\(D_L\)</span> computed exactly.</p>
+<p>Note: <strong>matplotlib</strong> has two graphics systems: 1) function-based and 2) object-based. The function below illustrates the object-based system.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check that histogrammed data agree with exact calculation of DL.</span>
+
+<span class="c1"># Check that histogrammed data agrees with exact calculation of DL.</span>
+
+<span class="n">XMIN</span>  <span class="o">=</span> <span class="mi">0</span>
+<span class="n">XMAX</span>  <span class="o">=</span> <span class="mi">20</span>
+<span class="n">XBINS</span> <span class="o">=</span> <span class="mi">200</span>
+
+<span class="k">def</span> <span class="nf">hist_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> 
+              <span class="n">xbins</span><span class="o">=</span><span class="n">XBINS</span><span class="p">,</span> 
+              <span class="n">xmin</span><span class="o">=</span><span class="n">XMIN</span><span class="p">,</span> 
+              <span class="n">xmax</span><span class="o">=</span><span class="n">XMAX</span><span class="p">):</span>
+    
+    <span class="n">xrange</span> <span class="o">=</span> <span class="p">(</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">)</span>
+    
+    <span class="n">select</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">N</span> <span class="o">==</span> <span class="n">N</span>
+
+    <span class="c1"># weighted histogram   (count the number of ones per bin)</span>
+    <span class="c1"># y1 - counts</span>
+    <span class="c1"># bb - bin boundaries (including boundary of rightmost bin)</span>
+    <span class="n">y1</span><span class="p">,</span> <span class="n">bb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">theta</span><span class="p">[</span><span class="n">select</span><span class="p">],</span> 
+                          <span class="n">bins</span><span class="o">=</span><span class="n">xbins</span><span class="p">,</span> 
+                          <span class="nb">range</span><span class="o">=</span><span class="n">xrange</span><span class="p">,</span> 
+                          <span class="n">weights</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">Z1</span><span class="p">[</span><span class="n">select</span><span class="p">])</span> 
+
+    <span class="c1"># unweighted histogram (count number of ones and zeros per bin)</span>
+    <span class="n">yt</span><span class="p">,</span> <span class="n">_</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">theta</span><span class="p">[</span><span class="n">select</span><span class="p">],</span> 
+                          <span class="n">bins</span><span class="o">=</span><span class="n">xbins</span><span class="p">,</span> 
+                          <span class="nb">range</span><span class="o">=</span><span class="n">xrange</span><span class="p">)</span>
+
+    <span class="c1"># approximation of DL(N, x)</span>
+    <span class="n">y</span> <span class="o">=</span>  <span class="n">y1</span> <span class="o">/</span> <span class="n">yt</span>    
+
+    <span class="c1"># exact DL</span>
+
+    <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">bb</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">+</span><span class="n">bb</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">DL</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">bb</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">Nmin</span><span class="p">,</span> <span class="n">Nmax</span><span class="p">,</span>
+              <span class="n">gfile</span><span class="o">=</span><span class="s1">&#39;fig_data.png&#39;</span><span class="p">,</span> 
+              <span class="n">fgsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">)):</span>
+    
+    <span class="c1"># make room for up to 6 sub-plots</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> 
+                           <span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> 
+                           <span class="n">figsize</span><span class="o">=</span><span class="n">fgsize</span><span class="p">)</span>
+    
+    <span class="c1"># padding</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">hspace</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">wspace</span><span class="o">=</span><span class="mf">0.20</span><span class="p">)</span>
+    
+    <span class="c1"># use flatten() to convert a numpy array of </span>
+    <span class="c1"># shape (nrows, ncols) to a 1-d array of</span>
+    <span class="c1"># length nrows * ncols</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+    
+    <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">N</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">Nmin</span><span class="p">,</span> <span class="n">Nmax</span><span class="o">+</span><span class="mi">1</span><span class="p">)):</span>
+        
+        <span class="c1"># compute DL</span>
+        <span class="c1"># y  - DL approximation</span>
+        <span class="c1"># p  - DL exact</span>
+        <span class="c1"># bb - bin boundaries (in theta) </span>
+        <span class="n">y</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">bb</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+        
+        <span class="n">xmin</span> <span class="o">=</span> <span class="n">bb</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">xmax</span> <span class="o">=</span> <span class="n">bb</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">ax</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">)</span>
+        <span class="n">ax</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">ax</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\theta$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">FONTSIZE</span><span class="p">)</span>
+        <span class="n">ax</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$E(Z|\theta)$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">FONTSIZE</span><span class="p">)</span>
+        
+        <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">bb</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">+</span><span class="n">bb</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span> 
+        <span class="n">ax</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;approx&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;exact&#39;</span><span class="p">)</span>
+        
+        <span class="n">ax</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s2">&quot;both&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">10.2</span><span class="p">,</span> <span class="mf">0.42</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$N = </span><span class="si">%d</span><span class="s1">$&#39;</span> <span class="o">%</span> <span class="n">N</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">FONTSIZE</span><span class="p">)</span> 
+
+        <span class="n">ax</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">)</span>
+        
+    <span class="c1"># hide unused sub-plots</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">Nmax</span><span class="o">+</span><span class="mi">1</span><span class="o">-</span><span class="n">Nmin</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ax</span><span class="p">)):</span>
+        <span class="n">ax</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+    
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">gfile</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Nmin</span><span class="p">,</span> <span class="n">Nmax</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span>
+<span class="n">plot_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">hist_data</span><span class="p">,</span> <span class="n">Nmin</span><span class="p">,</span> <span class="n">Nmax</span><span class="p">)</span> 
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/1_Intro_and_One_Parameter_Problem_21_0.png" src="_images/1_Intro_and_One_Parameter_Problem_21_0.png" />
+</div>
+</div>
+</section>
+<section id="train-validation-and-test-sets">
+<h2>Train, validation, and test sets<a class="headerlink" href="#train-validation-and-test-sets" title="Permalink to this headline">#</a></h2>
+<p>There is some confusion in terminology regarding validation and test samples (or sets). We shall adhere to the defintions given here <a class="reference external" href="https://machinelearningmastery.com/difference-test-validation-datasets/">https://machinelearningmastery.com/difference-test-validation-datasets/</a>):</p>
+<ul class="simple">
+<li><p><strong>Training Dataset</strong>: The sample of data used to fit the model.</p></li>
+<li><p><strong>Validation Dataset</strong>: The sample of data used to decide 1) whether the fit is reasonable (e.g., the model has not been overfitted), 2) decide which of several models is the best and 3) tune model hyperparameters.</p></li>
+<li><p><strong>Test Dataset</strong>: The sample of data used to provide an unbiased evaluation of a final model fit on the training dataset.</p></li>
+</ul>
+<p>The validation set will be some small fraction of the training set and will be used to decide when to stop the training.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fraction of the data assigned as test data</span>
+<span class="n">fraction</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">102</span>
+<span class="c1"># Split data into a part for training and a part for testing</span>
+<span class="n">train_data</span><span class="p">,</span> <span class="n">test_data</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> 
+                                         <span class="n">test_size</span><span class="o">=</span><span class="n">fraction</span><span class="p">)</span>
+
+<span class="c1"># Split the training data into a part for training (fitting) and</span>
+<span class="c1"># a part for validating the training.</span>
+<span class="n">fraction</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">101</span>
+<span class="n">train_data</span><span class="p">,</span> <span class="n">valid_data</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> 
+                                          <span class="n">test_size</span><span class="o">=</span><span class="n">fraction</span><span class="p">)</span>
+
+<span class="c1"># reset the indices in the dataframes and drop the old ones</span>
+<span class="n">train_data</span> <span class="o">=</span> <span class="n">train_data</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">valid_data</span> <span class="o">=</span> <span class="n">valid_data</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">test_data</span>  <span class="o">=</span> <span class="n">test_data</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;train set size:        </span><span class="si">%6d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">train_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;validation set size:   </span><span class="si">%6d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">valid_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;test set size:         </span><span class="si">%6d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">test_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="n">train_data</span><span class="p">[:</span><span class="mi">5</span><span class="p">][</span><span class="n">source</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>train set size:        500000
+validation set size:     5000
+test set size:           5000
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>theta</th>
+      <th>N</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>19.058267</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>7.885420</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>18.455130</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>12.604207</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>6.384315</td>
+      <td>3</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Split data into targets <span class="math notranslate nohighlight">\(t\)</span> and inputs <span class="math notranslate nohighlight">\(\mathbf{x}\)</span></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">split_t_x</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">source</span><span class="p">):</span>
+    <span class="c1"># change from pandas dataframe format to a numpy </span>
+    <span class="c1"># array of the specified types</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">target</span><span class="p">])</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">source</span><span class="p">])</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+
+<span class="n">train_t</span><span class="p">,</span> <span class="n">train_x</span> <span class="o">=</span> <span class="n">split_t_x</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">source</span><span class="p">)</span>
+<span class="n">valid_t</span><span class="p">,</span> <span class="n">valid_x</span> <span class="o">=</span> <span class="n">split_t_x</span><span class="p">(</span><span class="n">valid_data</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">source</span><span class="p">)</span>
+<span class="n">test_t</span><span class="p">,</span>  <span class="n">test_x</span>  <span class="o">=</span> <span class="n">split_t_x</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span>  <span class="n">target</span><span class="p">,</span> <span class="n">source</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="return-a-random-batch-of-data-from-the-training-set">
+<h2>Return a (random) batch of data from the training set<a class="headerlink" href="#return-a-random-batch-of-data-from-the-training-set" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_batch</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">):</span>
+    <span class="c1"># the numpy function choice(length, number)</span>
+    <span class="c1"># selects at random &quot;batch_size&quot; integers from </span>
+    <span class="c1"># the range [0, length-1] corresponding to the</span>
+    <span class="c1"># row indices.</span>
+    <span class="n">rows</span>    <span class="o">=</span> <span class="n">rnd</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">batch_size</span><span class="p">)</span>
+    <span class="n">batch_x</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">rows</span><span class="p">]</span>
+    <span class="n">batch_t</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="n">rows</span><span class="p">]</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">batch_x</span><span class="p">,</span> <span class="n">batch_t</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="empirical-risk-that-is-average-loss">
+<h2>Empirical risk (that is, average loss)<a class="headerlink" href="#empirical-risk-that-is-average-loss" title="Permalink to this headline">#</a></h2>
+<p>The empirical risk, which is the <strong>objective function</strong> we shall minimize, is defined as</p>
+<div class="amsmath math notranslate nohighlight" id="equation-6d33066d-ad04-413c-bbe1-7df3153955ea">
+<span class="eqno">(6)<a class="headerlink" href="#equation-6d33066d-ad04-413c-bbe1-7df3153955ea" title="Permalink to this equation">#</a></span>\[\begin{align}
+R_M(\theta) &amp; = \frac{1}{M}\sum_{m=1}^M L(t_m, f_m),
+\end{align}\]</div>
+<p>where</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+    f_m &amp; \equiv f(\mathbf{x}_m, \theta),\\ \\ \textrm{and} \\
+    L(t, f) &amp;= (t - f)^2
+\end{align*}\]</div>
+<p>The empirical risk <span class="math notranslate nohighlight">\(R_M\)</span> approximates the <strong>risk</strong></p>
+<div class="amsmath math notranslate nohighlight" id="equation-19a50235-43ca-44b5-a463-f66d3766a81a">
+<span class="eqno">(7)<a class="headerlink" href="#equation-19a50235-43ca-44b5-a463-f66d3766a81a" title="Permalink to this equation">#</a></span>\[\begin{align}
+R[f] &amp; = \int \cdots \int \, p(t, \mathbf{x}) \, L(t, f(\mathbf{x}, \theta)) \, dt \, d\mathbf{x},
+\end{align}\]</div>
+<p>which is a <strong>functional</strong> of the model <span class="math notranslate nohighlight">\(f\)</span>. The quantity <span class="math notranslate nohighlight">\(p(t, \mathbf{x}) \, dt\, d\mathbf{x}\)</span> is the probability distribution from which the sample <span class="math notranslate nohighlight">\(\{ (t_m, \mathbf{x}_m), m = 1,\cdots, M \}\)</span> is presumed to have been drawn.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Note: there are several average loss functions available </span>
+<span class="c1"># in pytorch, but it&#39;s useful to know how to create your own.</span>
+<span class="k">def</span> <span class="nf">average_loss</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+    <span class="c1"># f and t must be of the same shape</span>
+    <span class="k">return</span>  <span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">f</span> <span class="o">-</span> <span class="n">t</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>This function is used to validate the model while the it is being fitted.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">avloss</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">targets</span><span class="p">):</span>
+    <span class="c1"># make sure we set evaluation mode so that any training specific</span>
+    <span class="c1"># operations are disabled.</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span> <span class="c1"># evaluation mode</span>
+    
+    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span> <span class="c1"># no need to compute gradients wrt. x and t</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">targets</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+        <span class="c1"># remember to reshape!</span>
+        <span class="n">o</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">avloss</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="function-to-execute-training-loop">
+<h2>Function to execute training loop<a class="headerlink" href="#function-to-execute-training-loop" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">avloss</span><span class="p">,</span> <span class="n">getbatch</span><span class="p">,</span>
+          <span class="n">train_x</span><span class="p">,</span> <span class="n">train_t</span><span class="p">,</span> 
+          <span class="n">valid_x</span><span class="p">,</span> <span class="n">valid_t</span><span class="p">,</span>
+          <span class="n">batch_size</span><span class="p">,</span> 
+          <span class="n">n_iterations</span><span class="p">,</span> <span class="n">traces</span><span class="p">,</span> 
+          <span class="n">step</span><span class="o">=</span><span class="mi">50</span><span class="p">):</span>
+    
+    <span class="c1"># to keep track of average losses</span>
+    <span class="n">xx</span><span class="p">,</span> <span class="n">yy_t</span><span class="p">,</span> <span class="n">yy_v</span> <span class="o">=</span> <span class="n">traces</span>
+    
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">valid_x</span><span class="p">)</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Iteration vs average loss&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%10s</span><span class="se">\t</span><span class="si">%10s</span><span class="se">\t</span><span class="si">%10s</span><span class="s2">&quot;</span> <span class="o">%</span> \
+          <span class="p">(</span><span class="s1">&#39;iteration&#39;</span><span class="p">,</span> <span class="s1">&#39;train-set&#39;</span><span class="p">,</span> <span class="s1">&#39;valid-set&#39;</span><span class="p">))</span>
+    
+    <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_iterations</span><span class="p">):</span>
+
+        <span class="c1"># set mode to training so that training specific </span>
+        <span class="c1"># operations such as dropout are enabled.</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+        
+        <span class="c1"># get a random sample (a batch) of data (as numpy arrays)</span>
+        <span class="n">batch_x</span><span class="p">,</span> <span class="n">batch_t</span> <span class="o">=</span> <span class="n">getbatch</span><span class="p">(</span><span class="n">train_x</span><span class="p">,</span> <span class="n">train_t</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">)</span>
+        
+        <span class="c1"># convert the numpy arrays batch_x and batch_t to tensor </span>
+        <span class="c1"># types. The PyTorch tensor type is the magic that permits </span>
+        <span class="c1"># automatic differentiation with respect to parameters. </span>
+        <span class="c1"># However, since we do not need to take the derivatives</span>
+        <span class="c1"># with respect to x and t, we disable this feature</span>
+        <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span> <span class="c1"># no need to compute gradients </span>
+            <span class="c1"># wrt. x and t</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">batch_x</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">batch_t</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>      
+
+        <span class="c1"># compute the output of the model for the batch of data x</span>
+        <span class="c1"># Note: outputs is </span>
+        <span class="c1">#   of shape (-1, 1), but the tensor targets, t, is</span>
+        <span class="c1">#   of shape (-1,)</span>
+        <span class="c1"># In order for the tensor operations with outputs and t</span>
+        <span class="c1"># to work correctly, it is necessary that they have the</span>
+        <span class="c1"># same shape. We can do this with the reshape method.</span>
+        <span class="n">outputs</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+   
+        <span class="c1"># compute a noisy approximation to the average loss</span>
+        <span class="n">empirical_risk</span> <span class="o">=</span> <span class="n">avloss</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+        
+        <span class="c1"># use automatic differentiation to compute a </span>
+        <span class="c1"># noisy approximation of the local gradient</span>
+        <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>       <span class="c1"># clear previous gradients</span>
+        <span class="n">empirical_risk</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>   <span class="c1"># compute gradients</span>
+        
+        <span class="c1"># finally, advance one step in the direction of steepest </span>
+        <span class="c1"># descent, using the noisy local gradient. </span>
+        <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>            <span class="c1"># move one step</span>
+        
+        <span class="k">if</span> <span class="n">ii</span> <span class="o">%</span> <span class="n">step</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            
+            <span class="n">acc_t</span> <span class="o">=</span> <span class="n">validate</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">avloss</span><span class="p">,</span> <span class="n">train_x</span><span class="p">[:</span><span class="n">n</span><span class="p">],</span> <span class="n">train_t</span><span class="p">[:</span><span class="n">n</span><span class="p">])</span> 
+            <span class="n">acc_v</span> <span class="o">=</span> <span class="n">validate</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">avloss</span><span class="p">,</span> <span class="n">valid_x</span><span class="p">[:</span><span class="n">n</span><span class="p">],</span> <span class="n">valid_t</span><span class="p">[:</span><span class="n">n</span><span class="p">])</span>
+
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">xx</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">xx</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%10d</span><span class="se">\t</span><span class="si">%10.6f</span><span class="se">\t</span><span class="si">%10.6f</span><span class="s2">&quot;</span> <span class="o">%</span> \
+                      <span class="p">(</span><span class="n">xx</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">acc_t</span><span class="p">,</span> <span class="n">acc_v</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">xx</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xx</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">step</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\r</span><span class="si">%10d</span><span class="se">\t</span><span class="si">%10.6f</span><span class="se">\t</span><span class="si">%10.6f</span><span class="s2">&quot;</span> <span class="o">%</span> \
+                      <span class="p">(</span><span class="n">xx</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">acc_t</span><span class="p">,</span> <span class="n">acc_v</span><span class="p">),</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+                
+            <span class="n">yy_t</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">acc_t</span><span class="p">)</span>
+            <span class="n">yy_v</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">acc_v</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">()</span>      
+    <span class="k">return</span> <span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy_t</span><span class="p">,</span> <span class="n">yy_v</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_average_loss</span><span class="p">(</span><span class="n">traces</span><span class="p">):</span>
+    
+    <span class="n">xx</span><span class="p">,</span> <span class="n">yy_t</span><span class="p">,</span> <span class="n">yy_v</span> <span class="o">=</span> <span class="n">traces</span>
+    
+    <span class="c1"># create an empty figure</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    
+    <span class="c1"># add a subplot to it</span>
+    <span class="n">nrows</span><span class="p">,</span> <span class="n">ncols</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span>
+    <span class="n">ax</span>  <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">nrows</span><span class="p">,</span><span class="n">ncols</span><span class="p">,</span><span class="n">index</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Average loss&quot;</span><span class="p">)</span>
+    
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy_t</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Training&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy_v</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Validation&#39;</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Iterations&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">FONTSIZE</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;average loss&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">FONTSIZE</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s2">&quot;both&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="define-model-f-mathbf-x-theta">
+<h2>Define model <span class="math notranslate nohighlight">\(f(\mathbf{x}, \theta)\)</span><a class="headerlink" href="#define-model-f-mathbf-x-theta" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%writefile</span> dnnmodel.py
+
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+
+<span class="k">class</span> <span class="nc">Model</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_inputs</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">n_nodes</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">n_layers</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+
+        <span class="c1"># call constructor of base (or super, or parent) class</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Model</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">layers</span> <span class="o">=</span> <span class="p">[]</span>
+        
+        <span class="c1"># create input layer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layer0</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">n_inputs</span><span class="p">,</span> <span class="n">n_nodes</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layer0</span><span class="p">)</span>
+
+        <span class="c1"># create &quot;hidden&quot; layers</span>
+        <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_layers</span><span class="p">):</span>
+            <span class="n">cmd</span> <span class="o">=</span> <span class="s1">&#39;self.layer</span><span class="si">%d</span><span class="s1"> = nn.Linear(</span><span class="si">%d</span><span class="s1">, </span><span class="si">%d</span><span class="s1">)&#39;</span> <span class="o">%</span> \
+            <span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">n_nodes</span><span class="p">,</span> <span class="n">n_nodes</span><span class="p">)</span>
+            <span class="n">exec</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+            <span class="n">cmd</span> <span class="o">=</span> <span class="s1">&#39;self.layers.append(self.layer</span><span class="si">%d</span><span class="s1">)&#39;</span> <span class="o">%</span> <span class="n">l</span>
+            <span class="n">exec</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+          
+        <span class="c1"># create output layer</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="s1">&#39;self.layer</span><span class="si">%d</span><span class="s1"> = nn.Linear(</span><span class="si">%d</span><span class="s1">, 1)&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">n_layers</span><span class="p">,</span> <span class="n">n_nodes</span><span class="p">)</span>
+        <span class="n">exec</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="s1">&#39;self.layers.append(self.layer</span><span class="si">%d</span><span class="s1">)&#39;</span> <span class="o">%</span> <span class="n">n_layers</span>
+        <span class="n">exec</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+
+    <span class="c1"># define (required) method to compute output of network</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">layer</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">](</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">y</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Overwriting dnnmodel.py
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">dnnmodel</span>
+<span class="n">importlib</span><span class="o">.</span><span class="n">reload</span><span class="p">(</span><span class="n">dnnmodel</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">dnnmodel</span><span class="o">.</span><span class="n">Model</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model(
+  (layer0): Linear(in_features=2, out_features=20, bias=True)
+  (layer1): Linear(in_features=20, out_features=20, bias=True)
+  (layer2): Linear(in_features=20, out_features=20, bias=True)
+  (layer3): Linear(in_features=20, out_features=20, bias=True)
+  (layer4): Linear(in_features=20, out_features=20, bias=True)
+  (layer5): Linear(in_features=20, out_features=1, bias=True)
+)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="train">
+<h2>Train!<a class="headerlink" href="#train" title="Permalink to this headline">#</a></h2>
+<p>Instantiate an optimizer, then train</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">learning_rate</span> <span class="o">=</span> <span class="mf">1.e-3</span>
+<span class="n">optimizer</span>     <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> 
+                                 <span class="n">lr</span><span class="o">=</span><span class="n">learning_rate</span><span class="p">)</span> 
+
+<span class="n">traces</span> <span class="o">=</span> <span class="p">([],</span> <span class="p">[],</span> <span class="p">[])</span>
+<span class="n">traces_step</span> <span class="o">=</span> <span class="mi">10</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_batch</span>       <span class="o">=</span> <span class="mi">50</span>
+<span class="n">n_iterations</span>  <span class="o">=</span> <span class="mi">20000</span>
+
+<span class="n">traces</span> <span class="o">=</span> <span class="n">train</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">average_loss</span><span class="p">,</span>
+               <span class="n">get_batch</span><span class="p">,</span>
+               <span class="n">train_x</span><span class="p">,</span> <span class="n">train_t</span><span class="p">,</span> 
+               <span class="n">valid_x</span><span class="p">,</span> <span class="n">valid_t</span><span class="p">,</span>
+               <span class="n">n_batch</span><span class="p">,</span> 
+               <span class="n">n_iterations</span><span class="p">,</span>
+               <span class="n">traces</span><span class="p">,</span>
+               <span class="n">step</span><span class="o">=</span><span class="n">traces_step</span><span class="p">)</span>
+
+<span class="n">n_batch</span>       <span class="o">=</span> <span class="mi">500</span>
+<span class="n">n_iterations</span>  <span class="o">=</span> <span class="mi">10000</span>
+
+<span class="n">traces</span> <span class="o">=</span> <span class="n">train</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">average_loss</span><span class="p">,</span>
+               <span class="n">get_batch</span><span class="p">,</span>
+               <span class="n">train_x</span><span class="p">,</span> <span class="n">train_t</span><span class="p">,</span> 
+               <span class="n">valid_x</span><span class="p">,</span> <span class="n">valid_t</span><span class="p">,</span>
+               <span class="n">n_batch</span><span class="p">,</span> 
+               <span class="n">n_iterations</span><span class="p">,</span>
+               <span class="n">traces</span><span class="p">,</span>
+               <span class="n">step</span><span class="o">=</span><span class="n">traces_step</span><span class="p">)</span>
+
+<span class="n">plot_average_loss</span><span class="p">(</span><span class="n">traces</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iteration vs average loss
+ iteration	 train-set	 valid-set
+         0	  0.264638	  0.263988
+     19990	  0.061724	  0.061372
+Iteration vs average loss
+ iteration	 train-set	 valid-set
+     29990	  0.061578	  0.061278
+</pre></div>
+</div>
+<img alt="_images/1_Intro_and_One_Parameter_Problem_41_1.png" src="_images/1_Intro_and_One_Parameter_Problem_41_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">usemodel</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span>               
+             <span class="n">xbins</span><span class="o">=</span><span class="n">XBINS</span><span class="p">,</span> 
+             <span class="n">xmin</span><span class="o">=</span><span class="n">XMIN</span><span class="p">,</span> 
+             <span class="n">xmax</span><span class="o">=</span><span class="n">XMAX</span><span class="p">):</span>
+    
+    <span class="c1"># bin boundaries</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="p">(</span><span class="n">xmax</span><span class="o">-</span><span class="n">xmin</span><span class="p">)</span><span class="o">/</span><span class="n">xbins</span>
+    <span class="n">bb</span><span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">+</span> <span class="n">h</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span>
+    
+    <span class="c1"># bin centers</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">bb</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">+</span><span class="n">bb</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([[</span><span class="n">q</span><span class="p">,</span> <span class="n">N</span><span class="p">]</span> <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">x</span><span class="p">])</span>
+    
+    <span class="c1"># compute using trained, that is, fitted, model</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">d</span><span class="p">)</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">DL</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">y</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">bb</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">usemodel</span><span class="p">,</span> <span class="n">Nmin</span><span class="p">,</span> <span class="n">Nmax</span><span class="p">,</span> <span class="n">gfile</span><span class="o">=</span><span class="s1">&#39;fig_model_vs_DL.png&#39;</span><span class="p">)</span> 
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/1_Intro_and_One_Parameter_Problem_43_0.png" src="_images/1_Intro_and_One_Parameter_Problem_43_0.png" />
+</div>
+</div>
+</section>
+<section id="computing-90-upper-limits-exactly-and-compare-to-lfi-method">
+<h2>Computing 90% upper limits exactly, and compare to LFI method<a class="headerlink" href="#computing-90-upper-limits-exactly-and-compare-to-lfi-method" title="Permalink to this headline">#</a></h2>
+<p>Let’s now compute some upper limits using our trained model and compare with the exact calculation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">CL</span> <span class="o">=</span> <span class="mf">0.90</span>
+<span class="n">ALPHA</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">CL</span>
+
+<span class="k">def</span> <span class="nf">computeUpperLimit</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
+    <span class="n">dn</span>   <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>         
+    <span class="n">amin</span> <span class="o">=</span> <span class="n">n</span> 
+    <span class="n">amax</span> <span class="o">=</span> <span class="n">n</span> <span class="o">+</span> <span class="n">dn</span> <span class="o">+</span> <span class="mi">5</span>
+    <span class="n">u</span>    <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">brentq</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">amin</span><span class="p">,</span> <span class="n">amax</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">n</span><span class="p">))</span> 
+    <span class="k">return</span> <span class="n">u</span>
+
+<span class="k">def</span> <span class="nf">func1</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">DL</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">u</span><span class="p">)</span> <span class="o">-</span> <span class="n">ALPHA</span>
+
+<span class="k">def</span> <span class="nf">func2</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([[</span><span class="n">u</span><span class="p">,</span> <span class="n">n</span><span class="p">]])</span>
+    <span class="k">return</span> <span class="n">model</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span> <span class="o">-</span> <span class="n">ALPHA</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%10s</span><span class="se">\t</span><span class="si">%10s</span><span class="se">\t</span><span class="si">%10s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="s1">&#39;exact&#39;</span><span class="p">,</span> <span class="s1">&#39;approx&#39;</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="n">u1</span> <span class="o">=</span> <span class="n">computeUpperLimit</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">func1</span><span class="p">)</span>
+    <span class="n">u2</span> <span class="o">=</span> <span class="n">computeUpperLimit</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">func2</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%10d</span><span class="se">\t</span><span class="si">%10.1f</span><span class="se">\t</span><span class="si">%10.1f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">u1</span><span class="p">,</span> <span class="n">u2</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     count	     exact	    approx
+         0	       2.3	       2.5
+         1	       3.9	       4.0
+         2	       5.3	       5.4
+         3	       6.7	       6.8
+         4	       8.0	       8.2
+         5	       9.3	       9.4
+         6	      10.5	      10.5
+         7	      11.8	      11.6
+         8	      13.0	      12.8
+         9	      14.2	      13.9
+        10	      15.4	      15.0
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="plot-upper-lower-and-central-intervals-for-one-parameter-problem-given-a-cl-n-and-the-cdf-and-compare-to-model-output-under-construction-might-be-overkill-especially-since-we-re-interested-in-the-2-parameter-problem">
+<h1>plot upper, lower and central intervals for one-parameter problem given a CL, <span class="math notranslate nohighlight">\(N\)</span>, and the CDF, and compare to model output (under construction, might be overkill, especially since we’re interested in the 2-parameter problem)<a class="headerlink" href="#plot-upper-lower-and-central-intervals-for-one-parameter-problem-given-a-cl-n-and-the-cdf-and-compare-to-model-output-under-construction-might-be-overkill-especially-since-we-re-interested-in-the-2-parameter-problem" title="Permalink to this headline">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_lower_upper_bounds</span><span class="p">(</span><span class="n">Nrnage</span><span class="p">,</span> <span class="n">thetarange</span><span class="p">,</span> <span class="n">cdf</span><span class="p">,</span> <span class="n">CL_list</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;plot the confidence intervals for one-parameter problem given CDF &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">CL</span> <span class="ow">in</span> <span class="n">CL_list</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="intro.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Welcome to the <em>Likelihood-Free Inference for Particle Physics</em> Jupyter book</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="2_Two_Parameter_Problem_and_Pivotal_p_Value.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">2 - Two-Parameter Problem and Pivotal Likelihood-Free p-Values</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Ali Al Kadhim and Harrison Prosper<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

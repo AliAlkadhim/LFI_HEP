@@ -1,0 +1,1793 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>step 1: Get trainig Data &#8212; Pivotal Likelihood-Free Inference for Particle Physics</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="More Discussions" href="6_More_Ideas.html" />
+    <link rel="prev" title="5. Imposing Pivotal Conditions on \(\lambda\)" href="5_Imposing_Pivotal_Conditions_on_Lambda.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Pivotal Likelihood-Free Inference for Particle Physics</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome to the Likelihood-Free Inference for Particle Physics Jupyter book
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="1_Intro_and_One_Parameter_Problem.html">
+   1 - Pivotal LFI for Count Data in Particle Physics: Background and one-parameter Problem
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2_Two_Parameter_Problem_and_Pivotal_p_Value.html">
+   2 - Two-Parameter Problem and Pivotal Likelihood-Free p-Values
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="3_Replacing_Data_with_Lambda_and_2D_Inference.html">
+   3 -  2-Dimensional Inference in
+   <span class="math notranslate nohighlight">
+    \(\theta - \nu\)
+   </span>
+   Space and Replacing Observed Data with Test Statistics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="4_Mapping_Confidence_Sets_to_Confidence_Intervals.html">
+   4 - Inference on POI in presence of a nuissance parameter: Pivots, and Mapping Confidence Sets to Confidence Intervals
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="5_Imposing_Pivotal_Conditions_on_Lambda.html">
+   5. Imposing Pivotal Conditions on
+   <span class="math notranslate nohighlight">
+    \(\lambda\)
+   </span>
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   step 1: Get trainig Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="6_More_Ideas.html">
+   More Discussions
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/AliAlkadhim/LFI_HEP/master?urlpath=tree/JupyterBook/7_Taking_Derivative.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="_sources/7_Taking_Derivative.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   step 1: Get trainig Data
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#step-2-define-model-parameters">
+   Step 2: define model parameters
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#step-3-load-untrained-model">
+   step 3: load untrained model
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#step-4-train-untrained-model">
+   Step 4: train untrained model
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#step-4-save-trained-model">
+   Step 4: Save trained model
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#step-5-load-trained-model">
+   Step 5: Load Trained model
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>step 1: Get trainig Data</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   step 1: Get trainig Data
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#step-2-define-model-parameters">
+   Step 2: define model parameters
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#step-3-load-untrained-model">
+   step 3: load untrained model
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#step-4-train-untrained-model">
+   Step 4: train untrained model
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#step-4-save-trained-model">
+   Step 4: Save trained model
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#step-5-load-trained-model">
+   Step 5: Load Trained model
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <p>The purpose of this notebook is to perform what was done earlier but then take the derivative of <span class="math notranslate nohighlight">\(\lambda\)</span> wrt the inputs to get the PDF of <span class="math notranslate nohighlight">\(\lambda\)</span>. This should resemble the <span class="math notranslate nohighlight">\(\chi^2\)</span> distribution.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span><span class="p">;</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span><span class="p">;</span> <span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">st</span>
+<span class="kn">import</span> <span class="nn">torch</span><span class="p">;</span> <span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="c1">#use numba&#39;s just-in-time compiler to speed things up</span>
+<span class="kn">from</span> <span class="nn">numba</span> <span class="kn">import</span> <span class="n">njit</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span><span class="p">;</span> <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mp</span><span class="p">;</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span><span class="p">;</span> 
+<span class="c1">#reset matplotlib stle/parameters</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">mpl</span><span class="o">.</span><span class="n">rcParamsDefault</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn-deep&#39;</span><span class="p">)</span>
+<span class="n">mp</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;agg.path.chunksize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10000</span>
+<span class="n">font_legend</span> <span class="o">=</span> <span class="mi">15</span><span class="p">;</span> <span class="n">font_axes</span><span class="o">=</span><span class="mi">15</span>
+<span class="c1"># %matplotlib inline</span>
+<span class="kn">from</span> <span class="nn">joblib</span> <span class="kn">import</span>  <span class="n">Memory</span>
+
+<span class="kn">import</span> <span class="nn">copy</span><span class="p">;</span> <span class="kn">import</span> <span class="nn">sys</span><span class="p">;</span> <span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">display</span>
+<span class="kn">from</span> <span class="nn">importlib</span> <span class="kn">import</span> <span class="n">import_module</span>
+<span class="kn">from</span> <span class="nn">model</span> <span class="kn">import</span> <span class="n">RegularizedRegressionModel</span>
+
+
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">optuna</span>
+<span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;optuna is only used for hyperparameter tuning, not critical!&#39;</span><span class="p">)</span>
+    <span class="k">pass</span>
+<span class="c1"># import sympy as sy</span>
+<span class="c1">#sometimes jupyter doesnt initialize MathJax automatically for latex, so do this</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">LFI_PIVOT_BASE</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;LFI_PIVOT_BASE&#39;</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;BASE directoy properly set = &#39;</span><span class="p">,</span> <span class="n">LFI_PIVOT_BASE</span><span class="p">)</span>
+    <span class="n">utils_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">LFI_PIVOT_BASE</span><span class="p">,</span> <span class="s1">&#39;utils&#39;</span><span class="p">)</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">utils_dir</span><span class="p">)</span>
+    <span class="kn">import</span> <span class="nn">utils</span>
+    <span class="c1">#usually its not recommended to import everything from a module, but we know</span>
+    <span class="c1">#whats in it so its fine</span>
+    <span class="c1"># from utils import *                                                                                               </span>
+<span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;BASE directory not properly set. Read repo README.</span><span class="se">\</span>
+<span class="s2">    If you need a function from utils, use the decorator below, or add utils to sys.path&quot;&quot;&quot;</span><span class="p">)</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>BASE directoy properly set =  /home/ali/Desktop/Pulled_Github_Repositories/LFI_HEP
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">FONTSIZE</span><span class="o">=</span><span class="mi">18</span>
+<span class="n">font</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;family&#39;</span><span class="p">:</span> <span class="s1">&#39;serif&#39;</span><span class="p">,</span> <span class="s1">&#39;weight&#39;</span><span class="p">:</span><span class="s1">&#39;normal&#39;</span><span class="p">,</span> <span class="s1">&#39;size&#39;</span><span class="p">:</span><span class="n">FONTSIZE</span><span class="p">}</span>
+<span class="n">mp</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;font&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">font</span><span class="p">)</span>
+<span class="n">mp</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;text&#39;</span><span class="p">,</span><span class="n">usetex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">DATA_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">LFI_PIVOT_BASE</span><span class="p">,</span><span class="s1">&#39;data&#39;</span><span class="p">)</span>
+<span class="n">memory</span> <span class="o">=</span> <span class="n">Memory</span><span class="p">(</span><span class="n">DATA_DIR</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">debug</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Print the function signature and return value&quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">functools</span>
+
+    <span class="nd">@functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">wrapper_debug</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">args_repr</span> <span class="o">=</span> <span class="p">[</span><span class="nb">repr</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">args</span><span class="p">]</span>
+        <span class="n">kwargs_repr</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">=</span><span class="si">{</span><span class="n">v</span><span class="si">!r}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span>
+        <span class="n">signature</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">args_repr</span> <span class="o">+</span> <span class="n">kwargs_repr</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Calling </span><span class="si">{</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">(</span><span class="si">{</span><span class="n">signature</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="si">!r}</span><span class="s2"> returned </span><span class="si">{</span><span class="n">values</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">values</span>
+
+    <span class="k">return</span> <span class="n">wrapper_debug</span>
+
+<span class="k">def</span> <span class="nf">theta_hat_func</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">,</span> <span class="n">MLE</span><span class="p">):</span>
+       <span class="c1">#n,m are integer arrays</span>
+    <span class="k">if</span> <span class="n">MLE</span><span class="o">==</span><span class="kc">True</span><span class="p">:</span>
+        <span class="n">theta_hat</span> <span class="o">=</span> <span class="n">n</span><span class="o">-</span><span class="n">m</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># non-MLE</span>
+        <span class="c1"># theta_hat = n-m</span>
+        <span class="c1"># theta_hat = (theta_hat) * (theta_hat &gt; 0)</span>
+        <span class="n">theta_hat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">n</span><span class="o">&gt;</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="o">-</span><span class="n">m</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+         
+    <span class="k">return</span> <span class="n">theta_hat</span>
+
+<span class="k">def</span> <span class="nf">L_prof_global</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">,</span> <span class="n">MLE</span><span class="p">):</span>
+    <span class="c1">#n,m integer arrays</span>
+    <span class="c1"># nu_hat = m, if theta_hat = theta_hat_MLE</span>
+    <span class="c1"># nu_hat  =  (m+n)/2 if theta_hat = n-m</span>
+    <span class="c1"># nu_hat = 0  if theta_hat != n-m</span>
+    <span class="n">theta_hat</span><span class="o">=</span><span class="n">theta_hat_func</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">,</span><span class="n">MLE</span><span class="p">)</span>
+    <span class="c1"># print(&#39;n-m &#39;,  n-m)</span>
+    <span class="k">if</span> <span class="n">MLE</span><span class="o">==</span><span class="kc">True</span><span class="p">:</span>
+        <span class="c1"># i.e. if theta_hat = n-m</span>
+        <span class="c1"># assert theta_hat==n-m</span>
+        <span class="n">nu_hat</span> <span class="o">=</span> <span class="n">m</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">nu_hat</span> <span class="o">=</span><span class="p">(</span><span class="n">m</span><span class="o">+</span><span class="n">n</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+        <span class="c1"># if theta_hat== n-m:</span>
+        <span class="c1">#     nu_hat = (m+n)/2</span>
+        <span class="c1"># else:</span>
+        <span class="c1">#     nu_hat = 0</span>
+        <span class="c1"># nu_hat = np.where(theta_hat==n-m,</span>
+        <span class="c1">#                   (m+n)/2, </span>
+        <span class="c1">#                   0)</span>
+            
+        
+    <span class="n">p1</span><span class="o">=</span><span class="n">st</span><span class="o">.</span><span class="n">poisson</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">theta_hat</span><span class="o">+</span><span class="n">nu_hat</span><span class="p">)</span>
+    <span class="n">p2</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">poisson</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">nu_hat</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">p1</span><span class="o">*</span><span class="n">p2</span>
+
+<span class="k">def</span> <span class="nf">L_theta_nu</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">,</span><span class="n">theta</span><span class="p">,</span><span class="n">nu</span><span class="p">):</span>
+    <span class="n">p1</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">poisson</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">theta</span><span class="o">+</span><span class="n">nu</span><span class="p">)</span>
+    <span class="n">p2</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">poisson</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">nu</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">p1</span><span class="o">*</span><span class="n">p2</span>
+<span class="k">def</span> <span class="nf">lambda_test_2d</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">nu</span><span class="p">,</span> <span class="n">MLE</span><span class="p">):</span>
+    <span class="n">Ln</span><span class="o">=</span> <span class="n">L_theta_nu</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">,</span><span class="n">theta</span><span class="p">,</span><span class="n">nu</span><span class="p">)</span>
+    
+    <span class="n">Ld</span><span class="o">=</span> <span class="n">L_prof_global</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">,</span> <span class="n">MLE</span><span class="p">)</span>
+    <span class="n">eps</span><span class="o">=</span><span class="mf">1e-20</span>
+    <span class="n">Ld</span><span class="o">=</span><span class="n">Ld</span><span class="o">+</span><span class="n">eps</span>
+    <span class="n">lambda_</span>  <span class="o">=</span> <span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">Ln</span><span class="o">/</span><span class="n">Ld</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">lambda_</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@memory</span><span class="o">.</span><span class="n">cache</span>
+<span class="k">def</span> <span class="nf">load_2d_train_df</span><span class="p">(</span><span class="n">MLE</span><span class="p">,</span> <span class="n">with_lambda_D</span><span class="p">,</span> <span class="n">small_df</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span> 
+    <span class="sd">&quot;&quot;&quot; returns the dataframe, can be used if the dataframe is saved in csv format</span>
+<span class="sd">    of if it is already in dataframe format (e.g. generated in this notebook). </span>
+<span class="sd">    small_df: return a dataframe a fraction of the size&quot;&quot;&quot;</span>
+    <span class="c1"># SUBSAMPLE=int(1e5)</span>
+    <span class="c1"># if isinstance(df_name,str):</span>
+    <span class="k">if</span> <span class="n">with_lambda_D</span><span class="o">==</span><span class="kc">True</span><span class="p">:</span>
+        <span class="c1"># USECOLS=[&#39;Z&#39;,&#39;theta&#39;, &#39;nu&#39;, &#39;lambda_D&#39;]</span>
+        <span class="n">USECOLS</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Z&#39;</span><span class="p">,</span><span class="s1">&#39;theta&#39;</span><span class="p">,</span> <span class="s1">&#39;nu&#39;</span><span class="p">,</span> <span class="s1">&#39;lambda_D&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">MLE</span><span class="o">==</span><span class="kc">True</span><span class="p">:</span>
+            <span class="n">DF_NAME</span><span class="o">=</span> <span class="s1">&#39;TWO_PARAMETERS_WITH_LAMBDA_D_theta_0_20_1000k_Examples_MLE_True.csv&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">DF_NAME</span><span class="o">=</span><span class="s1">&#39;TWO_PARAMETERS_WITH_LAMBDA_D_theta_0_20_30000k_Examples_MLE_False.csv&#39;</span>
+            
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">USECOLS</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;theta&#39;</span><span class="p">,</span> <span class="s1">&#39;nu&#39;</span><span class="p">,</span> <span class="s1">&#39;N&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">]</span>
+        <span class="n">DF_NAME</span><span class="o">=</span><span class="s1">&#39;TWO_PARAMETERS_WITH_LAMBDA_D_theta_0_20_30000k_Examples_MLE_False.csv&#39;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;are you sure you want to use NM dataframe?&#39;</span><span class="p">)</span>
+    <span class="n">data_path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">LFI_PIVOT_BASE</span><span class="p">,</span> 
+                    <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="n">DF_NAME</span><span class="p">)</span>
+        
+    <span class="n">train_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> 
+                    <span class="c1"># nrows=SUBSAMPLE,</span>
+                    <span class="n">usecols</span><span class="o">=</span><span class="n">USECOLS</span>
+                <span class="p">)</span>
+    <span class="k">if</span> <span class="n">small_df</span><span class="o">==</span><span class="kc">True</span><span class="p">:</span>
+        <span class="n">sdf</span><span class="o">=</span><span class="n">train_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="n">train_df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">//</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">train_df</span><span class="o">=</span><span class="n">sdf</span>
+                              
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;loading dataframe with name </span><span class="si">{</span><span class="n">DF_NAME</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">train_df</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">train_df</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">eval_df</span> <span class="o">=</span> <span class="n">load_2d_train_df</span><span class="p">(</span><span class="n">MLE</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">with_lambda_D</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">eval_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>________________________________________________________________________________
+[Memory] Calling __main__--home-ali-Desktop-Pulled_Github_Repositories-LFI_HEP-JupyterBook-&lt;ipython-input-28f4bb6f5704&gt;.load_2d_train_df...
+load_2d_train_df(MLE=False, with_lambda_D=True)
+loading dataframe with name TWO_PARAMETERS_WITH_LAMBDA_D_theta_0_20_30000k_Examples_MLE_False.csv
+                  Z         theta            nu      lambda_D
+count  3.000000e+07  3.000000e+07  3.000000e+07  3.000000e+07
+mean   9.697393e-01  9.998467e+00  9.999992e+00  2.494399e+01
+std    1.713038e-01  5.774325e+00  5.773406e+00  1.753169e+01
+min    0.000000e+00  2.072384e-07  1.013783e-06 -6.161996e+00
+25%    1.000000e+00  4.997241e+00  4.999615e+00  1.109136e+01
+50%    1.000000e+00  9.999364e+00  1.000065e+01  2.232372e+01
+75%    1.000000e+00  1.499914e+01  1.500015e+01  3.592101e+01
+max    1.000000e+00  2.000000e+01  2.000000e+01  2.693300e+02
+________________________________________________load_2d_train_df - 51.3s, 0.9min
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Z</th>
+      <th>theta</th>
+      <th>nu</th>
+      <th>lambda_D</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>10.976270</td>
+      <td>5.658606</td>
+      <td>5.009855</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>14.303787</td>
+      <td>19.321684</td>
+      <td>77.533441</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1</td>
+      <td>12.055268</td>
+      <td>18.586260</td>
+      <td>65.413488</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1</td>
+      <td>10.897664</td>
+      <td>6.853835</td>
+      <td>9.423238</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1</td>
+      <td>8.473096</td>
+      <td>16.709449</td>
+      <td>29.487904</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">split_t_x</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">source</span><span class="p">):</span>
+    <span class="c1"># change from pandas dataframe format to a numpy </span>
+    <span class="c1"># array of the specified types</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">target</span><span class="p">])</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">source</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">t</span><span class="p">,</span> <span class="n">x</span>
+
+<span class="nd">@memory</span><span class="o">.</span><span class="n">cache</span>
+<span class="k">def</span> <span class="nf">getwholedata_2d</span><span class="p">(</span><span class="n">MLE</span><span class="p">,</span> <span class="n">with_lambda_D</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Get train test split arrays&quot;&quot;&quot;</span>
+    
+    <span class="n">data</span> <span class="o">=</span> <span class="n">load_2d_train_df</span><span class="p">(</span><span class="n">MLE</span><span class="o">=</span><span class="n">MLE</span><span class="p">,</span> <span class="n">with_lambda_D</span><span class="o">=</span><span class="n">with_lambda_D</span><span class="p">)</span>
+        
+    <span class="n">train_data</span><span class="p">,</span> <span class="n">test_data</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+    <span class="c1">#split the train data (0.8 of whole set) again into 0.8*0.8=0.64 of whole set</span>
+    
+
+    <span class="n">train_data</span> <span class="o">=</span> <span class="n">train_data</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">test_data</span>  <span class="o">=</span> <span class="n">test_data</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">target</span><span class="o">=</span><span class="s1">&#39;Z&#39;</span>
+    <span class="c1"># source = [&#39;theta&#39;,&#39;nu&#39;,&#39;theta_hat&#39;,&#39;N&#39;,&#39;M&#39;]</span>
+    <span class="n">USECOLS</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+    <span class="n">USECOLS</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">source</span> <span class="o">=</span> <span class="n">USECOLS</span>
+
+    <span class="n">train_t</span><span class="p">,</span> <span class="n">train_x</span> <span class="o">=</span> <span class="n">split_t_x</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="n">target</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">)</span>
+    <span class="n">test_t</span><span class="p">,</span>  <span class="n">test_x</span>  <span class="o">=</span> <span class="n">split_t_x</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span>  <span class="n">target</span><span class="o">=</span><span class="n">target</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;train_t shape = &#39;</span><span class="p">,</span> <span class="n">train_t</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;train_x shape = &#39;</span><span class="p">,</span> <span class="n">train_x</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    
+    <span class="c1"># if valid:</span>
+        <span class="c1">#if you want to also make a validation data set</span>
+    <span class="n">train_data</span><span class="p">,</span> <span class="n">valid_data</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+    <span class="n">valid_data</span> <span class="o">=</span> <span class="n">valid_data</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">valid_t</span><span class="p">,</span> <span class="n">valid_x</span> <span class="o">=</span> <span class="n">split_t_x</span><span class="p">(</span><span class="n">valid_data</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="n">target</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">)</span>
+
+        
+    <span class="k">return</span> <span class="n">train_t</span><span class="p">,</span> <span class="n">train_x</span><span class="p">,</span> <span class="n">test_t</span><span class="p">,</span>  <span class="n">test_x</span><span class="p">,</span> <span class="n">valid_t</span><span class="p">,</span> <span class="n">valid_x</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section class="tex2jax_ignore mathjax_ignore" id="step-1-get-trainig-data">
+<h1>step 1: Get trainig Data<a class="headerlink" href="#step-1-get-trainig-data" title="Permalink to this headline">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train_t</span><span class="p">,</span> <span class="n">train_x</span><span class="p">,</span> <span class="n">test_t</span><span class="p">,</span>  <span class="n">test_x</span><span class="p">,</span> <span class="n">valid_t</span><span class="p">,</span> <span class="n">valid_x</span> <span class="o">=</span> <span class="n">getwholedata_2d</span><span class="p">(</span>
+    <span class="n">MLE</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">with_lambda_D</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>________________________________________________________________________________
+[Memory] Calling __main__--home-ali-Desktop-Pulled_Github_Repositories-LFI_HEP-JupyterBook-&lt;ipython-input-246b6473de0a&gt;.getwholedata_2d...
+getwholedata_2d(MLE=True, with_lambda_D=True)
+________________________________________________________________________________
+[Memory] Calling __main__--home-ali-Desktop-Pulled_Github_Repositories-LFI_HEP-JupyterBook-&lt;ipython-input-28f4bb6f5704&gt;.load_2d_train_df...
+load_2d_train_df(MLE=True, with_lambda_D=True)
+loading dataframe with name TWO_PARAMETERS_WITH_LAMBDA_D_theta_0_20_1000k_Examples_MLE_True.csv
+                    Z           theta              nu        lambda_D
+count  1000000.000000  1000000.000000  1000000.000000  1000000.000000
+mean         0.961022       10.001202        9.999901       26.348822
+std          0.193543        5.774584        5.775469       17.674733
+min          0.000000        0.000033        0.000002        0.000057
+25%          1.000000        4.996771        4.993422       12.261644
+50%          1.000000        9.998035        9.990127       23.668409
+75%          1.000000       15.007757       15.003738       37.635887
+max          1.000000       19.999979       19.999992      227.778150
+_________________________________________________load_2d_train_df - 1.8s, 0.0min
+train_t shape =  (800000,) 
+
+train_x shape =  (800000, 3) 
+
+__________________________________________________getwholedata_2d - 2.0s, 0.0min
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N_FEATURES</span> <span class="o">=</span> <span class="n">train_x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SiLURegressionModel</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="c1">#inherit from the super class</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nfeatures</span><span class="p">,</span> <span class="n">ntargets</span><span class="p">,</span> <span class="n">nlayers</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">,</span> <span class="n">dropout</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="n">layers</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nlayers</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">layers</span><span class="p">)</span> <span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+                <span class="c1">#inital layer has to have size of input features as its input layer</span>
+                <span class="c1">#its output layer can have any size but it must match the size of the input layer of the next linear layer</span>
+                <span class="c1">#here we choose its output layer as the hidden size (fully connected)</span>
+                <span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">nfeatures</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">))</span>
+                <span class="c1">#batch normalization</span>
+                <span class="c1"># layers.append(nn.BatchNorm1d(hidden_size))</span>
+                <span class="c1">#Dropout seems to worsen model performance</span>
+                <span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="n">dropout</span><span class="p">))</span>
+                <span class="c1">#ReLU activation </span>
+                <span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">SiLU</span><span class="p">())</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1">#if this is not the first layer (we dont have layers)</span>
+                <span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">hidden_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">))</span>
+                <span class="c1"># layers.append(nn.BatchNorm1d(hidden_size))</span>
+                <span class="c1">#Dropout seems to worsen model performance</span>
+                <span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="n">dropout</span><span class="p">))</span>
+                <span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">SiLU</span><span class="p">())</span>
+                <span class="c1">#output layer:</span>
+        <span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">hidden_size</span><span class="p">,</span> <span class="n">ntargets</span><span class="p">))</span> 
+
+        <span class="c1"># ONLY IF ITS A CLASSIFICATION, ADD SIGMOID</span>
+        <span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Sigmoid</span><span class="p">())</span>
+            <span class="c1">#we have defined sequential model using the layers in oulist </span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="o">*</span><span class="n">layers</span><span class="p">)</span>
+
+    
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@debug</span>
+<span class="k">def</span> <span class="nf">load_untrained_model</span><span class="p">(</span><span class="n">PARAMS</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Load an untrained model (with weights initiatted) according to model paramateters in the </span>
+<span class="sd">    PARAMS dictionary</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        PARAMS (dict): dictionary of model/training parameters: i.e. hyperparameters and training parameters.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        utils.RegularizedRegressionModel object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">SiLURegressionModel</span><span class="p">(</span>
+        <span class="n">nfeatures</span><span class="o">=</span><span class="n">PARAMS</span><span class="p">[</span><span class="s1">&#39;NFEATURES&#39;</span><span class="p">],</span>
+        <span class="n">ntargets</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">nlayers</span><span class="o">=</span><span class="n">PARAMS</span><span class="p">[</span><span class="s2">&quot;n_layers&quot;</span><span class="p">],</span>
+        <span class="n">hidden_size</span><span class="o">=</span><span class="n">PARAMS</span><span class="p">[</span><span class="s2">&quot;hidden_size&quot;</span><span class="p">],</span>
+        <span class="n">dropout</span><span class="o">=</span><span class="n">PARAMS</span><span class="p">[</span><span class="s2">&quot;dropout&quot;</span><span class="p">],</span>
+        <span class="c1"># activation=PARAMS[&quot;activation&quot;]</span>
+    <span class="p">)</span>
+    <span class="c1"># model.apply(initialize_weights)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;INITIATED UNTRAINED MODEL:&#39;</span><span class="p">,</span>
+          <span class="c1"># model</span>
+         <span class="p">)</span>
+    <span class="c1"># print(model)</span>
+    <span class="k">return</span> <span class="n">model</span>
+    
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">save_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">PARAMS</span><span class="p">,</span> <span class="n">pth_string</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;pth string is the name of the pth file which is a </span>
+<span class="sd">    dictionary of dictionaries&quot;&quot;&quot;</span>
+    <span class="n">models_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">LFI_PIVOT_BASE</span><span class="p">,</span> <span class="s1">&#39;models&#39;</span><span class="p">)</span>
+    <span class="n">PATH</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">models_path</span><span class="p">,</span> <span class="n">pth_string</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;saving model with th string : </span><span class="si">{</span><span class="n">pth_string</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">({</span><span class="s1">&#39;PARAMS&#39;</span><span class="p">:</span> <span class="n">PARAMS</span><span class="p">,</span>
+                <span class="s1">&#39;model_state_dict&#39;</span><span class="p">:</span> <span class="n">model</span><span class="o">.</span><span class="n">state_dict</span><span class="p">()},</span>
+                <span class="n">PATH</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_features_training_batch</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">):</span>
+    <span class="c1"># the numpy function choice(length, number)</span>
+    <span class="c1"># selects at random &quot;batch_size&quot; integers from </span>
+    <span class="c1"># the range [0, length-1] corresponding to the</span>
+    <span class="c1"># row indices.</span>
+    <span class="n">rows</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">batch_size</span><span class="p">)</span>
+    <span class="n">batch_x</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">rows</span><span class="p">]</span>
+    <span class="n">batch_t</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="n">rows</span><span class="p">]</span>
+    <span class="c1"># batch_x.T[-1] = np.random.uniform(0, 1, batch_size)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">batch_x</span><span class="p">,</span> <span class="n">batch_t</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="step-2-define-model-parameters">
+<h1>Step 2: define model parameters<a class="headerlink" href="#step-2-define-model-parameters" title="Permalink to this headline">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">PARAMS_lambdaD_nonMLE_SILU</span> <span class="o">=</span> <span class="p">{</span>
+<span class="s2">&quot;n_layers&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="mi">6</span><span class="p">),</span>
+<span class="s2">&quot;hidden_size&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="mi">6</span><span class="p">),</span>
+<span class="s2">&quot;dropout&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="mf">0.13</span><span class="p">),</span>
+<span class="s2">&quot;NFEATURES&quot;</span><span class="p">:</span><span class="nb">int</span><span class="p">(</span><span class="n">N_FEATURES</span><span class="p">),</span>
+<span class="s2">&quot;activation&quot;</span><span class="p">:</span> <span class="s2">&quot;SiLU&quot;</span><span class="p">,</span>
+<span class="s1">&#39;optimizer_name&#39;</span><span class="p">:</span><span class="s1">&#39;NAdam&#39;</span><span class="p">,</span>
+    <span class="c1"># &#39;optimizer_name&#39;:&#39;RMSprop&#39;,</span>
+<span class="s1">&#39;starting_learning_rate&#39;</span><span class="p">:</span><span class="nb">float</span><span class="p">(</span><span class="mf">0.0006</span><span class="p">),</span>
+<span class="s1">&#39;momentum&#39;</span><span class="p">:</span><span class="nb">float</span><span class="p">(</span><span class="mf">0.9</span><span class="p">),</span>
+<span class="s1">&#39;batch_size&#39;</span><span class="p">:</span><span class="nb">int</span><span class="p">(</span><span class="mi">256</span><span class="o">*</span><span class="mi">4</span><span class="p">),</span>
+<span class="s1">&#39;n_iterations&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="mf">3e4</span><span class="p">),</span>
+<span class="s1">&#39;traces_step&#39;</span><span class="p">:</span><span class="nb">int</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span>
+<span class="s1">&#39;L2&#39;</span><span class="p">:</span><span class="nb">float</span><span class="p">(</span><span class="mf">0.1</span><span class="p">),</span>
+<span class="s1">&#39;MLE&#39;</span><span class="p">:</span><span class="kc">False</span><span class="p">,</span>
+<span class="s1">&#39;with_lambda_D&#39;</span><span class="p">:</span><span class="kc">True</span><span class="p">,</span>
+<span class="s1">&#39;pth_string&#39;</span><span class="p">:</span><span class="s1">&#39;FEB_20_model_lambda_D_nonMLE_SILU.pth&#39;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="step-3-load-untrained-model">
+<h1>step 3: load untrained model<a class="headerlink" href="#step-3-load-untrained-model" title="Permalink to this headline">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">untrained_SiLU_model</span> <span class="o">=</span> <span class="n">load_untrained_model</span><span class="p">(</span><span class="n">PARAMS_lambdaD_nonMLE_SILU</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Calling load_untrained_model({&#39;n_layers&#39;: 6, &#39;hidden_size&#39;: 6, &#39;dropout&#39;: 0.13, &#39;NFEATURES&#39;: 3, &#39;activation&#39;: &#39;SiLU&#39;, &#39;optimizer_name&#39;: &#39;NAdam&#39;, &#39;starting_learning_rate&#39;: 0.0006, &#39;momentum&#39;: 0.9, &#39;batch_size&#39;: 1024, &#39;n_iterations&#39;: 30000, &#39;traces_step&#39;: 100, &#39;L2&#39;: 0.1, &#39;MLE&#39;: False, &#39;with_lambda_D&#39;: True, &#39;pth_string&#39;: &#39;FEB_20_model_lambda_D_nonMLE_SILU.pth&#39;})
+INITIATED UNTRAINED MODEL:
+&#39;load_untrained_model&#39; returned SiLURegressionModel(
+  (model): Sequential(
+    (0): Linear(in_features=3, out_features=6, bias=True)
+    (1): Dropout(p=0.13, inplace=False)
+    (2): SiLU()
+    (3): Linear(in_features=6, out_features=6, bias=True)
+    (4): Dropout(p=0.13, inplace=False)
+    (5): SiLU()
+    (6): Linear(in_features=6, out_features=6, bias=True)
+    (7): Dropout(p=0.13, inplace=False)
+    (8): SiLU()
+    (9): Linear(in_features=6, out_features=6, bias=True)
+    (10): Dropout(p=0.13, inplace=False)
+    (11): SiLU()
+    (12): Linear(in_features=6, out_features=6, bias=True)
+    (13): Dropout(p=0.13, inplace=False)
+    (14): SiLU()
+    (15): Linear(in_features=6, out_features=6, bias=True)
+    (16): Dropout(p=0.13, inplace=False)
+    (17): SiLU()
+    (18): Linear(in_features=6, out_features=1, bias=True)
+    (19): Sigmoid()
+  )
+)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="step-4-train-untrained-model">
+<h1>Step 4: train untrained model<a class="headerlink" href="#step-4-train-untrained-model" title="Permalink to this headline">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">average_quadratic_loss</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="c1"># f and t must be of the same shape</span>
+    <span class="k">return</span>  <span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">f</span> <span class="o">-</span> <span class="n">t</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">average_loss</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+    <span class="c1"># f and t must be of the same shape</span>
+    <span class="k">return</span>  <span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">f</span> <span class="o">-</span> <span class="n">t</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">avloss</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">targets</span><span class="p">):</span>
+    <span class="c1"># make sure we set evaluation mode so that any training specific</span>
+    <span class="c1"># operations are disabled.</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span> <span class="c1"># evaluation mode</span>
+    
+    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span> <span class="c1"># no need to compute gradients wrt. x and t</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">targets</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+        <span class="c1"># remember to reshape!</span>
+        <span class="n">o</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">avloss</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">avloss</span><span class="p">,</span>
+          <span class="n">batch_size</span><span class="p">,</span> 
+          <span class="n">n_iterations</span><span class="p">,</span> <span class="n">traces</span><span class="p">,</span> 
+          <span class="n">step</span><span class="p">,</span> <span class="n">window</span><span class="p">,</span> <span class="n">MLE</span><span class="p">,</span> <span class="n">with_lambda_D</span><span class="p">):</span>
+    
+    <span class="c1"># to keep track of average losses</span>
+    <span class="n">xx</span><span class="p">,</span> <span class="n">yy_t</span><span class="p">,</span> <span class="n">yy_v</span><span class="p">,</span> <span class="n">yy_v_avg</span> <span class="o">=</span> <span class="n">traces</span>
+    
+
+    
+    <span class="k">if</span> <span class="n">MLE</span><span class="o">==</span><span class="kc">True</span><span class="p">:</span>
+        <span class="n">train_t</span><span class="p">,</span> <span class="n">train_x</span><span class="p">,</span> <span class="n">test_t</span><span class="p">,</span>  <span class="n">test_x</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">getwholedata_2d</span><span class="p">(</span><span class="n">MLE</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">with_lambda_D</span><span class="o">=</span><span class="n">with_lambda_D</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">train_t</span><span class="p">,</span> <span class="n">train_x</span><span class="p">,</span> <span class="n">test_t</span><span class="p">,</span>  <span class="n">test_x</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">getwholedata_2d</span><span class="p">(</span><span class="n">MLE</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">with_lambda_D</span><span class="o">=</span><span class="n">with_lambda_D</span><span class="p">)</span>
+        
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">test_x</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Iteration vs average loss&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%10s</span><span class="se">\t</span><span class="si">%10s</span><span class="se">\t</span><span class="si">%10s</span><span class="s2">&quot;</span> <span class="o">%</span> \
+          <span class="p">(</span><span class="s1">&#39;iteration&#39;</span><span class="p">,</span> <span class="s1">&#39;train-set&#39;</span><span class="p">,</span> <span class="s1">&#39;valid-set&#39;</span><span class="p">))</span>
+    
+    <span class="c1"># training_set_features, training_set_targets, evaluation_set_features, evaluation_set_targets = get_data_sets(simulate_data=False, batchsize=batch_size)</span>
+    
+    <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_iterations</span><span class="p">):</span>
+
+        <span class="c1"># set mode to training so that training specific </span>
+        <span class="c1"># operations such as dropout are enabled.</span>
+
+        
+        <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+        
+        <span class="c1"># get a random sample (a batch) of data (as numpy arrays)</span>
+        
+        <span class="c1">#Harrison-like Loader</span>
+        <span class="n">batch_x</span><span class="p">,</span> <span class="n">batch_t</span> <span class="o">=</span> <span class="n">get_features_training_batch</span><span class="p">(</span><span class="n">train_x</span><span class="p">,</span> <span class="n">train_t</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">)</span>
+        
+        <span class="c1">#Or Ali&#39;s Loader</span>
+        <span class="c1"># batch_x, batch_t = next(training_set_features()), next(training_set_targets())</span>
+        <span class="c1"># batch_x_eval, batch_t_eval = next(evaluation_set_features()), next(evaluation_set_targets())</span>
+
+        <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span> <span class="c1"># no need to compute gradients </span>
+            <span class="c1"># wrt. x and t</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">batch_x</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">batch_t</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>      
+
+
+        <span class="n">outputs</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+   
+        <span class="c1"># compute a noisy approximation to the average loss</span>
+        <span class="n">empirical_risk</span> <span class="o">=</span> <span class="n">avloss</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+        
+        <span class="c1"># use automatic differentiation to compute a </span>
+        <span class="c1"># noisy approximation of the local gradient</span>
+        <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>       <span class="c1"># clear previous gradients</span>
+        <span class="n">empirical_risk</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>   <span class="c1"># compute gradients</span>
+        
+        <span class="c1"># finally, advance one step in the direction of steepest </span>
+        <span class="c1"># descent, using the noisy local gradient. </span>
+        <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>            <span class="c1"># move one step</span>
+        
+        <span class="k">if</span> <span class="n">ii</span> <span class="o">%</span> <span class="n">step</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            
+            
+            <span class="c1">#using Harrison-like loader</span>
+            <span class="n">acc_t</span> <span class="o">=</span> <span class="n">validate</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">avloss</span><span class="p">,</span> <span class="n">train_x</span><span class="p">[:</span><span class="n">n</span><span class="p">],</span> <span class="n">train_t</span><span class="p">[:</span><span class="n">n</span><span class="p">])</span> 
+            <span class="n">acc_v</span> <span class="o">=</span> <span class="n">validate</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">avloss</span><span class="p">,</span> <span class="n">test_x</span><span class="p">[:</span><span class="n">n</span><span class="p">],</span> <span class="n">test_t</span><span class="p">[:</span><span class="n">n</span><span class="p">])</span>
+            
+            <span class="c1">#using Ali&#39;s loader</span>
+            <span class="c1"># acc_t = validate(model, avloss, batch_x, batch_t) </span>
+            <span class="c1"># acc_v = validate(model, avloss, batch_x_eval, batch_t_eval)</span>
+            
+
+            <span class="n">yy_t</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">acc_t</span><span class="p">)</span>
+            <span class="n">yy_v</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">acc_v</span><span class="p">)</span>
+            
+            <span class="c1"># compute running average for validation data</span>
+            <span class="n">len_yy_v</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">yy_v</span><span class="p">)</span>
+            <span class="k">if</span>   <span class="n">len_yy_v</span> <span class="o">&lt;</span> <span class="n">window</span><span class="p">:</span>
+                <span class="n">yy_v_avg</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">yy_v</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="p">)</span>
+            <span class="k">elif</span> <span class="n">len_yy_v</span> <span class="o">==</span> <span class="n">window</span><span class="p">:</span>
+                <span class="n">yy_v_avg</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="nb">sum</span><span class="p">(</span><span class="n">yy_v</span><span class="p">)</span> <span class="o">/</span> <span class="n">window</span> <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">acc_v_avg</span>  <span class="o">=</span> <span class="n">yy_v_avg</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">window</span>
+                <span class="n">acc_v_avg</span> <span class="o">+=</span> <span class="n">yy_v</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">yy_v</span><span class="p">[</span><span class="o">-</span><span class="n">window</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">yy_v_avg</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">acc_v_avg</span> <span class="o">/</span> <span class="n">window</span><span class="p">)</span>
+                        
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">xx</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">xx</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%10d</span><span class="se">\t</span><span class="si">%10.6f</span><span class="se">\t</span><span class="si">%10.6f</span><span class="s2">&quot;</span> <span class="o">%</span> \
+                      <span class="p">(</span><span class="n">xx</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">yy_t</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">yy_v</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">xx</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xx</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">step</span><span class="p">)</span>
+                    
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\r</span><span class="si">%10d</span><span class="se">\t</span><span class="si">%10.6f</span><span class="se">\t</span><span class="si">%10.6f</span><span class="se">\t</span><span class="si">%10.6f</span><span class="s2">&quot;</span> <span class="o">%</span> \
+                          <span class="p">(</span><span class="n">xx</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">yy_t</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">yy_v</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">yy_v_avg</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span> 
+                      <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+            
+    <span class="nb">print</span><span class="p">()</span>      
+    <span class="k">return</span> <span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy_t</span><span class="p">,</span> <span class="n">yy_v</span><span class="p">,</span> <span class="n">yy_v_avg</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">BATCHSIZE</span><span class="o">=</span><span class="n">PARAMS_lambdaD_nonMLE_SILU</span><span class="p">[</span><span class="s2">&quot;batch_size&quot;</span><span class="p">]</span>
+<span class="n">traces_SiLU</span> <span class="o">=</span> <span class="p">([],</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[])</span>
+<span class="n">traces_step</span> <span class="o">=</span> <span class="mi">2000</span>
+<span class="n">optimizer_name</span><span class="o">=</span><span class="n">PARAMS_lambdaD_nonMLE_SILU</span><span class="p">[</span><span class="s2">&quot;optimizer_name&quot;</span><span class="p">]</span>
+
+<span class="n">optimizer_SiLU</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">optimizer_name</span><span class="p">))(</span><span class="n">untrained_SiLU_model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="n">PARAMS_lambdaD_nonMLE_SILU</span><span class="p">[</span><span class="s2">&quot;starting_learning_rate&quot;</span><span class="p">])</span>
+
+<span class="n">traces_SiLU</span> <span class="o">=</span> <span class="n">train</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">untrained_SiLU_model</span><span class="p">,</span> 
+              <span class="n">optimizer</span><span class="o">=</span><span class="n">optimizer_SiLU</span><span class="p">,</span> 
+              <span class="n">avloss</span><span class="o">=</span><span class="n">average_quadratic_loss</span><span class="p">,</span>
+              <span class="n">batch_size</span><span class="o">=</span><span class="n">BATCHSIZE</span><span class="p">,</span> 
+              <span class="n">n_iterations</span><span class="o">=</span><span class="n">PARAMS_lambdaD_nonMLE_SILU</span><span class="p">[</span><span class="s2">&quot;n_iterations&quot;</span><span class="p">],</span> 
+              <span class="n">traces</span><span class="o">=</span><span class="n">traces_SiLU</span><span class="p">,</span> 
+              <span class="n">step</span><span class="o">=</span><span class="n">traces_step</span><span class="p">,</span> 
+              <span class="n">window</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
+                <span class="n">MLE</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">with_lambda_D</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>________________________________________________________________________________
+[Memory] Calling __main__--home-ali-Desktop-Pulled_Github_Repositories-LFI_HEP-JupyterBook-&lt;ipython-input-246b6473de0a&gt;.getwholedata_2d...
+getwholedata_2d(MLE=False, with_lambda_D=True)
+train_t shape =  (24000000,) 
+
+train_x shape =  (24000000, 3) 
+
+_________________________________________________getwholedata_2d - 21.0s, 0.4min
+Iteration vs average loss
+ iteration	 train-set	 valid-set
+         0	  0.350313	  0.350326
+     28000	  0.016431	  0.016399	  0.016399
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="step-4-save-trained-model">
+<h1>Step 4: Save trained model<a class="headerlink" href="#step-4-save-trained-model" title="Permalink to this headline">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">save_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">PARAMS</span><span class="p">,</span> <span class="n">pth_string</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;pth string is the name of the pth file which is a dictionary of dictionaries&quot;&quot;&quot;</span>
+    <span class="n">models_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">LFI_PIVOT_BASE</span><span class="p">,</span> <span class="s1">&#39;models&#39;</span><span class="p">)</span>
+    <span class="n">PATH</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">models_path</span><span class="p">,</span> <span class="n">pth_string</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;saving model with th string : </span><span class="si">{</span><span class="n">pth_string</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">({</span><span class="s1">&#39;PARAMS&#39;</span><span class="p">:</span> <span class="n">PARAMS</span><span class="p">,</span>
+                <span class="s1">&#39;model_state_dict&#39;</span><span class="p">:</span> <span class="n">model</span><span class="o">.</span><span class="n">state_dict</span><span class="p">()},</span>
+                <span class="n">PATH</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">save_model</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">untrained_SiLU_model</span><span class="p">,</span>
+           <span class="n">PARAMS</span><span class="o">=</span><span class="n">PARAMS_lambdaD_nonMLE_SILU</span><span class="p">,</span>
+           <span class="n">pth_string</span><span class="o">=</span><span class="n">PARAMS_lambdaD_nonMLE_SILU</span><span class="p">[</span><span class="s2">&quot;pth_string&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>saving model with th string : FEB_20_model_lambda_D_nonMLE_SILU.pth
+
+SiLURegressionModel(
+  (model): Sequential(
+    (0): Linear(in_features=3, out_features=6, bias=True)
+    (1): Dropout(p=0.13, inplace=False)
+    (2): SiLU()
+    (3): Linear(in_features=6, out_features=6, bias=True)
+    (4): Dropout(p=0.13, inplace=False)
+    (5): SiLU()
+    (6): Linear(in_features=6, out_features=6, bias=True)
+    (7): Dropout(p=0.13, inplace=False)
+    (8): SiLU()
+    (9): Linear(in_features=6, out_features=6, bias=True)
+    (10): Dropout(p=0.13, inplace=False)
+    (11): SiLU()
+    (12): Linear(in_features=6, out_features=6, bias=True)
+    (13): Dropout(p=0.13, inplace=False)
+    (14): SiLU()
+    (15): Linear(in_features=6, out_features=6, bias=True)
+    (16): Dropout(p=0.13, inplace=False)
+    (17): SiLU()
+    (18): Linear(in_features=6, out_features=1, bias=True)
+    (19): Sigmoid()
+  )
+)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="step-5-load-trained-model">
+<h1>Step 5: Load Trained model<a class="headerlink" href="#step-5-load-trained-model" title="Permalink to this headline">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">load_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">PARAMS</span><span class="p">,</span> <span class="n">pth_string</span><span class="p">):</span>
+    <span class="n">models_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">LFI_PIVOT_BASE</span><span class="p">,</span> <span class="s1">&#39;models&#39;</span><span class="p">)</span>
+    <span class="n">PATH</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">models_path</span><span class="p">,</span> <span class="n">pth_string</span><span class="p">)</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">SiLURegressionModel</span><span class="p">(</span>
+        <span class="n">nfeatures</span><span class="o">=</span><span class="n">PARAMS</span><span class="p">[</span><span class="s1">&#39;NFEATURES&#39;</span><span class="p">],</span>
+        <span class="n">ntargets</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">nlayers</span><span class="o">=</span><span class="n">PARAMS</span><span class="p">[</span><span class="s2">&quot;n_layers&quot;</span><span class="p">],</span>
+        <span class="n">hidden_size</span><span class="o">=</span><span class="n">PARAMS</span><span class="p">[</span><span class="s2">&quot;hidden_size&quot;</span><span class="p">],</span>
+        <span class="n">dropout</span><span class="o">=</span><span class="n">PARAMS</span><span class="p">[</span><span class="s2">&quot;dropout&quot;</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">checkpoint</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">PATH</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;INITIATED MODEL:&#39;</span><span class="p">,</span>  <span class="n">model</span><span class="p">)</span>
+    
+    <span class="n">model</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">checkpoint</span><span class="p">[</span><span class="s1">&#39;model_state_dict&#39;</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;loading model with th string : </span><span class="si">{</span><span class="n">pth_string</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>    
+    <span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">model</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># untrained_SiLU_model = load_untrained_model(PARAMS_lambdaD_nonMLE_SILU)</span>
+
+<span class="n">trained_SiLU_model</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="n">model</span> <span class="o">=</span> <span class="n">untrained_SiLU_model</span><span class="p">,</span> 
+                                <span class="n">PARAMS</span><span class="o">=</span><span class="n">PARAMS_lambdaD_nonMLE_SILU</span><span class="p">,</span>
+                   <span class="n">pth_string</span><span class="o">=</span><span class="n">PARAMS_lambdaD_nonMLE_SILU</span><span class="p">[</span><span class="s2">&quot;pth_string&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INITIATED MODEL: SiLURegressionModel(
+  (model): Sequential(
+    (0): Linear(in_features=3, out_features=6, bias=True)
+    (1): Dropout(p=0.13, inplace=False)
+    (2): SiLU()
+    (3): Linear(in_features=6, out_features=6, bias=True)
+    (4): Dropout(p=0.13, inplace=False)
+    (5): SiLU()
+    (6): Linear(in_features=6, out_features=6, bias=True)
+    (7): Dropout(p=0.13, inplace=False)
+    (8): SiLU()
+    (9): Linear(in_features=6, out_features=6, bias=True)
+    (10): Dropout(p=0.13, inplace=False)
+    (11): SiLU()
+    (12): Linear(in_features=6, out_features=6, bias=True)
+    (13): Dropout(p=0.13, inplace=False)
+    (14): SiLU()
+    (15): Linear(in_features=6, out_features=6, bias=True)
+    (16): Dropout(p=0.13, inplace=False)
+    (17): SiLU()
+    (18): Linear(in_features=6, out_features=1, bias=True)
+    (19): Sigmoid()
+  )
+)
+loading model with th string : FEB_20_model_lambda_D_nonMLE_SILU.pth
+
+SiLURegressionModel(
+  (model): Sequential(
+    (0): Linear(in_features=3, out_features=6, bias=True)
+    (1): Dropout(p=0.13, inplace=False)
+    (2): SiLU()
+    (3): Linear(in_features=6, out_features=6, bias=True)
+    (4): Dropout(p=0.13, inplace=False)
+    (5): SiLU()
+    (6): Linear(in_features=6, out_features=6, bias=True)
+    (7): Dropout(p=0.13, inplace=False)
+    (8): SiLU()
+    (9): Linear(in_features=6, out_features=6, bias=True)
+    (10): Dropout(p=0.13, inplace=False)
+    (11): SiLU()
+    (12): Linear(in_features=6, out_features=6, bias=True)
+    (13): Dropout(p=0.13, inplace=False)
+    (14): SiLU()
+    (15): Linear(in_features=6, out_features=6, bias=True)
+    (16): Dropout(p=0.13, inplace=False)
+    (17): SiLU()
+    (18): Linear(in_features=6, out_features=1, bias=True)
+    (19): Sigmoid()
+  )
+)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">TrainedModel</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">model</span>
+
+    <span class="k">def</span> <span class="nf">__cdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="c1"># convert to a tensor and compute</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">==</span> <span class="nb">type</span><span class="p">(</span><span class="mf">1.0</span><span class="p">))</span> <span class="ow">or</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">==</span> <span class="nb">type</span><span class="p">(</span><span class="mi">1</span><span class="p">)):</span>
+            <span class="n">X</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x</span><span class="p">]))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">X</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x</span><span class="p">]))</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            
+        <span class="n">X</span><span class="o">.</span><span class="n">requires_grad_</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span> 
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">X</span> 
+        
+    <span class="k">def</span> <span class="nf">cdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span> 
+        <span class="n">F</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cdf</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        
+        <span class="n">Y</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">Y</span> <span class="o">=</span> <span class="n">Y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">Y</span>
+
+    <span class="k">def</span> <span class="nf">pdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">F</span><span class="p">,</span> <span class="n">X</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cdf</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+        <span class="n">dFdX</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">grad</span><span class="p">(</span><span class="n">outputs</span><span class="o">=</span><span class="n">F</span><span class="p">,</span> <span class="n">inputs</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> 
+                               <span class="n">grad_outputs</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">F</span><span class="p">),</span>
+                               <span class="c1">#allow_unused=True, </span>
+                               <span class="c1">#retain_graph=True, </span>
+                               <span class="n">create_graph</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    
+        <span class="c1"># Y = dFdX.view(-1).detach().numpy()</span>
+        <span class="n">Y</span> <span class="o">=</span> <span class="n">dFdX</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">Y</span> <span class="o">=</span> <span class="n">Y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">Y</span>  
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">make_binned_X</span><span class="p">(</span><span class="n">X_min</span><span class="p">,</span> <span class="n">X_max</span><span class="p">,</span> <span class="n">Nbins</span><span class="p">):</span>
+    <span class="n">X_step</span> <span class="o">=</span> <span class="p">(</span><span class="n">X_max</span><span class="o">-</span><span class="n">X_min</span><span class="p">)</span> <span class="o">/</span> <span class="n">Nbins</span>
+    <span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">X_min</span><span class="p">,</span> <span class="n">X_max</span><span class="o">+</span><span class="n">X_step</span><span class="p">,</span> <span class="n">X_step</span><span class="p">)</span>
+    <span class="n">bin_centers</span> <span class="o">=</span> <span class="p">(</span><span class="n">bins</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">+</span> <span class="n">bins</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">bin_centers</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">make_eval_data_2d_with_NM</span><span class="p">(</span><span class="n">Bprime</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">nbins_theta</span><span class="p">,</span> <span class="n">nbins_nu</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Make evaluation data composed of: binned theta and nu, and discrete N and M,</span>
+<span class="sd">    and optionally theta_hat. The theta hat argument accpts an MLE boolean, therefore</span>
+<span class="sd">    if trained on MLE data, the theta_hat that we use for evaluation is just </span>
+<span class="sd">    n-m, including negative values.</span>
+<span class="sd">    The return value of this function is used as the &quot;eval_data&quot; tensor below</span>
+<span class="sd">    </span>
+<span class="sd">    with lambda_D or with NM&quot;&quot;&quot;</span>
+    <span class="c1">#if MLE true, load the model that was trained on MLE data and vice versa</span>
+    <span class="c1"># N, M = D</span>
+    <span class="c1"># nbins=NBINS</span>
+    <span class="c1"># thetamin,thetamax=0,20</span>
+    <span class="n">train_df</span> <span class="o">=</span> <span class="n">load_2d_train_df</span><span class="p">(</span><span class="n">MLE</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">with_lambda_D</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+    <span class="n">THETA_bin_centers</span> <span class="o">=</span> <span class="n">make_binned_X</span><span class="p">(</span><span class="n">X_min</span><span class="o">=</span><span class="n">train_df</span><span class="p">[</span><span class="s1">&#39;theta&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span>
+                                      <span class="n">X_max</span><span class="o">=</span><span class="n">train_df</span><span class="p">[</span><span class="s1">&#39;theta&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> 
+                                      <span class="n">Nbins</span><span class="o">=</span><span class="n">nbins_theta</span><span class="p">)</span>
+        
+    <span class="n">NU_bin_centers</span> <span class="o">=</span> <span class="n">make_binned_X</span><span class="p">(</span><span class="n">X_min</span><span class="o">=</span><span class="n">train_df</span><span class="p">[</span><span class="s1">&#39;nu&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span>
+                                  <span class="n">X_max</span><span class="o">=</span><span class="n">train_df</span><span class="p">[</span><span class="s1">&#39;nu&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> 
+                                  <span class="n">Nbins</span><span class="o">=</span><span class="n">nbins_nu</span><span class="p">)</span>
+        
+    <span class="c1"># tensor = torch.Tensor([</span>
+                           <span class="c1"># [x, y, theta_hat(N, M, MLE=True), N, M] </span>
+                           <span class="c1"># for (x,y) in zip(THETA_bin_centers,NU_bin_centers)</span>
+                          <span class="c1"># ])</span>
+
+    <span class="n">tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([</span>
+                       <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">theta_hat</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">MLE</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">N</span><span class="p">,</span> <span class="n">M</span><span class="p">]</span> 
+                       <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">THETA_bin_centers</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">NU_bin_centers</span>
+                      <span class="p">])</span>
+
+    <span class="c1">#zip only traverses the lists monotonically, so experiment to use cross to take every combination of the two lists</span>
+    
+    <span class="k">return</span> <span class="n">tensor</span><span class="p">,</span> <span class="n">THETA_bin_centers</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">NU_bin_centers</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># eval_data_example, eval_bins_theta_example, eval_bins_nu_example =make_eval_data_2d_with_NM(</span>
+<span class="c1">#                                                                                     Bprime=100, </span>
+<span class="c1">#                                                                                     N=1, </span>
+<span class="c1">#                                                                                     M=3, </span>
+<span class="c1">#                                                                                     nbins_theta=100,</span>
+<span class="c1">#                                                                                     nbins_nu=100)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">trained_SiLU_model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+
+<span class="n">model_on_valid_x</span> <span class="o">=</span> <span class="n">trained_SiLU_model</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">valid_x</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model_on_valid_x_np</span><span class="o">=</span><span class="n">model_on_valid_x</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+<span class="n">model_on_valid_x_np</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([1.        , 1.        , 1.        , ..., 0.99840397, 1.        ,
+       1.        ], dtype=float32)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tmodel</span> <span class="o">=</span> <span class="n">TrainedModel</span><span class="p">(</span><span class="n">trained_SiLU_model</span><span class="p">)</span>
+<span class="n">cdf</span> <span class="o">=</span> <span class="n">tmodel</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">valid_x</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">valid_x</span><span class="p">[:,</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> 
+            <span class="n">cdf</span><span class="p">,</span>
+            <span class="c1"># model_on_valid_x_np, </span>
+            <span class="n">s</span><span class="o">=</span><span class="mi">14</span><span class="p">);</span> 
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">20000</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">st</span><span class="o">.</span><span class="n">chi2</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$F(\chi^2_2)$&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span> <span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">50</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$F(\lambda)$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\lambda$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/7_Taking_Derivative_32_0.png" src="_images/7_Taking_Derivative_32_0.png" />
+</div>
+</div>
+<p>Keep <span class="math notranslate nohighlight">\(\theta,\nu\)</span> fixed, generate a bunch (4000) of experiments</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lambda_test_2d</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">chi2_exp_size</span><span class="o">=</span><span class="mi">40000</span>
+
+<span class="k">def</span> <span class="nf">run_sim</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">nu</span><span class="p">,</span> <span class="n">MLE</span><span class="p">,</span> <span class="n">lambda_size</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Sample n ~ Pois(theta+nu), </span>
+<span class="sd">              m ~ Pois(nu), </span>
+<span class="sd">    and compute </span>
+<span class="sd">              lambda(theta, n, m)</span>
+<span class="sd">              </span>
+<span class="sd">    return: (n, m, lambda_), where each are np arrays of length lambda_size</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">poisson</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">theta</span><span class="o">+</span><span class="n">nu</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">lambda_size</span><span class="p">)</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">poisson</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">nu</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">lambda_size</span><span class="p">)</span>
+    <span class="n">lambda_</span> <span class="o">=</span> <span class="n">lambda_test_2d</span><span class="p">(</span><span class="n">theta</span><span class="o">=</span><span class="n">theta</span><span class="p">,</span> <span class="n">nu</span><span class="o">=</span><span class="n">nu</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="n">m</span><span class="p">,</span> <span class="n">MLE</span><span class="o">=</span><span class="n">MLE</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">lambda_</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">run_sims</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">MLE</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Run an entire simulation, that is, generate n and m from </span>
+<span class="sd">    run_sim above, and calculate lambda, for</span>
+<span class="sd">    </span>
+<span class="sd">    input: a tuple of (theta, nu) scalars</span>
+<span class="sd">    </span>
+<span class="sd">    Reurns:df, lambda_results</span>
+<span class="sd">    </span>
+<span class="sd">    where lambda_results is a list of tuples </span>
+<span class="sd">        (n, m, lambda_, theta, nu)</span>
+<span class="sd">    and df is just a dataframe of [n,m,lambda,theta,nu]</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">lambda_results</span><span class="o">=</span><span class="p">[]</span>
+    <span class="n">df</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">points</span><span class="p">:</span>
+        <span class="n">theta</span><span class="p">,</span> <span class="n">nu</span> <span class="o">=</span> <span class="n">p</span>
+        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;theta&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">theta</span>
+        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;nu&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">nu</span>
+        <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">lambda_</span> <span class="o">=</span> <span class="n">run_sim</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">nu</span><span class="p">,</span> <span class="n">MLE</span><span class="p">,</span> <span class="n">lambda_size</span> <span class="o">=</span><span class="n">chi2_exp_size</span><span class="p">)</span>
+        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;n&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">n</span>
+        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;m&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">m</span>
+        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;lambda&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">lambda_</span>
+        <span class="n">lambda_results</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">lambda_</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">nu</span><span class="p">))</span>
+    
+        <span class="nb">print</span><span class="p">(</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1"> </span><span class="se">\n</span><span class="s1"> (theta, nu) =  (%.f, %.f) </span><span class="se">\n</span><span class="s1"> &#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">nu</span><span class="p">)</span> <span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1"> </span><span class="se">\t</span><span class="s1"> with associated n =  </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1">, </span><span class="se">\n</span><span class="s1"> </span><span class="se">\n</span><span class="s1"> </span><span class="se">\t</span><span class="s1"> </span><span class="se">\t</span><span class="s1"> m = </span><span class="si">{</span><span class="n">m</span><span class="si">}</span><span class="s1">, </span><span class="se">\n</span><span class="s1"> </span><span class="se">\n</span><span class="s1"> </span><span class="se">\t</span><span class="s1"> </span><span class="se">\t</span><span class="s1"> lambda = </span><span class="si">{</span><span class="n">lambda_</span><span class="si">}</span><span class="s1">&#39;</span>  <span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span><span class="p">,</span> <span class="n">lambda_results</span>
+
+<span class="k">def</span> <span class="nf">plot_all</span><span class="p">(</span><span class="n">lambda_</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">nu</span><span class="p">,</span> <span class="n">ax_l</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Histogram the CDF of  lambda_t = -2log(Lp(theta)/Lp(theta_hat)), </span>
+<span class="sd">    for a given (fixed) theta and nu.</span>
+<span class="sd">    Also, plot the actual CDF of a chi^2 distribution with 1 free parameter </span>
+<span class="sd">    (since only theta is left after we profile nu) &quot;&quot;&quot;</span>
+    <span class="n">ftsize</span> <span class="o">=</span> <span class="mi">16</span><span class="p">;</span> <span class="n">xmin</span><span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">xmax</span><span class="o">=</span> <span class="mi">10</span>
+    <span class="n">ymin</span><span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">ymax</span><span class="o">=</span> <span class="mi">1</span>
+    <span class="n">x_range</span> <span class="o">=</span> <span class="p">(</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">)</span>
+    <span class="n">y_range</span> <span class="o">=</span> <span class="p">(</span><span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">)</span>
+    <span class="n">ax_l</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">x_range</span><span class="p">);</span> <span class="n">ax_l</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">y_range</span><span class="p">)</span>
+    <span class="n">ax_l</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\lambda_</span><span class="si">{NP}</span><span class="s1"> \left(\theta,\hat{\nu}(\theta) \mid n, m \right)$&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="n">ftsize</span><span class="p">)</span>
+    <span class="n">ax_l</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;cdf$(\lambda_</span><span class="si">{NP}</span><span class="s1">)$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">ftsize</span><span class="p">)</span>
+    <span class="c1">##########HISTOGRAM CDF OF LAMBDA####################</span>
+    <span class="n">ax_l</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">lambda_</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">5</span><span class="o">*</span><span class="n">xmax</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="n">x_range</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span><span class="mf">0.8</span><span class="p">,</span><span class="mf">0.9</span><span class="p">),</span>
+    <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cumulative</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;stepfilled&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;CDF$(\lambda)$&#39;</span><span class="p">)</span>
+    <span class="c1">############################################################</span>
+    <span class="c1">########### HISTOGRAM CDF OF THE CHI2 OF OF X WITH 1 DOF</span>
+    <span class="c1">#x is not theta, that&#39;s the whole point of Wilks thm, x is an arbitrary RV</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">chi2</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">ax_l</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;CDF$(\chi^2_1)$&#39;</span><span class="p">)</span>
+    
+    <span class="n">ax_l</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$p(\lambda_</span><span class="si">{NP}</span><span class="s1">)$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">ftsize</span><span class="p">)</span>
+    <span class="n">ax_l</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">lambda_</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="n">x_range</span><span class="p">,</span><span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span><span class="mf">0.8</span><span class="p">,</span><span class="mf">0.9</span><span class="p">),</span>
+    <span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;stepfilled&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;CDF$(\lambda)$&#39;</span><span class="p">)</span>
+    
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">chi2</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">ax_l</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$p(\chi^2_1)$&#39;</span><span class="p">)</span>
+    
+    
+    
+    
+    <span class="n">ax_l</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$p(\lambda_</span><span class="si">{NP}</span><span class="s1">)= \partial$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">ftsize</span><span class="p">)</span>
+    <span class="n">ax_l</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">lambda_</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="n">x_range</span><span class="p">,</span><span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span><span class="mf">0.8</span><span class="p">,</span><span class="mf">0.9</span><span class="p">),</span>
+    <span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;stepfilled&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> 
+                 <span class="c1"># label=r&#39;CDF$(\lambda)$&#39;</span>
+                <span class="p">)</span>
+    <span class="n">tmodel</span> <span class="o">=</span> <span class="n">TrainedModel</span><span class="p">(</span><span class="n">trained_SiLU_model</span><span class="p">)</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">lambda_</span><span class="p">),</span> <span class="mi">3</span><span class="p">))</span>
+    <span class="n">X</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span><span class="o">*</span><span class="n">theta</span>
+    <span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">nu</span><span class="p">)</span><span class="o">*</span><span class="n">nu</span>
+    
+    <span class="n">X</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">lambda_</span><span class="p">))</span>
+    <span class="n">pdf</span> <span class="o">=</span> <span class="n">tmodel</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+    
+    <span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="mi">2</span><span class="p">],</span> <span class="n">pdf</span><span class="p">[:,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    
+    <span class="c1">############################################################</span>
+    
+    <span class="c1"># annotate</span>
+    <span class="n">xwid</span> <span class="o">=</span> <span class="p">(</span><span class="n">xmax</span><span class="o">-</span><span class="n">xmin</span><span class="p">)</span><span class="o">/</span><span class="mi">12</span>
+    <span class="n">ywid</span> <span class="o">=</span> <span class="p">(</span><span class="n">ymax</span><span class="o">-</span><span class="n">ymin</span><span class="p">)</span><span class="o">/</span><span class="mi">12</span>
+    <span class="n">xpos</span> <span class="o">=</span> <span class="n">xmin</span> <span class="o">+</span> <span class="n">xwid</span><span class="o">/</span><span class="mi">2</span>
+    <span class="n">ypos</span> <span class="o">=</span> <span class="n">ymin</span> <span class="o">+</span> <span class="n">ywid</span><span class="o">*</span><span class="mi">2</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">xpos</span><span class="p">,</span> <span class="n">ypos</span><span class="p">,</span>
+    <span class="sa">r</span><span class="s1">&#39;$ \theta = </span><span class="si">%d</span><span class="s1">, \nu = </span><span class="si">%d</span><span class="s1">$&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">nu</span><span class="p">),</span>
+    <span class="n">fontsize</span><span class="o">=</span><span class="n">ftsize</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+    
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#points=(theta,nu)</span>
+<span class="n">points_1</span> <span class="o">=</span> <span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+
+<span class="n">MLE</span><span class="o">=</span><span class="kc">True</span>
+<span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="p">,</span> <span class="n">lambda_1</span> <span class="o">=</span> <span class="n">run_sim</span><span class="p">(</span><span class="n">theta</span><span class="o">=</span><span class="n">points_1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">nu</span><span class="o">=</span><span class="n">points_1</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">MLE</span><span class="o">=</span><span class="n">MLE</span><span class="p">,</span> <span class="n">lambda_size</span><span class="o">=</span><span class="n">chi2_exp_size</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">wspace</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="c1"># plot_one(lambda_1, points_1[0], points_1[1], ax)</span>
+<span class="n">plot_all</span><span class="p">(</span><span class="n">lambda_1</span><span class="p">,</span> <span class="n">points_1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">points_1</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">ax</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\lambda \rightarrow \chi^2_1$; MLE=</span><span class="si">%s</span><span class="s1">; $N_</span><span class="si">{sample}</span><span class="s1">$=</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> \
+             <span class="p">(</span>  <span class="nb">str</span><span class="p">(</span><span class="n">MLE</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">chi2_exp_size</span><span class="p">))),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">25</span><span class="p">);</span> 
+
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$p(\lambda)$&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">SAVE</span><span class="o">=</span><span class="kc">False</span>
+<span class="k">if</span> <span class="n">SAVE</span><span class="p">:</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;images/Wilk_agreement_MLE_</span><span class="si">%s</span><span class="s1">_N_</span><span class="si">%s</span><span class="s1">.png&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">MLE</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">chi2_exp_size</span><span class="p">)</span> <span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/7_Taking_Derivative_36_0.png" src="_images/7_Taking_Derivative_36_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tmodel</span> <span class="o">=</span> <span class="n">TrainedModel</span><span class="p">(</span><span class="n">trained_SiLU_model</span><span class="p">)</span>
+<span class="n">pdf</span> <span class="o">=</span> <span class="n">tmodel</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">valid_x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pdf</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(160000, 1, 3)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">valid_x</span><span class="p">[:,</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">pdf</span><span class="p">[:,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">st</span><span class="o">.</span><span class="n">chi2</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$p(\chi^2_2)$&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\lambda$&#39;</span><span class="p">);</span><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$p(\lambda)$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/7_Taking_Derivative_39_0.png" src="_images/7_Taking_Derivative_39_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">valid_x</span><span class="p">[:,</span><span class="o">-</span><span class="mi">1</span><span class="p">]);</span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/7_Taking_Derivative_40_0.png" src="_images/7_Taking_Derivative_40_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_cc</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">ftsize</span><span class="o">=</span><span class="mi">18</span><span class="p">):</span>
+
+    <span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span>
+    <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span>
+    
+    <span class="c1"># create an empty figure</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    
+    <span class="c1"># add subplots to it</span>
+    <span class="n">nrows</span><span class="p">,</span> <span class="n">ncols</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span><span class="mi">1</span>
+    <span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">nrows</span><span class="p">,</span> <span class="n">ncols</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$p$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">ftsize</span><span class="p">)</span>
+    
+    <span class="n">ax2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">nrows</span><span class="p">,</span> <span class="n">ncols</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">dp</span>  <span class="o">=</span> <span class="mf">0.04</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="n">dp</span><span class="p">,</span> <span class="n">dp</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$q(x)$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">ftsize</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$\Delta C(q) = p - q$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">ftsize</span><span class="p">)</span>
+    
+    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> 
+             <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> 
+             <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">,</span> 
+             <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$p = q$&#39;</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> 
+             <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$p = C(q)$&#39;</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s2">&quot;both&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    
+    <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">p</span><span class="o">-</span><span class="n">q</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s2">&quot;both&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+    
+<span class="n">tmodel</span> <span class="o">=</span> <span class="n">TrainedModel</span><span class="p">(</span><span class="n">trained_SiLU_model</span><span class="p">)</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">tmodel</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">valid_x</span><span class="p">)</span>
+
+<span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">p</span><span class="p">)</span>
+<span class="n">plot_cc</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/7_Taking_Derivative_41_0.png" src="_images/7_Taking_Derivative_41_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.optimize</span> <span class="k">as</span> <span class="nn">op</span>
+
+<span class="k">def</span> <span class="nf">poly</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">A</span><span class="p">):</span>
+    <span class="n">y</span>  <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">x</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">A</span><span class="p">:</span>
+        <span class="n">x</span> <span class="o">*=</span> <span class="n">X</span>
+        <span class="n">y</span> <span class="o">+=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">x</span>
+    <span class="k">return</span> <span class="n">y</span>
+
+<span class="c1"># 1st derivative of polynomials</span>
+<span class="k">def</span> <span class="nf">dpoly</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">A</span><span class="p">):</span>
+    <span class="n">y</span>  <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">x</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">))</span>
+    <span class="n">n</span>  <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">A</span><span class="p">:</span>
+        <span class="n">x</span> <span class="o">*=</span> <span class="n">X</span>
+        <span class="n">n</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">y</span> <span class="o">+=</span> <span class="n">n</span> <span class="o">*</span> <span class="n">a</span> <span class="o">*</span> <span class="n">x</span>
+    <span class="k">return</span> <span class="n">y</span>
+
+<span class="k">def</span> <span class="nf">plot_dc</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">res</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ftsize</span><span class="o">=</span><span class="mi">18</span><span class="p">):</span>
+    
+    <span class="n">dp</span> <span class="o">=</span> <span class="mf">0.04</span>
+    <span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span>
+    <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=-</span><span class="n">dp</span><span class="p">,</span> <span class="n">dp</span>
+    
+    <span class="c1"># create an empty figure</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    
+    <span class="c1"># add subplots to it</span>
+    <span class="n">nrows</span><span class="p">,</span> <span class="n">ncols</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span><span class="mi">1</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">nrows</span><span class="p">,</span> <span class="n">ncols</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">dp</span>  <span class="o">=</span> <span class="mf">0.04</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$q(x)$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">ftsize</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$\Delta C(q) = p - q$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">ftsize</span><span class="p">)</span>
+    
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">p</span><span class="o">-</span><span class="n">q</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">res</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">poly</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span>   <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;fit&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s2">&quot;both&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    
+    
+    
+<span class="k">def</span> <span class="nf">nll</span><span class="p">(</span><span class="n">pars</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">args</span>
+    <span class="n">F</span> <span class="o">=</span> <span class="n">w</span><span class="o">*</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">poly</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pars</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span>
+    <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+<span class="n">guess</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.</span><span class="p">]</span><span class="o">*</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">results</span><span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span><span class="n">nll</span><span class="p">,</span> <span class="n">guess</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">p</span><span class="o">-</span><span class="n">q</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+<span class="n">plot_dc</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">results</span><span class="p">)</span>
+
+<span class="c1"># plot residuals of corrected cdf</span>
+<span class="n">Q</span> <span class="o">=</span> <span class="n">q</span> <span class="o">+</span> <span class="n">poly</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">results</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+<span class="n">plot_dc</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/7_Taking_Derivative_42_0.png" src="_images/7_Taking_Derivative_42_0.png" />
+<img alt="_images/7_Taking_Derivative_42_1.png" src="_images/7_Taking_Derivative_42_1.png" />
+</div>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="5_Imposing_Pivotal_Conditions_on_Lambda.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">5. Imposing Pivotal Conditions on <span class="math notranslate nohighlight">\(\lambda\)</span></p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="6_More_Ideas.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">More Discussions</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Ali Al Kadhim and Harrison Prosper<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

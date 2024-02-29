@@ -1,0 +1,481 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>More Discussions &#8212; Pivotal Likelihood-Free Inference for Particle Physics</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="5. Imposing Pivotal Conditions on \(\lambda\)" href="5_Imposing_Pivotal_Conditions_on_Lambda.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Pivotal Likelihood-Free Inference for Particle Physics</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome to the Likelihood-Free Inference for Particle Physics Jupyter book
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="1_Intro_and_One_Parameter_Problem.html">
+   1 - Pivotal LFI for Count Data in Particle Physics: Background and one-parameter Problem
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2_Two_Parameter_Problem_and_Pivotal_p_Value.html">
+   2 - Two-Parameter Problem and Pivotal Likelihood-Free p-Values
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="3_Replacing_Data_with_Lambda_and_2D_Inference.html">
+   3 -  2-Dimensional Inference in
+   <span class="math notranslate nohighlight">
+    \(\theta - \nu\)
+   </span>
+   Space and Replacing Observed Data with Test Statistics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="4_Mapping_Confidence_Sets_to_Confidence_Intervals.html">
+   4 - Inference on POI in presence of a nuissance parameter: Pivots, and Mapping Confidence Sets to Confidence Intervals
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="5_Imposing_Pivotal_Conditions_on_Lambda.html">
+   5. Imposing Pivotal Conditions on
+   <span class="math notranslate nohighlight">
+    \(\lambda\)
+   </span>
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   More Discussions
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/AliAlkadhim/LFI_HEP/master?urlpath=tree/JupyterBook/6_More_Ideas.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="_sources/6_More_Ideas.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   More Discussions
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#signal-background">
+     Signal-Background
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#systematic-uncertainty-treatment-in-hep">
+     Systematic uncertainty treatment in HEP
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#more-ideas">
+   More ideas
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>More Discussions</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   More Discussions
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#signal-background">
+     Signal-Background
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#systematic-uncertainty-treatment-in-hep">
+     Systematic uncertainty treatment in HEP
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#more-ideas">
+   More ideas
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <hr class="docutils" />
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="more-discussions">
+<h1>More Discussions<a class="headerlink" href="#more-discussions" title="Permalink to this headline">#</a></h1>
+<section id="signal-background">
+<h2>Signal-Background<a class="headerlink" href="#signal-background" title="Permalink to this headline">#</a></h2>
+<p>One simple example which is paradoxical is the following: suppose we have our usual likelihood
+$<span class="math notranslate nohighlight">\(L(\theta, \nu)= \frac{e^{-(\theta+\nu)} (\theta+\nu)^N }{N !} \ \frac{e^{-\nu} \nu^M}{M !} \tag{20} \)</span><span class="math notranslate nohighlight">\( and we observe \)</span>N=M=0<span class="math notranslate nohighlight">\( so that the likelihood becomes \)</span> L(\theta, \nu)= e^{-(\theta+\nu)} e^{-\nu} <span class="math notranslate nohighlight">\(. Suppose that now we wish to make an inference on \)</span>\theta<span class="math notranslate nohighlight">\(. It should make sense that if we know for a fact that there is no background events (since \)</span>M=0$), that the likelihood should not depend on the mean background (since there is no backround to begin with). <a class="reference external" href="https://arxiv.org/pdf/physics/9711021v2.pdf">Feldman and Cousins</a> were aware of this issue and assigned the problem to be the incorrect interpretation of the intervals as Bayesian intervals.</p>
+<p>A very closely related problem is the existence of a signal and background densities, say both depending on POI <span class="math notranslate nohighlight">\(\theta\)</span>, and the likelihood will be given by</p>
+<div class="math notranslate nohighlight">
+\[ L(\theta) = \prod_{i=1}^{N_{obs}} \theta S(x_i) + (1-\theta) B(x_i)\]</div>
+<p>where the likelihood <span class="math notranslate nohighlight">\(L(\theta)\)</span> is the probability for obtaining the observation <span class="math notranslate nohighlight">\(x\)</span> from either a signal or background distribution, where <span class="math notranslate nohighlight">\(\theta\)</span> is an unknown proportion of signal (since real events come as a mixture of signal and background), and we would like to infer about the value of this parameter of interest. In the presense of nuissance parameter <span class="math notranslate nohighlight">\(\nu\)</span> the likelihood becomes</p>
+<div class="math notranslate nohighlight">
+\[ L(\theta,\nu) = \prod_{i=1}^{N_{obs}} \theta S(x_i|\nu) + (1-\theta) B(x_i|\nu)\]</div>
+</section>
+<section id="systematic-uncertainty-treatment-in-hep">
+<h2>Systematic uncertainty treatment in HEP<a class="headerlink" href="#systematic-uncertainty-treatment-in-hep" title="Permalink to this headline">#</a></h2>
+<p>eg systematics being luminosity, JER, JES, <span class="math notranslate nohighlight">\(\epsilon_{\text{trigger}}\)</span>, with log-normal or gaussian constraints.</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="more-ideas">
+<h1>More ideas<a class="headerlink" href="#more-ideas" title="Permalink to this headline">#</a></h1>
+<ol class="simple">
+<li><p>More real world physics scenrios</p>
+<ul class="simple">
+<li><p>We can test this technique in a real case physics LFI scenario by generating pythia data on the fly for signal and background with𝑃𝜃θ↔Pθ 𝑃𝜃θ↔Pθ 𝑃𝜃θ↔Pθ  unknown nuissance parameter and making inferences on the POI</p></li>
+</ul>
+</li>
+<li><p>Likelihood regions and confidence intervals from confidence sets of two or more parameters. Confidence sets of potentially any dimension could be mapped to (potentially) any lower dimension</p></li>
+<li><p>Using more test statistics, motivated by <a class="reference external" href="https://arxiv.org/pdf/1007.1727.pdf">Asymptotic formulae for likelihood-based tests of new physics</a></p>
+<ul class="simple">
+<li><p>This is especially useful if we want to use it for physics discovery of a positive or null signal, since the Cranmer paper deal with pragmatics of these new test statistics for physics discoveries.</p></li>
+</ul>
+</li>
+<li><p>regression diffusion t-test being pivotal in variance</p></li>
+</ol>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="5_Imposing_Pivotal_Conditions_on_Lambda.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">5. Imposing Pivotal Conditions on <span class="math notranslate nohighlight">\(\lambda\)</span></p>
+        </div>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Ali Al Kadhim and Harrison Prosper<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
